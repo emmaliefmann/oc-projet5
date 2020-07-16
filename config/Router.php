@@ -28,13 +28,14 @@ class Router
                         //show a list view
                     }
                 }
-                elseif ($_GET['action'] === 'about') {
-                    //show an about page 
-                    
-                }
 
                 elseif ($_GET['action'] === 'register') {
                     require('view/frontend/register.php');
+                }
+                elseif ($_GET['action'] === 'registeruser') {
+                    $backend = new \emmaliefmann\recipes\controller\Backend();
+                    $passwordHash = password_hash($_POST['password'], PASSWORD_DEFAULT);
+                    $backend->registerNewUser($_POST['username'], $_POST['email'], $passwordHash);
                 }
                 elseif ($_GET['action'] === 'signin') {
                     
@@ -43,6 +44,21 @@ class Router
                 elseif ($_GET['action'] === 'login') {
                     $backend = new \emmaliefmann\recipes\controller\Backend();
                     $backend->logIn($_POST['email'], $_POST['password']);
+                }
+                //-----MEMBERS ONLY
+                elseif ($_GET['action'] === 'member') {
+                    $backend = new \emmaliefmann\recipes\controller\Backend();
+                    $login = $backend->checkLogin();
+                    if ($login === false) {
+                        echo "login";
+                    }
+                    elseif (isset($_GET['page']) && $_GET['page'] === 'dashboard' ) {
+                        require('view/backend/dashboard.php');
+                    }
+                    elseif (isset($_GET['page']) && $_GET['page'] === 'newrecipe' ) {
+                        require('view/backend/addrecipe.php');
+                    }
+
                 }
                 
                 //closing of elseif action isset

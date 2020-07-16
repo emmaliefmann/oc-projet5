@@ -38,5 +38,6 @@
     <footer>
         <p>Mentions Legales</p>
     </footer>
+    <script src="public/javascript/app.js"></script>
     </body>
 </html>

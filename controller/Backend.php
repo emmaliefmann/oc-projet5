@@ -30,17 +30,29 @@ class Backend
                 $_SESSION['active'] = true;
                 $_SESSION['email'] = $email ;
                 $_SESSION['name'] = $dbResult['username'];
-                echo "correct password";
+                header('location: index.php?action=member&page=dashboard');
                 
             }
             else {
                 //require('view/backend/signin.php');
-                echo password_hash('password', PASSWORD_DEFAULT);
-                
+                echo "wrong password";
             }
         }
         else {
             echo "wrong username";
+        }
+    }
+
+    public function registerNewUser( $username, $email, $password)
+    {
+        $userManager = new \emmaliefmann\recipes\model\UserManager();
+        $registration = $userManager->register($username, $email, $password);
+
+        if ($registration === false) {
+            throw new \Exception('Cannot register new user');
+        }
+        else {
+            echo 'Your account has been created';
         }
     }
 }
