@@ -1,6 +1,6 @@
 <?php 
 
-namespace EmmaLiefmann\blog\model;
+namespace emmaliefmann\recipes\model;
 
 class Recipe 
 {

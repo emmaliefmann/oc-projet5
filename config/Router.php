@@ -2,7 +2,6 @@
 
 namespace emmaliefmann\recipes\config;
 
-
 class Router 
 {
     public function run() {
@@ -21,11 +20,14 @@ class Router
                 }
                 elseif ($_GET['action'] === 'recipe') {
                     //if id is set, show recipe, if not, show list view 
+                    $frontend = new \emmaliefmann\recipes\controller\Frontend();
                     if (isset($_GET['id']) && $_GET['id'] > 0) {
                         //show receipe with corresponding id 
+                        $recipe = $frontend->getRecipe($_GET['id']);
                     }
                     else {
                         //show a list view
+                        echo "no recipe id";
                     }
                 }
 
@@ -65,7 +67,8 @@ class Router
                         //check $session is set??
                         if (!empty($_POST['title']) && !empty($_POST['prep-time'])&& !empty($_POST['method'])) {
                             $backend = new \emmaliefmann\recipes\controller\Backend();
-                            $backend->addRecipe($_SESSION['userId'], $_POST['title'], $_POST['prep-time'], $_POST['method']);
+                            $backend->addRecipe($_SESSION['userId'], $_POST['title'], $_POST['prep-time'], $_POST['method'], $_POST['title'], $_POST['quantity'], $_POST['ingredient'], $_POST['unit']);
+                            //$backend->addRecipeIngredients();
                         }
                         else {
                             echo "empty field somewhere";

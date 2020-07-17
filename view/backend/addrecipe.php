@@ -3,7 +3,11 @@
 <h2>add recipe</h2>
 
 <?php 
-var_dump($categories);
+while ($group = $categories->fetch()) {
+    $category = $group['category']; 
+    //loop through for category drop down menu 
+}
+
 ?>
 
 <form action="index.php?action=member&page=addrecipe" method="post">
@@ -28,6 +32,19 @@ var_dump($categories);
         <option value="snack">Snack</option>
         </select>
         <div class="errormessage"></div>
+    </div>
+    <h4>Ingredients</h4>
+    <div class="ingredient-input">
+        <input type="number" name="quantity"/>
+        <select name="unit">
+            <option value=""></option>
+            <option value="grams">grams</option>
+            <option value="ml">ml</option>
+            <option value="teaspoons">teaspoons</option>
+            <option value="tablespoons">tablespoons</option>
+            <option value="number">number</option>
+        </select>
+        <input type="text" name="ingredient" />
     </div>
     <label for="method">Method</label>
     <textarea name="method"></textarea><br/>
