@@ -2,57 +2,26 @@
 
 namespace emmaliefmann\recipes\controller;
 
-class Backend
-
+class Backend 
 {
-    public function checkLogin() 
+    public function getCategories()
     {
-        if (!isset($_SESSION['active'])) {
-            $login = false ;
-        }
-        else {
-            $login = $_SESSION['active'];
-        }
-        return $login;
+        $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();
+        $categories = $recipeManager->getCategories();
+        require('view/backend/addrecipe.php');
     }
 
-    public function logIn($email, $password)
+    public function addRecipe($userId, $title, $prepTime, $method)
     {
-        $userManager = new \emmaliefmann\recipes\model\UserManager();
-        $loginAttempt = $userManager->login($email);
-        $dbResult = $loginAttempt->fetch();
-        if ($dbResult) {
-            
-            $userInput = $password;
-            $dbPassword = $dbResult['password'];
-            $check = password_verify($userInput, $dbPassword);
-            if ($check) {
-                $_SESSION['active'] = true;
-                $_SESSION['email'] = $email ;
-                $_SESSION['name'] = $dbResult['username'];
-                header('location: index.php?action=member&page=dashboard');
-                
-            }
-            else {
-                //require('view/backend/signin.php');
-                echo "wrong password";
-            }
+        $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();
+        $recipe = $recipeManager->addRecipe($userId, $title, $prepTime, $method);
+
+        if ($recipe === false) {
+            //throw exception 
+            echo "cannot add recipe";
         }
         else {
-            echo "wrong username";
-        }
-    }
-
-    public function registerNewUser( $username, $email, $password)
-    {
-        $userManager = new \emmaliefmann\recipes\model\UserManager();
-        $registration = $userManager->register($username, $email, $password);
-
-        if ($registration === false) {
-            throw new \Exception('Cannot register new user');
-        }
-        else {
-            echo 'Your account has been created';
+            echo "recipe added successfully";
         }
     }
 }

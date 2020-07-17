@@ -23,7 +23,7 @@
             <a href="index.php" class="logo"><i class="fas fa-home"></i></a> 
             <ul class="nav-links">
                 <li><a href="index.php?action=register">Create an account</a></li>
-                <li><a href="index.php?action=addrecipe">Add Recipe</a></li>
+                <li><a href="index.php?action=member&page=newrecipe">Add Recipe</a></li>
                 <li><a href="index.php?action=signin">Sign In</a></li>
             </ul>  
 		</nav>

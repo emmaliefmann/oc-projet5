@@ -33,30 +33,43 @@ class Router
                     require('view/frontend/register.php');
                 }
                 elseif ($_GET['action'] === 'registeruser') {
-                    $backend = new \emmaliefmann\recipes\controller\Backend();
+                    $admin = new \emmaliefmann\recipes\controller\Admin();
                     $passwordHash = password_hash($_POST['password'], PASSWORD_DEFAULT);
-                    $backend->registerNewUser($_POST['username'], $_POST['email'], $passwordHash);
+                    $admin->registerNewUser($_POST['username'], $_POST['email'], $passwordHash);
                 }
                 elseif ($_GET['action'] === 'signin') {
                     
                     require('view/backend/signin.php');
                 }
                 elseif ($_GET['action'] === 'login') {
-                    $backend = new \emmaliefmann\recipes\controller\Backend();
-                    $backend->logIn($_POST['email'], $_POST['password']);
+                    $admin = new \emmaliefmann\recipes\controller\Admin();
+                    $admin->logIn($_POST['email'], $_POST['password']);
                 }
                 //-----MEMBERS ONLY
                 elseif ($_GET['action'] === 'member') {
-                    $backend = new \emmaliefmann\recipes\controller\Backend();
-                    $login = $backend->checkLogin();
+                    $admin = new \emmaliefmann\recipes\controller\Admin();
+                    $login = $admin->checkLogin();
                     if ($login === false) {
-                        echo "login";
+                       header('location: index.php?action=signin');
                     }
-                    elseif (isset($_GET['page']) && $_GET['page'] === 'dashboard' ) {
+                    elseif (isset($_GET['page']) && $_GET['page'] === 'dashboard') {
                         require('view/backend/dashboard.php');
                     }
-                    elseif (isset($_GET['page']) && $_GET['page'] === 'newrecipe' ) {
-                        require('view/backend/addrecipe.php');
+                    elseif (isset($_GET['page']) && $_GET['page'] === 'newrecipe') {
+                        $backend = new \emmaliefmann\recipes\controller\Backend();
+                        $backend->getCategories();   
+                    }
+                    elseif (isset($_GET['page']) && $_GET['page'] === 'addrecipe') {
+                        
+                        //check there are no empty fields 
+                        //check $session is set??
+                        if (!empty($_POST['title']) && !empty($_POST['prep-time'])&& !empty($_POST['method'])) {
+                            $backend = new \emmaliefmann\recipes\controller\Backend();
+                            $backend->addRecipe($_SESSION['userId'], $_POST['title'], $_POST['prep-time'], $_POST['method']);
+                        }
+                        else {
+                            echo "empty field somewhere";
+                        }
                     }
 
                 }
