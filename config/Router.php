@@ -8,7 +8,7 @@ class Router
 
         try {
             if (!isset($_GET['action'])) {
-                require('view/frontendome.php');
+                require('view/frontend/home.php');
             }
 
             elseif (isset($_GET['action'])) {
@@ -57,6 +57,37 @@ class Router
                     }
                     elseif (isset($_GET['page']) && $_GET['page'] === 'dashboard') {
                         require('view/backend/dashboard.php');
+                    }
+                    elseif (isset($_GET['page']) && $_GET['page'] === 'changerecipe') {
+                        $backend = new \emmaliefmann\recipes\controller\Backend();
+                        if (isset($_GET['id']) && $_GET['id'] > 0) {
+                            $recipe = $backend->changeRecipe($_GET['id']);
+                        }
+                        else {
+                            echo "recipe not found";
+                        }
+                    }
+                    elseif (isset($_GET['page']) && $_GET['page'] === 'deletethis') {
+                        $backend = new \emmaliefmann\recipes\controller\Backend();
+                        if (isset($_GET['id']) && $_GET['id'] > 0) {
+                            $backend->deleteRecipeCheck();
+                        }
+                        else {
+                            echo "recipe not found";
+                        }
+                    }
+
+                    elseif (isset($_GET['page']) && $_GET['page'] === 'deleterecipe') {
+                        $backend = new \emmaliefmann\recipes\controller\Backend();
+                        if (isset($_GET['id']) && $_GET['id'] > 0) {
+                            if ($_POST['delete'] === 'true') {
+                                $backend = new \emmaliefmann\recipes\controller\Backend();
+                                $backend->deleteRecipe($_GET['id']); 
+                            }
+                            else {
+                                echo "post not deleted";
+                            }
+                        }
                     }
                     elseif (isset($_GET['page']) && $_GET['page'] === 'newrecipe') {
                         $backend = new \emmaliefmann\recipes\controller\Backend();

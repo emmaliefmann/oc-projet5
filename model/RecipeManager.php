@@ -47,6 +47,7 @@ class RecipeManager extends Manager
         COMMIT';
         return $this->createQuery($sql, array($userId, $title, $prepTime, $method, $quantity, $ingredientName, $unit));
     }
+
     public function getRecipe($id) 
     {
       
@@ -65,10 +66,13 @@ class RecipeManager extends Manager
             $ingredientObject = $this->buildIngredientObject($ingredient);
             array_push($ingredientList, $ingredientObject);
         }
-       
        return $ingredientList;
     }
 
+    public function deleteRecipe($id) {
+        $sql = 'DELETE FROM recipes WHERE id = ?';
+        return $this->createQuery($sql, array($id));
+    }
 
     
     // public function getRecipe($id) 

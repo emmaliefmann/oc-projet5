@@ -25,4 +25,34 @@ class Backend
         }
     }
     
+    public function changeRecipe($id)
+    {
+        $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();
+        $recipe = $recipeManager->getRecipe($id);
+        if ($recipe->getUserId() === $_SESSION['userId']) {
+            $ingredientList = $recipeManager->getRecipeIngredients($id);
+            require('view/backend/changerecipe.php');
+        }
+        else {
+            echo "you do not have the right to edit this recipe";
+        }
+    }
+
+    public function deleteRecipeCheck() 
+    {
+        require('view/backend/deleterecipe.php');
+    }
+
+    public function deleteRecipe($id) {
+        $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();
+        $recipe = $recipeManager->getRecipe($id);
+        if ($recipe->getUserId() === $_SESSION['userId']) {
+            //delete recipe
+            $recipeManager->deleteRecipe($id);
+            echo 'recipe deleted';
+        }
+        else {
+            echo "You do not have the right to delete this recipe";
+        }
+    }
 }

@@ -12,7 +12,7 @@
     <title><?=$title?></title>
 </head>
 <body>
-    <header>     
+    <<header> 
         <nav>
             <div class="hamburger">
                 <div class="line"></div>
@@ -28,11 +28,21 @@
 		</nav>
     </header>
     <section class="title">
-        <h1><?=$pageTitle?></h1>
+        <h1><?=$title?></h1>
         <div class="long-line"></div>
     </section>
     <main>
-        <?= $content ?>
+    <div>
+        <form action="<?= $formAction . $id ?>" method="post">
+            <p><?= $question ?></p><br/><br/>
+            <input type="radio" name="delete" value="true" id="yes" />
+            <label for="yes">Yes</label>
+            <input type="radio" name="delete" value="false" id="no" checked="checked" />
+            <label for="no">No</label><br/><br/>
+            <input type="submit" value="Delete">
+            <a href="index.php?action=member&page=dashboard" >Cancel</a>
+        </form>
+    </div> 
     </main>
     <footer>
         <p>footer</p>
