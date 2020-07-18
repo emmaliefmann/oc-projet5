@@ -16,7 +16,8 @@ class Router
                     //homepage with search, ordering options, select categories etc. 
                 }
                 elseif ($_GET['action'] === 'allrecipes') {
-                    require('view/frontend/allrecipes.php');
+                    $frontend = new \emmaliefmann\recipes\controller\Frontend();
+                    $recipes = $frontend->getAllRecipes();
                 }
                 elseif ($_GET['action'] === 'recipe') {
                     //if id is set, show recipe, if not, show list view 
@@ -29,6 +30,22 @@ class Router
                     else {
                         //show a list view
                         echo "no recipe id";
+                    }
+                }
+
+                elseif ($_GET['action'] === 'addcomment') {
+                    if (isset($_GET['id']) && $_GET['id'] > 0) {
+                        if($_SESSION['username'] !== null) {
+                            $frontend = new \emmaliefmann\recipes\controller\Frontend();
+                            $comment = $frontend->addComment($_GET['id'], $_SESSION['username'], $_POST['comment']);
+                        }
+                        else {
+                            echo "you need to sign in to leave a comment";
+                            //link to sign in or register
+                        }
+                    }
+                    else {
+                        echo "page not found";
                     }
                 }
 

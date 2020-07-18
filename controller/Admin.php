@@ -30,7 +30,7 @@ class Admin
             if ($check) {
                 $_SESSION['active'] = true;
                 $_SESSION['email'] = $email ;
-                $_SESSION['name'] = $dbResult['username'];
+                $_SESSION['username'] = $dbResult['username'];
                 $_SESSION['userId'] = $dbResult['id'];
                 header('location: index.php?action=member&page=dashboard');
                 

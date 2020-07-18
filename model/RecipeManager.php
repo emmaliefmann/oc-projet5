@@ -50,11 +50,22 @@ class RecipeManager extends Manager
 
     public function getRecipe($id) 
     {
-      
        $sql = 'SELECT * FROM recipes WHERE id = ?';
        $result = $this->createQuery($sql, [$id]);
        $recipe = $result->fetch();
        return $this->buildRecipeObject($recipe);
+    }
+
+    public function getAllRecipes() 
+    {
+        $sql = 'SELECT * FROM recipes';
+        $result = $this->createQuery($sql);
+        $recipeList = [];
+        while ($recipe = $result->fetch()) {
+            $recipeObject = $this->buildRecipeObject($recipe);
+            array_push($recipeList, $recipeObject);
+        }
+       return $recipeList;
     }
 
     public function getRecipeIngredients($recipeId) 

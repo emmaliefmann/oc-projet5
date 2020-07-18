@@ -13,5 +13,23 @@ class Frontend
         require('view/frontend/singleview.php');
     }
 
-    
+    public function getAllRecipes()
+    {
+        $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();
+        $recipes = $recipeManager->getAllRecipes();
+        require('view/frontend/allrecipes.php');
+    }
+
+    public function addComment($recipeId, $author, $comment)
+    {
+        $commentManager = new \emmaliefmann\recipes\model\CommentManager();
+        $comment = $commentManager->addComment($recipeId, $author, $comment);
+
+        if($comment === false) {
+            echo "comment not added";
+        }
+        else {
+            echo "comment added";
+        }
+    }
 }

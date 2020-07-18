@@ -12,7 +12,7 @@
     <title><?=$title?></title>
 </head>
 <body>
-    <<header> 
+    <header> 
         <nav>
             <div class="hamburger">
                 <div class="line"></div>
@@ -23,6 +23,7 @@
             <ul class="nav-links">
                 <li><a href="index.php?action=register">Create an account</a></li>
                 <li><a href="index.php?action=member&page=newrecipe">Add Recipe</a></li>
+                <li><a href="index.php?action=allrecipes">Recipe Library</a></li>
                 <li><a href="index.php?action=signin">Sign In</a></li>
             </ul>  
 		</nav>
