@@ -93,9 +93,21 @@ class Router
                             echo "recipe not found";
                         }
                     }
+                    elseif (isset($_GET['page']) && $_GET['page'] === 'logout') {
+                        $admin = new \emmaliefmann\recipes\controller\Admin();
+                        $admin->checkLogOut();
+                    }
+                    elseif(isset($_GET['page']) && $_GET['page'] === 'signout') {
+                        $admin = new \emmaliefmann\recipes\controller\Admin();
+                        if ($_POST['delete'] === 'true') {
+                            $admin->signOut();
+                        }
+                        else {
+                            echo 'not logged out';
+                        }
+                    }
 
                     elseif (isset($_GET['page']) && $_GET['page'] === 'deleterecipe') {
-                        $backend = new \emmaliefmann\recipes\controller\Backend();
                         if (isset($_GET['id']) && $_GET['id'] > 0) {
                             if ($_POST['delete'] === 'true') {
                                 $backend = new \emmaliefmann\recipes\controller\Backend();

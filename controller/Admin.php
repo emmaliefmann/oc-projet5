@@ -45,6 +45,17 @@ class Admin
         }
     }
 
+    public function checkLogOut() 
+    {
+        require('view/backend/logout.php');
+    }
+
+    public function signOut()
+    {
+        session_destroy();
+        header('location: index.php?action=allrecipes');
+    }
+
     public function registerNewUser( $username, $email, $password)
     {
         $userManager = new \emmaliefmann\recipes\model\UserManager();

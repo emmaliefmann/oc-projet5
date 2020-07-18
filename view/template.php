@@ -21,10 +21,22 @@
             </div>
             <a href="index.php" class="logo"><i class="fas fa-home"></i></a> 
             <ul class="nav-links">
+            <?php if(isset($_SESSION['active']) && $_SESSION['active']=== true) {
+        ?>
+            <li><a href="index.php?action=member&page=newrecipe">Add Recipe</a></li>
+            <li><a href="index.php?action=allrecipes">Recipe Library</a></li>
+            <li><a href="index.php?action=allrecipes">Your profile</a></li>
+            <li><a href="index.php?action=member&page=logout">Sign out</a></li>
+        <?php
+        }
+        else {?>
                 <li><a href="index.php?action=register">Create an account</a></li>
-                <li><a href="index.php?action=member&page=newrecipe">Add Recipe</a></li>
                 <li><a href="index.php?action=allrecipes">Recipe Library</a></li>
+                <li><a href="index.php?action=allrecipes">About us</a></li>
                 <li><a href="index.php?action=signin">Sign In</a></li>
+        <?php    
+        }?>
+                
             </ul>  
 		</nav>
     </header>
@@ -33,6 +45,7 @@
         <div class="long-line"></div>
     </section>
     <main>
+    
         <?= $content ?>
     </main>
     <footer>

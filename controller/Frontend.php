@@ -7,16 +7,23 @@ class Frontend
     public function getRecipe($id) 
     {
         $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();
+        
         $recipe = $recipeManager->getRecipe($id);
-        //add clause to check recipe is in the db
         $ingredientList = $recipeManager->getRecipeIngredients($id);
+        //comments
+        $commentManager = new \emmaliefmann\recipes\model\CommentManager();
+        $comments = $commentManager->getrecipeComments($id);
+        //add clause to check recipe is in the db
+        
         require('view/frontend/singleview.php');
     }
 
     public function getAllRecipes()
     {
         $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();
+        $commentManager = new \emmaliefmann\recipes\model\CommentManager();
         $recipes = $recipeManager->getAllRecipes();
+        
         require('view/frontend/allrecipes.php');
     }
 

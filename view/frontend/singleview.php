@@ -16,6 +16,24 @@
 <p><?=$recipe->getMethod()?></p>
 
 <h4>Comments</h4>
+<?php
+if (empty($comments)) { ?>
+    <p>there are no comments yet</p>
+    <?php
+} 
+else {
+    foreach($comments as $comment) {
+        ?>  
+
+
+<div>
+<p><strong><?=$comment->getAuthor()?></strong></p>
+<p><?=$comment->getComment()?></p>
+</div>
+<?php
+}
+}
+?>
 <form action="index.php?action=addcomment&id=<?= $recipe->getId() ?>" method="post">
     <!-- <div>
         <label for="author">USER</label><br/>
