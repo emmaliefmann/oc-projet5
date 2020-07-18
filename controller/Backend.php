@@ -11,12 +11,13 @@ class Backend
         require('view/backend/addrecipe.php');
     }
 
-    public function addRecipe($userId, $title, $prepTime, $method, $recipeTitle, $quantity, $ingredientName, $unit)
+    public function addRecipe($userId, $title, $prepTime, $method, $quantity, $ingredientName, $unit)
     {
         $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();
-        $recipe = $recipeManager->addRecipe($userId, $title, $prepTime, $method, $recipeTitle, $quantity, $ingredientName, $unit);
+        $recipe = $recipeManager->addRecipe($userId, $title, $prepTime, $method, $quantity, $ingredientName, $unit);
         if ($recipe === false) {
             //throw exception 
+            //doesn't work right, positive message when data not uploaded
             echo "cannot add recipe";
         }
         else {

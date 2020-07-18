@@ -8,7 +8,9 @@ class Frontend
     {
         $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();
         $recipe = $recipeManager->getRecipe($id);
+        $ingredientList = $recipeManager->getRecipeIngredients($id);
         require('view/frontend/singleview.php');
-
     }
+
+    
 }
