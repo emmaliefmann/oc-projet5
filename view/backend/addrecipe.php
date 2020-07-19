@@ -46,11 +46,7 @@ while ($group = $categories->fetch()) {
         </select>
         <input type="text" name="ingredient" />
     </div>
-    <label for="method">Method</label>
-    <textarea name="method"></textarea><br/>
-
-        <input type="submit" value="ENTER">
-</form>
+    
 <?php $content = ob_get_clean(); ?>
 <?php $pageTitle = "Add recipe" ?>
 <?php $title = "RecipeApp - Add recipe" ?>

@@ -30,12 +30,16 @@ class RecipeManager extends Manager
         return $this->createQuery($sql);
     }
 
-    public function getMemberRecipes() 
+    public function getMemberRecipes($userId) 
     {
-        //parameter from session data 
-        //Sql where recipe id = session data 
-        //return as objects
-
+        $sql = 'SELECT * FROM recipes WHERE `user_id` = ?';
+        $result = $this->createQuery($sql, array($userId));
+        $recipeList = [];
+        while ($recipe = $result->fetch()) {
+            $recipeObject = $this->buildRecipeObject($recipe);
+            array_push($recipeList, $recipeObject);
+        }
+       return $recipeList;
     }
 
     public function addRecipe($userId, $title, $prepTime, $method, $quantity, $ingredientName, $unit) 
@@ -48,6 +52,11 @@ class RecipeManager extends Manager
         return $this->createQuery($sql, array($userId, $title, $prepTime, $method, $quantity, $ingredientName, $unit));
     }
 
+    public function editRecipe($title, $prepTime, $method, $id)
+    {
+        $sql = 'UPDATE recipes SET `title`= ?, `prep_time`= ?, `method`=? WHERE `id`= ?';
+        return $this->createQuery($sql, array($title, $prepTime, $method, $id));
+    }
     public function getRecipe($id) 
     {
        $sql = 'SELECT * FROM recipes WHERE id = ?';

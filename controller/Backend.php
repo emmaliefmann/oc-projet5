@@ -11,11 +11,16 @@ class Backend
         require('view/backend/addrecipe.php');
     }
 
+    public function dashboard($userId) {
+        $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();
+        $recipeList = $recipeManager->getMemberRecipes($userId);
+        require('view/backend/dashboard.php');
+    }
     public function addRecipe($userId, $title, $prepTime, $method, $quantity, $ingredientName, $unit)
     {
         $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();
         $recipe = $recipeManager->addRecipe($userId, $title, $prepTime, $method, $quantity, $ingredientName, $unit);
-        if ($recipe === false) {
+        if ($recipe === null) {
             //throw exception 
             //doesn't work right, positive message when data not uploaded
             echo "cannot add recipe";
@@ -32,6 +37,26 @@ class Backend
         if ($recipe->getUserId() === $_SESSION['userId']) {
             $ingredientList = $recipeManager->getRecipeIngredients($id);
             require('view/backend/changerecipe.php');
+        }
+        else {
+            echo "you do not have the right to edit this recipe";
+        }
+    }
+
+    public function editRecipe($id, $title, $prepTime, $method) 
+    {
+        $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();
+        $recipe = $recipeManager->getRecipe($id);
+        if ($recipe->getUserId() === $_SESSION['userId']) {
+            $update = $recipeManager->editRecipe($title, $prepTime, $method, $id);
+            if($update === null) {
+                echo "recipe not added";
+                //throw exception? 
+            }
+            else {
+                echo "recipe updated";
+            }
+
         }
         else {
             echo "you do not have the right to edit this recipe";

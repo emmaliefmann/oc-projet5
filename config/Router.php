@@ -73,7 +73,8 @@ class Router
                        header('location: index.php?action=signin');
                     }
                     elseif (isset($_GET['page']) && $_GET['page'] === 'dashboard') {
-                        require('view/backend/dashboard.php');
+                        $backend = new \emmaliefmann\recipes\controller\Backend();
+                        $backend->dashboard($_SESSION['userId']);
                     }
                     elseif (isset($_GET['page']) && $_GET['page'] === 'changerecipe') {
                         $backend = new \emmaliefmann\recipes\controller\Backend();
@@ -122,6 +123,23 @@ class Router
                         $backend = new \emmaliefmann\recipes\controller\Backend();
                         $backend->getCategories();   
                     }
+
+                     elseif (isset($_GET['page']) && $_GET['page'] === 'editrecipe') {
+                        $backend = new \emmaliefmann\recipes\controller\Backend();
+                        if (isset($_GET['id']) && $_GET['id'] > 0) {
+                            if (!empty($_POST['title']) && !empty($_POST['prep-time'])&& !empty($_POST['method'])) {
+                                $backend->editRecipe($_GET['id'], $_POST['title'], $_POST['prep-time'], $_POST['method']);
+                            }
+                            else {
+                                echo "emptyField, go back to editing page";
+                            }
+                        }
+                        else {
+                            echo "recipe not found";
+                        }
+                    }
+                    
+                
                     elseif (isset($_GET['page']) && $_GET['page'] === 'addrecipe') {
                         
                         //check there are no empty fields 
