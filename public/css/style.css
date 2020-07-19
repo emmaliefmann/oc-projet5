@@ -1,0 +1,55 @@
+a {
+  text-decoration: none;
+}
+
+.emma-menu {
+  display: none;
+  z-index: 2;
+  width: 40%;
+  min-width: 300px;
+}
+
+.emma-header {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.emma-main {
+  max-width: 1200px;
+  margin-top: 100px;
+}
+
+.emma-textbox {
+  resize: none;
+}
+
+.emma-button {
+  display: inline-block;
+  padding: 0.35em 1.2em;
+  color: #120b1e;
+  font-family: roboto;
+  border: 0.16em solid #120b1e;
+  margin: 20px 10px 10px 0px;
+  border-radius: 0.12em;
+  text-decoration: none;
+  text-align: center;
+  font-weight: 300;
+  transition: all 0.3s;
+  width: 30%;
+  font-size: 1em;
+  min-width: 150px;
+  max-width: 170px;
+  cursor: pointer;
+}
+img {
+  width: 100%;
+}
+
+.emma-button:hover {
+  color: #ffffff;
+  background-color: #120b1e;
+}
+
+.emma-icon {
+  margin: 3px;
+}

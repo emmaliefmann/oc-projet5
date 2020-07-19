@@ -1,20 +1,23 @@
 <?php ob_start(); ?>
+<div class="w3-row">
+    <div class="w3-col m6 w3-padding-large w3-hide-small">
+     <img src="https://source.unsplash.com/600x750/?food" class="w3-round w3-image w3-opacity-min" alt="Table Setting">
+    </div>
 
-
-<h2><?=$recipe->getTitle()?> </h2>
-
-<h4>Preparation time: <?=$recipe->getPrepTime()?></h4>
-<h4>Ingredient List</h4>
-<ul>
-<?php foreach($ingredientList as $ingredient) {
-    ?>
-    <li><?=$ingredient->getIngredientName()?></li>
-    <?php
-}?>
-</ul>
-<h4>Method:</h4>
-<p><?=$recipe->getMethod()?></p>
-
+    <div class="w3-col m6 w3-padding-large">
+      <h2 class="w3-center"><?=$recipe->getTitle()?></h2><br>
+      <h5 class="w3-center">Ingredients</h5>
+      <ul class="w3-ul">
+        <?php foreach($ingredientList as $ingredient) {
+            ?>
+            <li><?=$ingredient->getQuantity()?> <?=$ingredient->getUnit()?> <?=$ingredient->getIngredientName()?></li>
+            <?php
+        }?>
+        </ul>
+      <p class="w3-large">Lorem ipsum dolor sit amet, consectetur adipiscing elit consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute iruredolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+      <p><?=$recipe->getMethod()?></p>
+    </div>
+  </div>
 <h4>Comments</h4>
 <?php
 if (empty($comments)) { ?>
@@ -24,32 +27,25 @@ if (empty($comments)) { ?>
 else {
     foreach($comments as $comment) {
         ?>  
-
-
-<div>
-<p><strong><?=$comment->getAuthor()?></strong></p>
-<p><?=$comment->getComment()?></p>
-</div>
-<?php
-}
-}
-?>
+        <div>
+        <p><strong><?=$comment->getAuthor()?></strong></p>
+        <p><?=$comment->getComment()?></p>
+        </div>
+    <?php
+    }
+    }
+    ?>
 <form action="index.php?action=addcomment&id=<?= $recipe->getId() ?>" method="post">
-    <!-- <div>
-        <label for="author">USER</label><br/>
-        <input type="text" required id="author" name="author" value="<?=$_SESSION['username']?>"/>
-    </div> -->
     <div>
-        <label for="comment">comment</label><br/>
-        <textarea required name="comment" id="comment" placeholder="your comment"></textarea><br/><br/>
+        <label for="comment">Your comment</label><br/>
+        <textarea name="comment" id="comment" placeholder="your comment" class="w3-input w3-border emma-textbox" ></textarea><br/><br/>
     </div>
     <div>
-        <input type="submit" class="newbutton" id="submit-comment" value="COMMENTER"/>
+        <input type="submit" class="emma-button" id="submit-comment" value="COMMENTER"/>
     </div>
 </form>
 
 <?php $content = ob_get_clean(); ?>
 <?php $pageTitle = "Single recipe" ?>
-<!-- Page title could come from information from php -->
 <?php $title = $recipe->getTitle() ?>
 <?php require('view/template.php') ?>
