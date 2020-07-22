@@ -120,8 +120,14 @@ class Router
                         }
                     }
                     elseif (isset($_GET['page']) && $_GET['page'] === 'newrecipe') {
-                        $backend = new \emmaliefmann\recipes\controller\Backend();
-                        $backend->getCategories();   
+                        if (isset($_GET['ing']) && $_GET['ing'] > 0) { 
+                            $backend = new \emmaliefmann\recipes\controller\Backend();
+                            $backend->getCategories();
+                        }
+                        else {
+                            echo "go back to prev page";
+                        }
+                           
                     }
 
                      elseif (isset($_GET['page']) && $_GET['page'] === 'editrecipe') {
