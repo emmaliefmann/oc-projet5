@@ -21,6 +21,7 @@
         ?>
         </select>
     <h4>Ingredients</h4>
+    
     <div id="ingredient-container">
         
     </div>

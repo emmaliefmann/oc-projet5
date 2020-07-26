@@ -42,14 +42,14 @@ class RecipeManager extends Manager
        return $recipeList;
     }
 
-    public function addRecipe($userId, $title, $prepTime, $method, $quantity, $ingredientName, $unit) 
+    public function addRecipe($userId, $title, $prepTime, $category, $method, $quantity, $ingredientName, $unit) 
     {
         $sql = 
         'BEGIN; 
-        INSERT INTO recipes(`user_id`, title, prep_time, method, creation_date) VALUES(?, ?, ?, ?, NOW() );
+        INSERT INTO recipes(`user_id`, title, prep_time, category, method, creation_date) VALUES(?, ?, ?, ?, ?, NOW() );
         INSERT INTO ingredients(quantity, `ingredient_name`, unit, recipe_id) VALUES (?, ?, ?, LAST_INSERT_ID());
         COMMIT';
-        return $this->createQuery($sql, array($userId, $title, $prepTime, $method, $quantity, $ingredientName, $unit));
+        return $this->createQuery($sql, array($userId, $title, $prepTime, $category, $method, $quantity, $ingredientName, $unit));
     }
 
     public function editRecipe($title, $prepTime, $method, $id)

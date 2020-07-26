@@ -2,12 +2,18 @@
 
 <h2>ALL RECIPES</h2>
 <div class="w3-section w3-padding-16">
-      <span class="w3-margin-right">Filter:</span> 
+      <span class="w3-margin-right"><i class="fas fa-utensils w3-margin-right"></i> Filter:</span>
       <button class="w3-button w3-black">ALL</button>
-      <button class="w3-button w3-white"><i class="fa fa-diamond w3-margin-right"></i>Design</button>
-      <button class="w3-button w3-white w3-hide-small"><i class="fa fa-photo w3-margin-right"></i>Photos</button>
-      <button class="w3-button w3-white w3-hide-small"><i class="fa fa-map-pin w3-margin-right"></i>Art</button>
-    </div>
+      <?php
+      while ($group = $categories->fetch()) {
+        $category = $group['category']?>
+      
+         <button class="w3-button w3-white">
+         <?=$category?>
+         <?php 
+      }
+      ?>
+      </div>
 
     <div class="w3-row-padding" >
         <!--style="display: flex; justify-content: space-around" -->

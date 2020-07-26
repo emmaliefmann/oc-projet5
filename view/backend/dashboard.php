@@ -10,6 +10,8 @@
 <?php
 }
 ?>
+<h2>Your profile</h2>
+<a href="index.php?action=member&page=changepassword">Change password</a>
 
 <?php $content = ob_get_clean(); ?>
 <?php $pageTitle = "Members page" ?>

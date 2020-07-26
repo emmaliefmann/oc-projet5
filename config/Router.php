@@ -76,6 +76,11 @@ class Router
                         $backend = new \emmaliefmann\recipes\controller\Backend();
                         $backend->dashboard($_SESSION['userId']);
                     }
+                    
+                    elseif (isset($_GET['page']) && $_GET['page'] === 'changepassword') {
+                        require('view/backend/changepassword.php');
+                    }
+                    
                     elseif (isset($_GET['page']) && $_GET['page'] === 'changerecipe') {
                         $backend = new \emmaliefmann\recipes\controller\Backend();
                         if (isset($_GET['id']) && $_GET['id'] > 0) {
@@ -152,7 +157,7 @@ class Router
                         //check $session is set??
                         if (!empty($_POST['title']) && !empty($_POST['prep-time'])&& !empty($_POST['method'])) {
                             $backend = new \emmaliefmann\recipes\controller\Backend();
-                            $backend->addRecipe($_SESSION['userId'], $_POST['title'], $_POST['prep-time'], $_POST['method'], $_POST['quantity'], $_POST['ingredient'], $_POST['unit']);
+                            $backend->addRecipe($_SESSION['userId'], $_POST['title'], $_POST['prep-time'], $_POST['category'], $_POST['method'], $_POST['quantity'], $_POST['ingredient'], $_POST['unit']);
                             //$backend->addRecipeIngredients();
                         }
                         else {

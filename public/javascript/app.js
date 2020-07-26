@@ -2,13 +2,13 @@ const registrationForm = document.querySelector("#registrationForm");
 
 //registration form validation
 const newUsername = document.querySelector("#registrationUsername");
-const newPassword = document.querySelector("#registrationPassword");
+const password = document.querySelector("#password");
 const newEmail = document.querySelector("#registrationEmail");
-const passwordConfirm = document.querySelector("#registrationPassCheck");
+const passwordConfirm = document.querySelector("#passCheck");
 
 if (registrationForm) {
   registrationForm.addEventListener("submit", (e) => {
-    if (newPassword.value !== passwordConfirm.value) {
+    if (password.value !== passwordConfirm.value) {
       e.preventDefault();
       alert("The passwords do not match");
     }
@@ -46,13 +46,13 @@ if (recipeForm) {
     //number fields
     let numberInput = document.createElement("INPUT");
     numberInput.setAttribute("type", "number");
-    numberInput.setAttribute("name", "quantity");
+    numberInput.setAttribute("name", "quantity[" + i + "]");
     numberInput.classList.add("w3-input", "w3-border");
     numberDiv.appendChild(numberInput);
 
     //unit, how do i do a select??
     let unitInput = document.createElement("select");
-
+    unitInput.setAttribute("name", "unit[" + i + "]");
     let grams = document.createElement("option");
     grams.value = "grams";
     grams.text = "grams";
@@ -61,18 +61,18 @@ if (recipeForm) {
     ml.text = "ml";
     let tablespoons = document.createElement("option");
     tablespoons.value = "tablespoons";
-    tablespoons.text = "teaspoons";
-    let teaspoons = document.createElement("option");
-    teaspoons.value = "tablespoons";
     tablespoons.text = "tablespoons";
+    let teaspoons = document.createElement("option");
+    teaspoons.value = "teaspoons";
+    teaspoons.text = "teaspoons";
 
     unitInput.classList.add("w3-select", "w3-border");
-    unitInput.append(grams, ml, teaspoons);
+    unitInput.append(grams, ml, tablespoons, teaspoons);
     unitDiv.appendChild(unitInput);
 
     let nameInput = document.createElement("INPUT");
     nameInput.setAttribute("type", "text");
-    nameInput.setAttribute("name", "ingredient");
+    nameInput.setAttribute("name", "ingredient[" + i + "]");
     nameInput.classList.add("w3-input");
     nameInput.classList.add("w3-border");
     nameDiv.appendChild(nameInput);

@@ -23,7 +23,7 @@ class Frontend
         $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();
         $commentManager = new \emmaliefmann\recipes\model\CommentManager();
         $recipes = $recipeManager->getAllRecipes();
-        
+        $categories = $recipeManager->getCategories();
         require('view/frontend/allrecipes.php');
     }
 

@@ -16,10 +16,10 @@ class Backend
         $recipeList = $recipeManager->getMemberRecipes($userId);
         require('view/backend/dashboard.php');
     }
-    public function addRecipe($userId, $title, $prepTime, $method, $quantity, $ingredientName, $unit)
+    public function addRecipe($userId, $title, $prepTime, $category, $method, $quantity, $ingredientName, $unit)
     {
         $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();
-        $recipe = $recipeManager->addRecipe($userId, $title, $prepTime, $method, $quantity, $ingredientName, $unit);
+        $recipe = $recipeManager->addRecipe($userId, $title, $prepTime, $category, $method, $quantity, $ingredientName, $unit);
         if ($recipe === null) {
             //throw exception 
             //doesn't work right, positive message when data not uploaded
