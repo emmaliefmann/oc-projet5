@@ -45,6 +45,13 @@ class Admin
         }
     }
 
+    public function changePassword($password, $userId) 
+    {
+        $userManager = new \emmaliefmann\recipes\model\UserManager();
+        $changePassword = $userManager->changePassword($password, $userId);
+        //some sort of verification
+        $this->signOut();
+    }
     public function checkLogOut() 
     {
         require('view/backend/logout.php');

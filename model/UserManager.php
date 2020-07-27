@@ -15,4 +15,11 @@ class UserManager extends Manager
         $sql ='INSERT INTO  users(username, email, creation_date, `password`) VALUES(?, ?, NOW(), ? )';
         return $this->createQuery($sql, array($username, $email, $password));
     }
+
+    public function changePassword($password, $userId)
+    {
+        $sql ='UPDATE users SET `password`=? WHERE `id`= ?';
+        return $this->createQuery($sql, array($password, $userId));
+
+    }
 } 

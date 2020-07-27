@@ -80,6 +80,11 @@ class Router
                     elseif (isset($_GET['page']) && $_GET['page'] === 'changepassword') {
                         require('view/backend/changepassword.php');
                     }
+                    elseif (isset($_GET['page']) && $_GET['page'] === 'newpassword') {
+                        $admin = new \emmaliefmann\recipes\controller\Admin();
+                        $passwordHash = password_hash($_POST['password'], PASSWORD_DEFAULT);
+                        $admin->changePassword($passwordHash, $_SESSION['userId']);
+                    }
                     
                     elseif (isset($_GET['page']) && $_GET['page'] === 'changerecipe') {
                         $backend = new \emmaliefmann\recipes\controller\Backend();

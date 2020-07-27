@@ -11,13 +11,14 @@
     
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">  
     <link href="public/css/style.css" rel="stylesheet">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
     <title><?=$title?></title>
 </head>
 <body>
     <header>     
     <nav class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-left emma-menu" id="mySidebar">
         <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button">Close Menu</a>
-        <a href="index.php" class="logo"><i class="fas fa-home"></i></a> 
+        <a href="index.php" class="logo w3-bar-item w3-button"><i class="fas fa-home"></i></a> 
             <?php if(isset($_SESSION['active']) && $_SESSION['active']=== true) {
         ?>
             <a href="index.php?action=member&page=newrecipe" class="w3-bar-item w3-button" onclick="w3_close()">Add Recipe</a>
@@ -34,7 +35,7 @@
         <?php    
         }?>  
 		</nav>
-        <!-- Top menu -->
+        <!-- filtering menu -->
         <div class="w3-bar w3-card">
             <div class="w3-white w3-xlarge emma-header" >
                 <div class="w3-button w3-padding-16 w3-left" onclick="w3_open()">☰</div>
@@ -56,6 +57,7 @@
         <p>Created by <a href="https://www.emmaliefmann.com/" target="_blank">Emma Liefmann</a></p>
 </footer>
     <script src="public/javascript/app.js"></script>
+    
     <script>
     // Script to open and close sidebar
     function w3_open() {
@@ -65,6 +67,9 @@
     function w3_close() {
     document.getElementById("mySidebar").style.display = "none";
     }
+
+    
+
     </script>
     </body>
 </html>

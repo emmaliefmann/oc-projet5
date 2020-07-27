@@ -24,6 +24,12 @@ class RecipeManager extends Manager
         return $ingredientObject;
     }
     
+    private function buildNewObject($recipeObject, $ingredientList)
+    {
+
+    }
+
+
     public function getCategories()
     {
         $sql = 'SELECT `category` FROM categories';
@@ -62,7 +68,8 @@ class RecipeManager extends Manager
        $sql = 'SELECT * FROM recipes WHERE id = ?';
        $result = $this->createQuery($sql, [$id]);
        $recipe = $result->fetch();
-       return $this->buildRecipeObject($recipe);
+       $recipeObject = $this->buildRecipeObject($recipe);
+       $ingredientList = $this->getRecipeIngredients($id);
     }
 
     public function getAllRecipes() 

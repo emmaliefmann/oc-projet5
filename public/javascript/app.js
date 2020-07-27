@@ -5,6 +5,8 @@ const newUsername = document.querySelector("#registrationUsername");
 const password = document.querySelector("#password");
 const newEmail = document.querySelector("#registrationEmail");
 const passwordConfirm = document.querySelector("#passCheck");
+const passwordReset = document.querySelector("#passwordReset");
+const recipeContainer = document.querySelector("#recipeContainer");
 
 if (registrationForm) {
   registrationForm.addEventListener("submit", (e) => {
@@ -12,6 +14,23 @@ if (registrationForm) {
       e.preventDefault();
       alert("The passwords do not match");
     }
+  });
+}
+
+if (registrationForm) {
+  registrationForm.addEventListener("submit", (e) => {
+    if (password.value !== passwordConfirm.value) {
+      e.preventDefault();
+      alert("The passwords do not match");
+    }
+  });
+}
+
+if (recipeContainer) {
+  let recipeSearch = new List("recipeContainer", {
+    valueNames: ["name"],
+    page: 3,
+    pagination: true,
   });
 }
 

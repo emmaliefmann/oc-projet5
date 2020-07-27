@@ -1,7 +1,9 @@
 <?php ob_start(); ?>
 
 <h2>ALL RECIPES</h2>
-<div class="w3-section w3-padding-16">
+    <div class="w3-row-padding" id="recipeContainer" >
+    <input class="search" placeholder="search" />
+    <div class="w3-section w3-padding-16">
       <span class="w3-margin-right"><i class="fas fa-utensils w3-margin-right"></i> Filter:</span>
       <button class="w3-button w3-black">ALL</button>
       <?php
@@ -14,28 +16,34 @@
       }
       ?>
       </div>
-
-    <div class="w3-row-padding" >
-        <!--style="display: flex; justify-content: space-around" -->
-<?php 
-foreach($recipes as $recipe) {
-    ?> 
-    <div class="w3-third w3-container">
-        <!--want w-3 card, but spacing weird-->
+<button class="sort" data-sort="title">title</button>
+      <ul class="list">
+    <?php 
+    foreach($recipes as $recipe) {
+        ?> 
+      <div class="w3-third w3-container" >
+        <li>
         <img src="https://source.unsplash.com/400x300/?food" alt="food" class="w3-hover-opacity" />
         <div class="w3-container w3-white">
-            <p><b><a href="index.php?action=recipe&id=<?=$recipe->getId()?>"><?=$recipe->getTitle()?></a></b></p>
-            <p>
-                Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum,
-                porta lectus vitae, ultricies congue gravida diam non fringilla.
-            </p>
+          <!-- <h5 class="name"><a href="index.php?action=recipe&id=<?=$recipe->getId()?>"><?=$recipe->getTitle()?></a></h5> -->
+          <h5 class="title"><?=$recipe->getTitle()?></h5>
+          <p class="description">
+            Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum,
+            porta lectus vitae, ultricies congue gravida diam non fringilla.
+          </p>
         </div>
-    </div>
+        </li>
+      </div>
+      
     <?php
-}
-?>
+    }
+    ?>
+</ul>
+<div class="w3-center w3-padding-32 w3-bar">
+  <ul class="pagination"></ul>
+  </div>
 </div>
-<div class="w3-center w3-padding-32">
+<div class="w3-center w3-padding-32> 
     <div class="w3-bar">
       <a href="#" class="w3-bar-item w3-button w3-hover-black">«</a>
       <a href="#" class="w3-bar-item w3-black w3-button">1</a>
