@@ -5,12 +5,12 @@
     <input class="search" placeholder="search" />
     <div class="w3-section w3-padding-16">
       <span class="w3-margin-right"><i class="fas fa-utensils w3-margin-right"></i> Filter:</span>
-      <button class="w3-button w3-black">ALL</button>
+      <button class="w3-button w3-black" id="filter-none">ALL</button>
       <?php
       while ($group = $categories->fetch()) {
         $category = $group['category']?>
       
-         <button class="w3-button w3-white">
+         <button class="w3-button w3-white filter" id="<?=$category?>">
          <?=$category?>
          <?php 
       }
@@ -31,6 +31,7 @@
             Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum,
             porta lectus vitae, ultricies congue gravida diam non fringilla.
           </p>
+          <p class="category"><?=$recipe->getCategory()?></p>
         </div>
         </li>
       </div>
@@ -43,7 +44,7 @@
   <ul class="pagination"></ul>
   </div>
 </div>
-<div class="w3-center w3-padding-32> 
+<!-- <div class="w3-center w3-padding-32"> 
     <div class="w3-bar">
       <a href="#" class="w3-bar-item w3-button w3-hover-black">«</a>
       <a href="#" class="w3-bar-item w3-black w3-button">1</a>
@@ -52,7 +53,7 @@
       <a href="#" class="w3-bar-item w3-button w3-hover-black">4</a>
       <a href="#" class="w3-bar-item w3-button w3-hover-black">»</a>
     </div>
-  </div>
+  </div> -->
 <?php $content = ob_get_clean(); ?>
 <?php $pageTitle = "All recipes" ?>
 <?php $title = "RecipeApp - Space" ?>

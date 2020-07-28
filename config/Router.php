@@ -130,13 +130,14 @@ class Router
                         }
                     }
                     elseif (isset($_GET['page']) && $_GET['page'] === 'newrecipe') {
-                        if (isset($_GET['ing']) && $_GET['ing'] > 0) { 
+                        //to set number of fields in javascript
+                        //if (isset($_GET['ing']) && $_GET['ing'] > 0) { 
                             $backend = new \emmaliefmann\recipes\controller\Backend();
                             $backend->getCategories();
-                        }
-                        else {
-                            echo "go back to prev page";
-                        }
+                        //}
+                        // else {
+                        //     echo "go back to prev page";
+                        // }
                            
                     }
 
@@ -158,12 +159,16 @@ class Router
                 
                     elseif (isset($_GET['page']) && $_GET['page'] === 'addrecipe') {
                         
+                        //print_r($_POST);
                         //check there are no empty fields 
                         //check $session is set??
-                        if (!empty($_POST['title']) && !empty($_POST['prep-time'])&& !empty($_POST['method'])) {
+                        $ingredients = $_POST['ingredient'];
+                        // $count = count($ingredients);
+                             var_dump($ingredients);
+                        if (!empty($_POST['title']) && !empty($_POST['prep-time'])&& !empty($_POST['method'])&& !empty($_POST['ingredient'])) {
                             $backend = new \emmaliefmann\recipes\controller\Backend();
-                            $backend->addRecipe($_SESSION['userId'], $_POST['title'], $_POST['prep-time'], $_POST['category'], $_POST['method'], $_POST['quantity'], $_POST['ingredient'], $_POST['unit']);
-                            //$backend->addRecipeIngredients();
+                            
+                            $backend->addRecipe($_SESSION['userId'], $_POST['title'], $_POST['prep-time'], $_POST['category'], $_POST['method'], $_POST['ingredient']);
                         }
                         else {
                             echo "empty field somewhere";

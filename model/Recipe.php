@@ -10,6 +10,7 @@ class Recipe
     private $prepTime;
     private $method;
     private $creationDate;
+    private $category;
 
     public function getId()
     {
@@ -36,6 +37,10 @@ class Recipe
         return $this->creationDate;
     }
 
+    public function getCategory() 
+    {
+        return $this->category;
+    }
     public function setId($id) 
     {
         $this->id = $id;
@@ -61,4 +66,8 @@ class Recipe
         $this->creationDate = $creationDate;
     }
 
+    public function setCategory($category)
+    {
+        $this->category = $category;
+    }
 } 

@@ -10,6 +10,8 @@
     
         <label for="prep-time">Preparation time</label>
         <input type="number" class="w3-input w3-border" name="prep-time" />
+        <label for="image">Image</label><br/>
+        <input type="file" class="w3-input w3-border" id="fileInput">
         <label for="category">Category</label>
         <select class="w3-select w3-border" name="category">
         <option value=""></option>
@@ -20,10 +22,23 @@
         }
         ?>
         </select>
-    <h4>Ingredients</h4>
-    
+    <h4>Ingredients</h4>   
     <div id="ingredient-container">
-        
+        <div>
+            <input type="number" name="ingredient[0][0]">
+            <input type="text" name="ingredient[0][1]">
+            <input type="text" name="ingredient[0][2]">
+        </div>
+        <div>
+            <input type="number" name="ingredient[1][0]">
+            <input type="text" name="ingredient[1][1]">
+            <input type="text" name="ingredient[1][2]">
+        </div>
+        <div>
+            <input type="number" name="ingredient[2][0]">
+            <input type="text" name="ingredient[2][1]">
+            <input type="text" name="ingredient[2][2]">
+        </div>
     </div>
     
     <label for="method">Method</label><br/>

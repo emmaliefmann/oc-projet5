@@ -12,6 +12,7 @@ class RecipeManager extends Manager
         $recipeObject->setPrepTime($recipe['prep_time']);
         $recipeObject->setMethod($recipe['method']);
         $recipeObject->setCreationDate($recipe['creation_date']);
+        $recipeObject->setCategory($recipe['category']);
         return $recipeObject;
     }
     private function buildIngredientObject($ingredient) {
@@ -23,12 +24,6 @@ class RecipeManager extends Manager
         $ingredientObject->setRecipeId($ingredient['recipe_id']);
         return $ingredientObject;
     }
-    
-    private function buildNewObject($recipeObject, $ingredientList)
-    {
-
-    }
-
 
     public function getCategories()
     {
@@ -48,14 +43,20 @@ class RecipeManager extends Manager
        return $recipeList;
     }
 
-    public function addRecipe($userId, $title, $prepTime, $category, $method, $quantity, $ingredientName, $unit) 
+    public function addRecipe($userId, $title, $prepTime, $category, $method, $ingredient) 
     {
+        $count = count($ingredient);
+        // create a php loop here, for each ingredient row... create a separate variable for each value?
+        //{} in mySQL what is it for? Can an array be used? 
+        //how can I prepare the values?? what do I put in my return statement? 
+        //can I put a loop in my return statement???  
         $sql = 
         'BEGIN; 
         INSERT INTO recipes(`user_id`, title, prep_time, category, method, creation_date) VALUES(?, ?, ?, ?, ?, NOW() );
-        INSERT INTO ingredients(quantity, `ingredient_name`, unit, recipe_id) VALUES (?, ?, ?, LAST_INSERT_ID());
+        INSERT INTO ingredients(quantity, `ingredient_name`, unit, recipe_id) VALUES (10, "testingredienttest", "grams", LAST_INSERT_ID());
+        END WHILE;
         COMMIT';
-        return $this->createQuery($sql, array($userId, $title, $prepTime, $category, $method, $quantity, $ingredientName, $unit));
+        return $this->createQuery($sql, array($userId, $title, $prepTime, $category, $method));
     }
 
     public function editRecipe($title, $prepTime, $method, $id)

@@ -26,27 +26,47 @@ if (registrationForm) {
   });
 }
 
+//pagination, filtering for allrecipes page
 if (recipeContainer) {
   let recipeSearch = new List("recipeContainer", {
-    valueNames: ["name"],
+    valueNames: ["name", "category"],
     page: 3,
     pagination: true,
   });
+  const starterFilter = document.querySelector("#filter-starter");
+  const filters = document.getElementsByClassName("filter");
+  const noFilter = document.querySelector("#filter-none");
+  noFilter.addEventListener("click", () => {
+    recipeSearch.filter();
+    return false;
+  });
+
+  for (let i = 0; i < filters.length; i++) {
+    filters[i].addEventListener("click", () => {
+      recipeSearch.filter(function (item) {
+        if (item.values().category == filters[i].id) {
+          return true;
+        } else {
+          return false;
+        }
+        return false;
+      });
+    });
+  }
 }
 
 //adding nb of ingredients to recipe field test
 const recipeForm = document.querySelector("#addRecipeForm");
 const ingredientContainer = document.querySelector("#ingredient-container");
-if (recipeForm) {
+if (!recipeForm) {
   //get the ingredient nb from url ($get from previous page)
   let site = window.location.href;
   let url = new URL(site);
   let ingredientsNb = url.searchParams.get("ing");
   //make sure it's not a massive number
-  if (ingredientsNb > 30) {
-    ingredientsNb = 29;
+  if (ingredientsNb > 21) {
+    ingredientsNb = 20;
   }
-  console.log(ingredientsNb);
   for (let i = 0; i < ingredientsNb; i++) {
     //all outer divs
     let outerDiv = document.createElement("div");
@@ -65,13 +85,12 @@ if (recipeForm) {
     //number fields
     let numberInput = document.createElement("INPUT");
     numberInput.setAttribute("type", "number");
-    numberInput.setAttribute("name", "quantity[" + i + "]");
+    numberInput.setAttribute("name", "ingredient[" + i + "][0]");
     numberInput.classList.add("w3-input", "w3-border");
     numberDiv.appendChild(numberInput);
 
-    //unit, how do i do a select??
     let unitInput = document.createElement("select");
-    unitInput.setAttribute("name", "unit[" + i + "]");
+    unitInput.setAttribute("name", "ingredient[" + i + "][1]");
     let grams = document.createElement("option");
     grams.value = "grams";
     grams.text = "grams";
@@ -91,7 +110,7 @@ if (recipeForm) {
 
     let nameInput = document.createElement("INPUT");
     nameInput.setAttribute("type", "text");
-    nameInput.setAttribute("name", "ingredient[" + i + "]");
+    nameInput.setAttribute("name", "ingredient[" + i + "][2]");
     nameInput.classList.add("w3-input");
     nameInput.classList.add("w3-border");
     nameDiv.appendChild(nameInput);
