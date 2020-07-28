@@ -29,7 +29,7 @@ if (registrationForm) {
 //pagination, filtering for allrecipes page
 if (recipeContainer) {
   let recipeSearch = new List("recipeContainer", {
-    valueNames: ["name", "category"],
+    valueNames: ["title", "category"],
     page: 3,
     pagination: true,
   });
@@ -58,61 +58,80 @@ if (recipeContainer) {
 //adding nb of ingredients to recipe field test
 const recipeForm = document.querySelector("#addRecipeForm");
 const ingredientContainer = document.querySelector("#ingredient-container");
-if (!recipeForm) {
-  //get the ingredient nb from url ($get from previous page)
-  let site = window.location.href;
-  let url = new URL(site);
-  let ingredientsNb = url.searchParams.get("ing");
-  //make sure it's not a massive number
-  if (ingredientsNb > 21) {
-    ingredientsNb = 20;
-  }
-  for (let i = 0; i < ingredientsNb; i++) {
-    //all outer divs
-    let outerDiv = document.createElement("div");
-    outerDiv.classList.add("w3-row-padding");
-    let numberDiv = document.createElement("div");
-    let unitDiv = document.createElement("div");
-    let nameDiv = document.createElement("div");
-    numberDiv.classList.add("w3-third");
-    nameDiv.classList.add("w3-third");
-    unitDiv.classList.add("w3-third");
+const inpfile = document.querySelector("#inpFile");
 
-    //append to container. Shorter syntax?
-    outerDiv.append(numberDiv, unitDiv, nameDiv);
-    ingredientContainer.appendChild(outerDiv);
+if (recipeForm) {
+  //prevent default to upload image via fetch API
+  recipeForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const endpoint = "model/UploadImage.php";
+    const formData = new FormData();
 
-    //number fields
-    let numberInput = document.createElement("INPUT");
-    numberInput.setAttribute("type", "number");
-    numberInput.setAttribute("name", "ingredient[" + i + "][0]");
-    numberInput.classList.add("w3-input", "w3-border");
-    numberDiv.appendChild(numberInput);
+    formData.append("inpfile", inpFile.files[0]);
 
-    let unitInput = document.createElement("select");
-    unitInput.setAttribute("name", "ingredient[" + i + "][1]");
-    let grams = document.createElement("option");
-    grams.value = "grams";
-    grams.text = "grams";
-    let ml = document.createElement("option");
-    ml.value = "ml";
-    ml.text = "ml";
-    let tablespoons = document.createElement("option");
-    tablespoons.value = "tablespoons";
-    tablespoons.text = "tablespoons";
-    let teaspoons = document.createElement("option");
-    teaspoons.value = "teaspoons";
-    teaspoons.text = "teaspoons";
-
-    unitInput.classList.add("w3-select", "w3-border");
-    unitInput.append(grams, ml, tablespoons, teaspoons);
-    unitDiv.appendChild(unitInput);
-
-    let nameInput = document.createElement("INPUT");
-    nameInput.setAttribute("type", "text");
-    nameInput.setAttribute("name", "ingredient[" + i + "][2]");
-    nameInput.classList.add("w3-input");
-    nameInput.classList.add("w3-border");
-    nameDiv.appendChild(nameInput);
-  }
+    fetch(endpoint, {
+      method: "POST",
+      body: formData,
+    }).then((response) => {
+      console.log(response);
+    });
+  });
 }
+
+//get the ingredient nb from url ($get from previous page)
+// let site = window.location.href;
+// let url = new URL(site);
+// let ingredientsNb = url.searchParams.get("ing");
+// //make sure it's not a massive number
+// if (ingredientsNb > 21) {
+//   ingredientsNb = 20;
+// }
+// for (let i = 0; i < ingredientsNb; i++) {
+//   //all outer divs
+//   let outerDiv = document.createElement("div");
+//   outerDiv.classList.add("w3-row-padding");
+//   let numberDiv = document.createElement("div");
+//   let unitDiv = document.createElement("div");
+//   let nameDiv = document.createElement("div");
+//   numberDiv.classList.add("w3-third");
+//   nameDiv.classList.add("w3-third");
+//   unitDiv.classList.add("w3-third");
+
+//   //append to container. Shorter syntax?
+//   outerDiv.append(numberDiv, unitDiv, nameDiv);
+//   ingredientContainer.appendChild(outerDiv);
+
+//   //number fields
+//   let numberInput = document.createElement("INPUT");
+//   numberInput.setAttribute("type", "number");
+//   numberInput.setAttribute("name", "ingredient[" + i + "][0]");
+//   numberInput.classList.add("w3-input", "w3-border");
+//   numberDiv.appendChild(numberInput);
+
+//   let unitInput = document.createElement("select");
+//   unitInput.setAttribute("name", "ingredient[" + i + "][1]");
+//   let grams = document.createElement("option");
+//   grams.value = "grams";
+//   grams.text = "grams";
+//   let ml = document.createElement("option");
+//   ml.value = "ml";
+//   ml.text = "ml";
+//   let tablespoons = document.createElement("option");
+//   tablespoons.value = "tablespoons";
+//   tablespoons.text = "tablespoons";
+//   let teaspoons = document.createElement("option");
+//   teaspoons.value = "teaspoons";
+//   teaspoons.text = "teaspoons";
+
+//   unitInput.classList.add("w3-select", "w3-border");
+//   unitInput.append(grams, ml, tablespoons, teaspoons);
+//   unitDiv.appendChild(unitInput);
+
+//   let nameInput = document.createElement("INPUT");
+//   nameInput.setAttribute("type", "text");
+//   nameInput.setAttribute("name", "ingredient[" + i + "][2]");
+//   nameInput.classList.add("w3-input");
+//   nameInput.classList.add("w3-border");
+//   nameDiv.appendChild(nameInput);
+//}
+//}

@@ -11,7 +11,7 @@
         <label for="prep-time">Preparation time</label>
         <input type="number" class="w3-input w3-border" name="prep-time" />
         <label for="image">Image</label><br/>
-        <input type="file" class="w3-input w3-border" id="fileInput">
+        <input type="file" class="w3-input w3-border" id="inpFile" name="files">
         <label for="category">Category</label>
         <select class="w3-select w3-border" name="category">
         <option value=""></option>
