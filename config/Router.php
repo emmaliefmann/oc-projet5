@@ -24,7 +24,7 @@ class Router
                     $frontend = new \emmaliefmann\recipes\controller\Frontend();
                     if (isset($_GET['id']) && $_GET['id'] > 0) {
                         //show receipe with corresponding id 
-                        $recipe = $frontend->getRecipe($_GET['id']);
+                        $frontend->getRecipe($_GET['id']);
                        
                     }
                     else {

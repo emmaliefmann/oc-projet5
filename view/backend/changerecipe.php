@@ -20,7 +20,7 @@
     </select>
     <h5>Ingredient List</h5>
     <ul>
-    <?php foreach($ingredientList as $ingredient) {
+    <?php foreach($recipe->getIngredientList() as $ingredient) {
         ?>
         <li><?=$ingredient->getIngredientName()?></li>
         <?php

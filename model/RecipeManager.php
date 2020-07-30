@@ -5,6 +5,7 @@ namespace emmaliefmann\recipes\model;
 class RecipeManager extends Manager 
 {
     private function buildRecipeObject($recipe) {
+
         $recipeObject = new \emmaliefmann\recipes\model\Recipe();
         $recipeObject->setId($recipe['id']);
         $recipeObject->setuserId($recipe['user_id']);
@@ -13,8 +14,12 @@ class RecipeManager extends Manager
         $recipeObject->setMethod($recipe['method']);
         $recipeObject->setCreationDate($recipe['creation_date']);
         $recipeObject->setCategory($recipe['category']);
+        $recipeObject->setImage($recipe['image']);
+        $ingredients = $this->getRecipeIngredients($recipe['id']);
+        $recipeObject->setIngredientList($ingredients);
         return $recipeObject;
     }
+
     private function buildIngredientObject($ingredient) {
         $ingredientObject = new \emmaliefmann\recipes\model\Ingredient();
         $ingredientObject->setId($ingredient['id']);
@@ -69,10 +74,24 @@ class RecipeManager extends Manager
        $sql = 'SELECT * FROM recipes WHERE id = ?';
        $result = $this->createQuery($sql, [$id]);
        $recipe = $result->fetch();
-       $recipeObject = $this->buildRecipeObject($recipe);
        $ingredientList = $this->getRecipeIngredients($id);
+       $recipeObject = $this->buildRecipeObject($recipe);
+       
+       
+       return $recipeObject;
     }
 
+    public function getAllIngredients() 
+    {
+        $sql = 'SELECT * FROM ingredients';
+        $result = $this->createQuery($sql);
+        $ingredientList = [];
+        while ($ingredient = $result->fetch()) {
+            $ingredientObject = $this->buildIngredientObject($ingredient);
+            array_push($ingredientList, $ingredientObject);
+        }
+       return $ingredientList;
+    }
     public function getAllRecipes() 
     {
         $sql = 'SELECT * FROM recipes';

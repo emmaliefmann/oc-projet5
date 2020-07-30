@@ -1,4 +1,5 @@
-<?php ob_start(); ?>
+<?php ob_start();
+?>
 <div class="w3-row">
     <div class="w3-col m6 w3-padding-large w3-hide-small">
      <img src="https://source.unsplash.com/600x750/?food" class="w3-round w3-image w3-opacity-min" alt="Table Setting">
@@ -8,7 +9,7 @@
       <h2 class="w3-center"><?=$recipe->getTitle()?></h2><br>
       <h5 class="w3-center">Ingredients</h5>
       <ul class="w3-ul">
-        <?php foreach($ingredientList as $ingredient) {
+        <?php foreach($recipe->getIngredientList() as $ingredient) {
             ?>
             <li><?=$ingredient->getQuantity()?> <?=$ingredient->getUnit()?> <?=$ingredient->getIngredientName()?></li>
             <?php

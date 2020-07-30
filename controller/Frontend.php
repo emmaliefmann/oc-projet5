@@ -9,7 +9,7 @@ class Frontend
         $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();
         
         $recipe = $recipeManager->getRecipe($id);
-        $ingredientList = $recipeManager->getRecipeIngredients($id);
+        //$ingredientList = $recipeManager->getRecipeIngredients($id);
         //comments
         $commentManager = new \emmaliefmann\recipes\model\CommentManager();
         $comments = $commentManager->getrecipeComments($id);
@@ -24,6 +24,7 @@ class Frontend
         $commentManager = new \emmaliefmann\recipes\model\CommentManager();
         $recipes = $recipeManager->getAllRecipes();
         $categories = $recipeManager->getCategories();
+        $ingredientList = $recipeManager->getAllIngredients();
         require('view/frontend/allrecipes.php');
     }
 

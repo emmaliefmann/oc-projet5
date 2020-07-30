@@ -35,7 +35,7 @@ class Backend
         $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();
         $recipe = $recipeManager->getRecipe($id);
         if ($recipe->getUserId() === $_SESSION['userId']) {
-            $ingredientList = $recipeManager->getRecipeIngredients($id);
+            //$ingredientList = $recipeManager->getRecipeIngredients($id);
             require('view/backend/changerecipe.php');
         }
         else {

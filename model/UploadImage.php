@@ -1,5 +1,7 @@
 <?php 
 //posibility to upload profile picture
+//not a class. If it were a class where would it be initialised, doesn't pass by the router? 
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_FILES['inpfile'])) {

@@ -11,6 +11,8 @@ class Recipe
     private $method;
     private $creationDate;
     private $category;
+    private $image;
+    private $ingredientList;
 
     public function getId()
     {
@@ -41,6 +43,14 @@ class Recipe
     {
         return $this->category;
     }
+    public function getImage() 
+    {
+        return $this->image;
+    }
+    public function getIngredientList()
+    {
+        return $this->ingredientList;
+    }
     public function setId($id) 
     {
         $this->id = $id;
@@ -69,5 +79,13 @@ class Recipe
     public function setCategory($category)
     {
         $this->category = $category;
+    }
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
+    public function setIngredientList($ingredientList)
+    {
+        $this->ingredientList = $ingredientList;
     }
 } 

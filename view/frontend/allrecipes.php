@@ -23,10 +23,23 @@
         ?> 
       <div class="w3-third w3-container" >
         <li>
-        <img src="https://source.unsplash.com/400x300/?food" alt="food" class="w3-hover-opacity" />
+        <a href="index.php?action=recipe&id=<?=$recipe->getId()?>"><img alt="food" class="w3-hover-opacity emma-recipe-image" 
+        <?php if ($recipe->getImage() === NULL) {
+          ?>
+          src="https://source.unsplash.com/400x300/?food" />
+          <?php
+        } 
+        else {
+          ?>
+          src="<?=$recipe->getImage()?>" />
+          <?php 
+        }
+        ?>
+          <!-- <img src="https://source.unsplash.com/400x300/?food" alt="food" class="w3-hover-opacity" /> -->
+          </a>
         <div class="w3-container w3-white">
-          <!-- <h5 class="name"><a href="index.php?action=recipe&id=<?=$recipe->getId()?>"><?=$recipe->getTitle()?></a></h5> -->
           <h5 class="title"><?=$recipe->getTitle()?></h5>
+          <a href="index.php?action=recipe&id=<?=$recipe->getId()?>">go to recipe</a>
           <p class="description">
             Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum,
             porta lectus vitae, ultricies congue gravida diam non fringilla.
