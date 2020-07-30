@@ -5,6 +5,16 @@ namespace emmaliefmann\recipes\controller;
 class Admin
 
 {
+    private function buildUserObject($user) 
+    {
+        $userObject = new \emmaliefmann\recipes\model\User();
+        $userObject->setId($user['id']);
+        $userObject->setUserName($user['username']);
+        $userObject->setEmail($user['email']);
+        $userObject->setCreationDate($user['creation_date']);
+        $userObject->setLevel($user['level']);
+        return $userObject;
+    }
     public function checkLogin() 
     {
         if (!isset($_SESSION['active'])) {
@@ -28,10 +38,12 @@ class Admin
             $dbPassword = $dbResult['password'];
             $check = password_verify($userInput, $dbPassword);
             if ($check) {
+                $user = $this->buildUserObject($dbResult);
                 $_SESSION['active'] = true;
-                $_SESSION['email'] = $email ;
-                $_SESSION['username'] = $dbResult['username'];
-                $_SESSION['userId'] = $dbResult['id'];
+                $_SESSION['email'] = $user->getEmail();
+                $_SESSION['username'] = $user->getUserName();
+                $_SESSION['userId'] = $user->getId();
+                
                 header('location: index.php?action=member&page=dashboard');
                 
             }

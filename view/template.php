@@ -23,7 +23,7 @@
         ?>
             <a href="index.php?action=member&page=newrecipe" class="w3-bar-item w3-button" onclick="w3_close()">Add Recipe</a>
             <a href="index.php?action=allrecipes" class="w3-bar-item w3-button" onclick="w3_close()">Recipe Library</a>
-            <a href="index.php?action=?action=member&page=dashboard" class="w3-bar-item w3-button" onclick="w3_close()">Your profile</a>
+            <a href="index.php?action=member&page=dashboard" class="w3-bar-item w3-button" onclick="w3_close()">Your profile</a>
             <a href="index.php?action=member&page=logout" class="w3-bar-item w3-button" onclick="w3_close()">Sign out</a>
         <?php
         }
@@ -39,7 +39,7 @@
         <div class="w3-bar w3-card">
             <div class="w3-white w3-xlarge emma-header" >
                 <div class="w3-button w3-padding-16 w3-left" onclick="w3_open()">☰</div>
-                <div class="w3-center w3-padding-16"><h1>Food Friends</h1></div>
+                <div class="w3-center w3-padding-16"><a href="index.php?action=allrecipes"><h1>Food Friends</h1></a></div>
             </div>
         </div>
     </header>
@@ -50,13 +50,16 @@
     <footer class="w3-container w3-grey w3-center w3-margin-top">
         <p>Footer</p>
         <i class="fab fa-facebook-square fa-2x w3-hover-opacity emma-icon"></i>
-        <i class="fab fa-instagram-square  fa-2x w3-hover-opacity emma-icon"></i>
+        <i class="fab fa-instagram-square fa-2x w3-hover-opacity emma-icon"></i>
         <i class="fab fa-pinterest-square fa-2x w3-hover-opacity emma-icon"></i>
         <i class="fab fa-twitter-square fa-2x w3-hover-opacity emma-icon"></i>
         <i class="fab fa-linkedin fa-2x w3-hover-opacity emma-icon"></i>
         <p>Created by <a href="https://www.emmaliefmann.com/" target="_blank">Emma Liefmann</a></p>
 </footer>
     <script src="public/javascript/app.js"></script>
+    <script src="public/javascript/registration.js"></script>
+    <script src="public/javascript/library.js"></script>
+    <script src="public/javascript/recipeform.js"></script>
     
     <script>
     // Script to open and close sidebar

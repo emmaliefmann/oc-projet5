@@ -24,21 +24,7 @@
         </select>
     <h4>Ingredients</h4>   
     <div id="ingredient-container">
-        <div>
-            <input type="number" name="ingredient[0][0]">
-            <input type="text" name="ingredient[0][1]">
-            <input type="text" name="ingredient[0][2]">
-        </div>
-        <div>
-            <input type="number" name="ingredient[1][0]">
-            <input type="text" name="ingredient[1][1]">
-            <input type="text" name="ingredient[1][2]">
-        </div>
-        <div>
-            <input type="number" name="ingredient[2][0]">
-            <input type="text" name="ingredient[2][1]">
-            <input type="text" name="ingredient[2][2]">
-        </div>
+        <!--javacript generates fields-->
     </div>
     
     <label for="method">Method</label><br/>

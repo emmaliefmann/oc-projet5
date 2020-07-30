@@ -1,7 +1,12 @@
 
 <?php ob_start(); ?>
 <h2>Sign In</h2>
-<form action="index.php?action=login" method="post">
+<div class="w3-card-4 w3-container emma-card">
+    <h3>New user?</h3>
+    <p>You can create your profile and start contributing to this community now!<p>
+        <a class="emma-button" href="index.php?action=register">Create an account</a>
+</div>
+<form action="index.php?action=login" method="post" class="w3-container w3-padding-48">
     <label for="email">Email</label>
     <input type="email" class="w3-input w3-border"name="email"><br/>
     <label for="password">Password</label>

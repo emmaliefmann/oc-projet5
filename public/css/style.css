@@ -5,6 +5,13 @@ a {
 li {
   list-style: none;
 }
+footer {
+  width: 100%;
+  bottom: 0;
+}
+body {
+  position: relative;
+}
 .emma-menu {
   display: none;
   z-index: 2;
@@ -16,6 +23,12 @@ li {
 .emma-header {
   max-width: 1200px;
   margin: auto;
+}
+.emma-card {
+  width: 70%;
+  min-width: 580px;
+  max-width: 620px;
+  padding: 0 20px;
 }
 .emma-recipe-image {
   width: 400px;

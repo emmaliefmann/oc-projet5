@@ -50,7 +50,7 @@
             <label for="yes">Yes</label>
             <input type="radio" class="w3-radio" name="delete" value="false" id="no" checked="checked" />
             <label for="no">No</label><br/><br/>
-            <input type="submit" value=<?=$buttonValue?> class="emma-button">
+            <input type="submit" value="<?=$buttonValue?>" class="emma-button">
             <a href="index.php?action=member&page=dashboard" class="emma-button" >Cancel</a>
         </form>
     </div> 
