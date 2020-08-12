@@ -20,9 +20,9 @@ class Backend
     {
         $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();
         $recipe = $recipeManager->addRecipe($userId, $title, $prepTime, $category, $method, $ingredient);
-        if ($recipe === null) {
+        print_r($recipe);
+        if ($recipe === false || $recipe === null ) {
             //throw exception 
-            //doesn't work right, positive message when data not uploaded
             echo "cannot add recipe";
         }
         else {

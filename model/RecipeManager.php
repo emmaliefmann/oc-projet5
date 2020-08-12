@@ -4,7 +4,8 @@ namespace emmaliefmann\recipes\model;
 
 class RecipeManager extends Manager 
 {
-    private function buildRecipeObject($recipe) {
+    private function buildRecipeObject($recipe) 
+    {
 
         $recipeObject = new \emmaliefmann\recipes\model\Recipe();
         $recipeObject->setId($recipe['id']);
@@ -20,7 +21,8 @@ class RecipeManager extends Manager
         return $recipeObject;
     }
 
-    private function buildIngredientObject($ingredient) {
+    private function buildIngredientObject($ingredient) 
+    {
         $ingredientObject = new \emmaliefmann\recipes\model\Ingredient();
         $ingredientObject->setId($ingredient['id']);
         $ingredientObject->setQuantity($ingredient['quantity']);
@@ -50,19 +52,46 @@ class RecipeManager extends Manager
 
     public function addRecipe($userId, $title, $prepTime, $category, $method, $ingredient) 
     {
-        $count = count($ingredient);
-        // create a php loop here, for each ingredient row... create a separate variable for each value?
-        //{} in mySQL what is it for? Can an array be used? 
-        //how can I prepare the values?? what do I put in my return statement? 
-        //can I put a loop in my return statement???  
-        $sql = 
-        'BEGIN; 
-        INSERT INTO recipes(`user_id`, title, prep_time, category, method, creation_date) VALUES(?, ?, ?, ?, ?, NOW() );
-        INSERT INTO ingredients(quantity, `ingredient_name`, unit, recipe_id) VALUES (10, "testingredienttest", "grams", LAST_INSERT_ID());
-        END WHILE;
-        COMMIT';
-        return $this->createQuery($sql, array($userId, $title, $prepTime, $category, $method));
+        // get the previous insert id, and increment
+       $sql = 'SELECT `id` FROM `recipes` ORDER BY `id` DESC LIMIT 1';
+       $result = $this->createQuery($sql);
+        while ($prev = $result->fetch()) {
+           $id = $prev['id']+1;
+        };
+
+        //get statements for ingredient insert
+        $ingredientSql = [];
+        for ($i=0; $i< count($ingredient); $i++) {
+            $quantity = $ingredient[$i][0];
+            $unit = $ingredient[$i][2];
+            $ingName =  $ingredient[$i][1];
+            $lines = "INSERT INTO ingredients(quantity, `ingredient_name`, unit, recipe_id) VALUES ('$quantity','$unit','$ingName',  '$id')"; 
+            //ignore empty lines?
+            array_push($ingredientSql, $lines);
+            }; 
+            $insertIngredients = implode(";", $ingredientSql);
+
+            $sql = "BEGIN;
+                INSERT INTO recipes(`id`, `user_id`, title, prep_time, category, method, creation_date) VALUES('$id', '$userId', '$title', '$prepTime','$category','$method', NOW());"
+                . $insertIngredients."
+                ;COMMIT;";
+
+                return $this->createQuery($sql);
     }
+       
+      
+      
+       
+        
+        
+        
+        
+        
+                
+    
+    
+
+
 
     public function editRecipe($title, $prepTime, $method, $id)
     {
@@ -116,20 +145,9 @@ class RecipeManager extends Manager
        return $ingredientList;
     }
 
-    public function deleteRecipe($id) {
+    public function deleteRecipe($id) 
+    {
         $sql = 'DELETE FROM recipes WHERE id = ?';
         return $this->createQuery($sql, array($id));
     }
-
-    
-    // public function getRecipe($id) 
-    // {
-    //     //sql half works, only returns first ingredient in
-    //    $sql = 'SELECT * FROM ingredients JOIN recipes ON recipes.title = ingredients.recipe_title WHERE recipes.id = ?';
-    //    $result = $this->createQuery($sql, [$id]);
-    //    $recipe = $result->fetch();
-    //    return $this->buildRecipeObject($recipe);
-    // }
-    //can this feed into second SQL function, which would launch request for ingredients? 
-    //Then build recipe object? with a foreach loop over the ingredients list? 
 }

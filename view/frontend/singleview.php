@@ -2,7 +2,7 @@
 ?>
 <div class="w3-row">
     <div class="w3-col m6 w3-padding-large w3-hide-small">
-     <img src="https://source.unsplash.com/600x750/?food" class="w3-round w3-image w3-opacity-min" alt="Table Setting">
+     <img src=<?=$recipe->getImage()?> class="w3-round w3-image w3-opacity-min" alt="Table Setting">
     </div>
 
     <div class="w3-col m6 w3-padding-large">
@@ -42,7 +42,7 @@ else {
         <textarea name="comment" id="comment" placeholder="your comment" class="w3-input w3-border emma-textbox" ></textarea><br/><br/>
     </div>
     <div>
-        <input type="submit" class="emma-button" id="submit-comment" value="COMMENTER"/>
+        <input type="submit" class="emma-button" id="submit-comment" value="Comment"/>
     </div>
 </form>
 

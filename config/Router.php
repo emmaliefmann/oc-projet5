@@ -163,11 +163,9 @@ class Router
                         //check there are no empty fields 
                         //check $session is set??
                         $ingredients = $_POST['ingredient'];
-                        // $count = count($ingredients);
-                             var_dump($ingredients);
+                        
                         if (!empty($_POST['title']) && !empty($_POST['prep-time'])&& !empty($_POST['method'])&& !empty($_POST['ingredient'])) {
                             $backend = new \emmaliefmann\recipes\controller\Backend();
-                            
                             $backend->addRecipe($_SESSION['userId'], $_POST['title'], $_POST['prep-time'], $_POST['category'], $_POST['method'], $_POST['ingredient']);
                         }
                         else {
