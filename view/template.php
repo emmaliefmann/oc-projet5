@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">  
     <link href="public/css/style.css" rel="stylesheet">
     <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+    
     <title><?=$title?></title>
 </head>
 <body>
@@ -60,7 +61,7 @@
     <script src="public/javascript/registration.js"></script>
     <script src="public/javascript/library.js"></script>
     <script src="public/javascript/recipeform.js"></script>
-    
+    <script src="public/javascript/pristine.min.js"></script>
     <script>
     // Script to open and close sidebar
     function w3_open() {

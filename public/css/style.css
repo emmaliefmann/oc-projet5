@@ -20,6 +20,9 @@ body {
   max-width: 420px;
 }
 
+.invisible {
+  display: none;
+}
 .emma-header {
   max-width: 1200px;
   margin: auto;

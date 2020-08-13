@@ -35,11 +35,12 @@ class Router
 
                 elseif ($_GET['action'] === 'addcomment') {
                     if (isset($_GET['id']) && $_GET['id'] > 0) {
-                        if($_SESSION['username'] !== null) {
+                        if( isset($_SESSION['username'])) {
                             $frontend = new \emmaliefmann\recipes\controller\Frontend();
                             $comment = $frontend->addComment($_GET['id'], $_SESSION['username'], $_POST['comment']);
                         }
                         else {
+                            
                             echo "you need to sign in to leave a comment";
                             //link to sign in or register
                         }
@@ -159,14 +160,20 @@ class Router
                 
                     elseif (isset($_GET['page']) && $_GET['page'] === 'addrecipe') {
                         
-                        //print_r($_POST);
+                        print_r($_POST['image']);
+                        
                         //check there are no empty fields 
                         //check $session is set??
                         $ingredients = $_POST['ingredient'];
                         
                         if (!empty($_POST['title']) && !empty($_POST['prep-time'])&& !empty($_POST['method'])&& !empty($_POST['ingredient'])) {
                             $backend = new \emmaliefmann\recipes\controller\Backend();
-                            $backend->addRecipe($_SESSION['userId'], $_POST['title'], $_POST['prep-time'], $_POST['category'], $_POST['method'], $_POST['ingredient']);
+                            if(!isset ($_POST['image'])) {
+                                $image = $_POST['image'];
+                            } else {
+                                $image = "uploads/recipes/generic.jpg";
+                            }
+                            $backend->addRecipe($_SESSION['userId'], $_POST['title'], $_POST['prep-time'], $_POST['category'], $_POST['method'], $_POST['ingredient'], $image);
                         }
                         else {
                             echo "empty field somewhere";

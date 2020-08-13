@@ -1,16 +1,53 @@
 class RecipeForm {
   constructor(number) {
-    console.log(number);
     this.recipeForm = document.querySelector("#addRecipeForm");
     this.ingredientContainer = document.querySelector("#ingredient-container");
     this.inpfile = document.querySelector("#inpFile");
     this.ingredientNumber = this.numberCheck(number);
+    this.addButton = document.querySelector("#addIng");
+    this.removeButton = document.querySelector("#removeIng");
+    this.ingredientCount = 0;
+    this.fileName = document.querySelector("#filename");
+    this.ingredientRows = document.getElementsByClassName("ingredientsrow");
+    this.pristine = new Pristine(this.recipeForm);
+    //event listeners
+    this.addButton.addEventListener("click", () => {
+      let i = this.ingredientCount + 1;
+      if (i < 20) {
+        this.addIngredientFields(i);
+      } else {
+        return;
+      }
+    });
+
+    this.removeButton.addEventListener("click", () => {
+      this.removeIngredientField();
+    });
 
     for (let i = 0; i < this.ingredientNumber; i++) {
       this.addIngredientFields(i);
     }
+
+    this.inpfile.addEventListener("input", (e) => {
+      //using input event means potentially several images uploaded
+      if (this.inpfile.files.length == 0) {
+        console.log("empty");
+        return;
+      } else {
+        this.uploadImage();
+      }
+    });
+
+    this.recipeForm.addEventListener("submit", (e) => {
+      let valid = this.pristine.validate();
+      if (valid == true) {
+        return;
+      } else {
+        e.preventDefault();
+      }
+    });
   }
-  //number check
+
   numberCheck(number) {
     if (number == null || number == 0) {
       number = 5;
@@ -23,34 +60,63 @@ class RecipeForm {
     return number;
   }
 
-  // uploadImage() {
-  // //adding nb of ingredients to recipe field test
-  // const recipeForm = document.querySelector("#addRecipeForm");
-  // const ingredientContainer = document.querySelector("#ingredient-container");
-  // const inpfile = document.querySelector("#inpFile");
+  checkImage() {
+    let isValid = true;
+    const file = this.inpfile.files[0];
+    let type = file.type.split("/").pop().toLowerCase();
+    console.log(type);
+    if (
+      type != "jpeg" &&
+      type != "png" &&
+      type != "jpg" &&
+      type != "gif" &&
+      type != "bmp"
+    ) {
+      alert("Invalid file type");
+      isValid = false;
+    }
+    if (file.size > 2097152) {
+      alert("This file exceeds the maximum size");
+      isValid = false;
+    }
+    return isValid;
+  }
+  uploadImage() {
+    const isValid = this.checkImage();
 
-  // if (recipeForm) {
-  //   //prevent default to upload image via fetch API
-  //   recipeForm.addEventListener("submit", (e) => {
-  //     e.preventDefault();
-  //     const endpoint = "model/UploadImage.php";
-  //     const formData = new FormData();
+    if (isValid == true) {
+      const fileName = "uploads/recipes/" + this.inpfile.files[0].name;
+      //store path somewhere so it can be sent in $_POST
+      this.fileName.setAttribute("value", fileName);
+      const endpoint = "model/UploadImage.php";
+      const formData = new FormData();
+      formData.append("inpfile", inpFile.files[0]);
 
-  //     formData.append("inpfile", inpFile.files[0]);
+      // fetch(endpoint, {
+      //   method: "POST",
+      //   body: formData,
+      // }).then((response) => {
+      //   console.log(response);
+      // });
+    } else {
+      return;
+    }
+    console.log(inpFile.files[0]);
+  }
 
-  //     fetch(endpoint, {
-  //       method: "POST",
-  //       body: formData,
-  //     }).then((response) => {
-  //       console.log(response);
-  //     });
-  //   });
-  // }
-  //}
+  removeIngredientField() {
+    let last = this.ingredientRows[this.ingredientRows.length - 1];
+    if (this.ingredientRows.length > 2) {
+      last.remove();
+    } else {
+      return;
+    }
+  }
 
   addIngredientFields(i) {
     let outerDiv = document.createElement("div");
     outerDiv.classList.add("w3-row-padding");
+    outerDiv.classList.add("ingredientsrow");
     let numberDiv = document.createElement("div");
     let unitDiv = document.createElement("div");
     let nameDiv = document.createElement("div");
@@ -93,6 +159,7 @@ class RecipeForm {
     nameInput.classList.add("w3-input");
     nameInput.classList.add("w3-border");
     nameDiv.appendChild(nameInput);
+    this.ingredientCount++;
   }
 
   //apiCheck for existing username

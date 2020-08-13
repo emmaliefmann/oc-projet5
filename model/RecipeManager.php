@@ -50,7 +50,7 @@ class RecipeManager extends Manager
        return $recipeList;
     }
 
-    public function addRecipe($userId, $title, $prepTime, $category, $method, $ingredient) 
+    public function addRecipe($userId, $title, $prepTime, $category, $method, $ingredient, $image) 
     {
         // get the previous insert id, and increment
        $sql = 'SELECT `id` FROM `recipes` ORDER BY `id` DESC LIMIT 1';
@@ -70,29 +70,15 @@ class RecipeManager extends Manager
             array_push($ingredientSql, $lines);
             }; 
             $insertIngredients = implode(";", $ingredientSql);
-
+            //insert everything into two tables
             $sql = "BEGIN;
-                INSERT INTO recipes(`id`, `user_id`, title, prep_time, category, method, creation_date) VALUES('$id', '$userId', '$title', '$prepTime','$category','$method', NOW());"
+                INSERT INTO recipes(`id`, `user_id`, title, prep_time, category, method, creation_date, image) VALUES('$id', '$userId', '$title', '$prepTime','$category','$method', NOW(), '$image');"
                 . $insertIngredients."
                 ;COMMIT;";
 
                 return $this->createQuery($sql);
     }
        
-      
-      
-       
-        
-        
-        
-        
-        
-                
-    
-    
-
-
-
     public function editRecipe($title, $prepTime, $method, $id)
     {
         $sql = 'UPDATE recipes SET `title`= ?, `prep_time`= ?, `method`=? WHERE `id`= ?';

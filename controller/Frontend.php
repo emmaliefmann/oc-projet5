@@ -9,11 +9,11 @@ class Frontend
         $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();
         
         $recipe = $recipeManager->getRecipe($id);
-        //$ingredientList = $recipeManager->getRecipeIngredients($id);
+    
         //comments
         $commentManager = new \emmaliefmann\recipes\model\CommentManager();
         $comments = $commentManager->getrecipeComments($id);
-        //add clause to check recipe is in the db
+        //add clause to check recipe is in the db?
         
         require('view/frontend/singleview.php');
     }
@@ -34,7 +34,7 @@ class Frontend
         $comment = $commentManager->addComment($recipeId, $author, $comment);
 
         if($comment === false) {
-            echo "comment not added";
+            throw new \Exception('Cannot add this comment');
         }
         else {
             echo "comment added";

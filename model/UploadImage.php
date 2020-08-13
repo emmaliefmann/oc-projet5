@@ -29,11 +29,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if (empty($errors)) {
             move_uploaded_file($fileTmp, $file);
+            print_r($file);
         }
     }
     if ($errors) {
-        print_r($errors);
+
+        echo $file ;  
+        //print_r($errors);
     }
 
     //get reference in folder, e.g. uploads/image.jpg as a reference
+    //how to notify user when errors? 
 }

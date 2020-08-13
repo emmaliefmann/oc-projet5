@@ -16,14 +16,13 @@ class Backend
         $recipeList = $recipeManager->getMemberRecipes($userId);
         require('view/backend/dashboard.php');
     }
-    public function addRecipe($userId, $title, $prepTime, $category, $method, $ingredient)
+    public function addRecipe($userId, $title, $prepTime, $category, $method, $ingredient, $image)
     {
         $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();
-        $recipe = $recipeManager->addRecipe($userId, $title, $prepTime, $category, $method, $ingredient);
-        print_r($recipe);
+        $recipe = $recipeManager->addRecipe($userId, $title, $prepTime, $category, $method, $ingredient, $image);
+        
         if ($recipe === false || $recipe === null ) {
-            //throw exception 
-            echo "cannot add recipe";
+            throw new \Exception('Cannot add the recipe');
         }
         else {
             echo "recipe added successfully";
@@ -35,7 +34,6 @@ class Backend
         $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();
         $recipe = $recipeManager->getRecipe($id);
         if ($recipe->getUserId() === $_SESSION['userId']) {
-            //$ingredientList = $recipeManager->getRecipeIngredients($id);
             require('view/backend/changerecipe.php');
         }
         else {
@@ -50,8 +48,8 @@ class Backend
         if ($recipe->getUserId() === $_SESSION['userId']) {
             $update = $recipeManager->editRecipe($title, $prepTime, $method, $id);
             if($update === null) {
-                echo "recipe not added";
-                //throw exception? 
+                throw new \Exception('Cannot update the recipe');
+                
             }
             else {
                 echo "recipe updated";
