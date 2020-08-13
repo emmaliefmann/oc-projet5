@@ -21,7 +21,7 @@ body {
 }
 
 .invisible {
-  display: none;
+  display: none !important;
 }
 .emma-header {
   max-width: 1200px;

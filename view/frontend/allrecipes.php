@@ -1,6 +1,5 @@
 <?php ob_start(); ?>
-
-<h2>ALL RECIPES</h2>
+<h2>OUR RECIPE LIBRARY</h2>
     <div class="w3-row-padding" id="recipeContainer" >
     <input class="search" placeholder="search" />
     <div class="w3-section w3-padding-16">
@@ -40,10 +39,6 @@
         <div class="w3-container w3-white">
           <h5 class="title"><?=$recipe->getTitle()?></h5>
           <a href="index.php?action=recipe&id=<?=$recipe->getId()?>">go to recipe</a>
-          <p class="description">
-            Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum,
-            porta lectus vitae, ultricies congue gravida diam non fringilla.
-          </p>
           <p class="category"><?=$recipe->getCategory()?></p>
         </div>
         </li>
@@ -57,16 +52,14 @@
   <ul class="pagination"></ul>
   </div>
 </div>
-<!-- <div class="w3-center w3-padding-32"> 
-    <div class="w3-bar">
-      <a href="#" class="w3-bar-item w3-button w3-hover-black">«</a>
-      <a href="#" class="w3-bar-item w3-black w3-button">1</a>
-      <a href="#" class="w3-bar-item w3-button w3-hover-black">2</a>
-      <a href="#" class="w3-bar-item w3-button w3-hover-black">3</a>
-      <a href="#" class="w3-bar-item w3-button w3-hover-black">4</a>
-      <a href="#" class="w3-bar-item w3-button w3-hover-black">»</a>
-    </div>
-  </div> -->
+<h2>SEARCH THE WEB</h2>
+<input type="search" id="search"><br><button id="searchButton" class="emma-button">Search the web</button>
+<div id="output" class="w3-row-padding">
+  <!--UL for pagination -->
+  <ul>
+    
+  </ul>
+</div>
 <?php $content = ob_get_clean(); ?>
 <?php $pageTitle = "All recipes" ?>
 <?php $title = "RecipeApp - Space" ?>

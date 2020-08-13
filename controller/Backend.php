@@ -23,9 +23,9 @@ class Backend
         
         if ($recipe === false || $recipe === null ) {
             throw new \Exception('Cannot add the recipe');
-        }
-        else {
-            echo "recipe added successfully";
+        } else {
+            $message = "recipe added successfully";
+            header('location: index.php?action=member&page=dashboard');
         }
     }
     
@@ -49,10 +49,10 @@ class Backend
             $update = $recipeManager->editRecipe($title, $prepTime, $method, $id);
             if($update === null) {
                 throw new \Exception('Cannot update the recipe');
-                
             }
             else {
-                echo "recipe updated";
+                $message = "recipe added successfully";
+                header('location: index.php?action=member&page=dashboard');
             }
 
         }
@@ -72,7 +72,8 @@ class Backend
         if ($recipe->getUserId() === $_SESSION['userId']) {
             //delete recipe
             $recipeManager->deleteRecipe($id);
-            echo 'recipe deleted';
+            $message = 'recipe deleted';
+            header('location: index.php?action=member&page=dashboard');
         }
         else {
             echo "You do not have the right to delete this recipe";

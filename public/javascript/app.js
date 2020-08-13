@@ -18,6 +18,7 @@ window.addEventListener("load", () => {
   }
   if (page == "allrecipes") {
     library = new Library();
+    spoonacular = new Spoonacular();
     library.createFilters();
   }
   if (page == "member") {

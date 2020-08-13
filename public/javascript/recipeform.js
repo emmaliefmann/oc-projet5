@@ -161,10 +161,4 @@ class RecipeForm {
     nameDiv.appendChild(nameInput);
     this.ingredientCount++;
   }
-
-  //apiCheck for existing username
-
-  //apiCheck for email already in DB
-
-  //Check for empty fields
 }
