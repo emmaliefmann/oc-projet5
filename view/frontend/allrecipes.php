@@ -15,7 +15,6 @@
       }
       ?>
       </div>
-<button class="sort" data-sort="title">title</button>
       <ul class="list">
     <?php 
     foreach($recipes as $recipe) {
@@ -36,7 +35,7 @@
         ?>
           <!-- <img src="https://source.unsplash.com/400x300/?food" alt="food" class="w3-hover-opacity" /> -->
           </a>
-        <div class="w3-container w3-white">
+        <div class="w3-container recipe-info">
           <h5 class="title"><?=$recipe->getTitle()?></h5>
           <a href="index.php?action=recipe&id=<?=$recipe->getId()?>">go to recipe</a>
           <p class="category"><?=$recipe->getCategory()?></p>
@@ -56,9 +55,10 @@
 <input type="search" id="search"><br><button id="searchButton" class="emma-button">Search the web</button>
 <div id="output" class="w3-row-padding">
   <!--UL for pagination -->
-  <ul>
+  <ul class="list">
     
   </ul>
+  <ul class="pagination"></ul>
 </div>
 <?php $content = ob_get_clean(); ?>
 <?php $pageTitle = "All recipes" ?>

@@ -23,9 +23,7 @@ class Router
                     //if id is set, show recipe, if not, show list view 
                     $frontend = new \emmaliefmann\recipes\controller\Frontend();
                     if (isset($_GET['id']) && $_GET['id'] > 0) {
-                        //show receipe with corresponding id 
                         $frontend->getRecipe($_GET['id']);
-                       
                     }
                     else {
                         //show a list view
@@ -130,6 +128,8 @@ class Router
                             }
                         }
                     }
+
+                    
                     elseif (isset($_GET['page']) && $_GET['page'] === 'newrecipe') {
                         //to set number of fields in javascript
                         //if (isset($_GET['ing']) && $_GET['ing'] > 0) { 
@@ -179,9 +179,37 @@ class Router
                             echo "empty field somewhere";
                         }
                     }
-
+                    elseif (isset($_GET['page']) && $_GET['page'] === 'admin') {
+                        //create checkAdmin() boolean 
+                        $admin = new \emmaliefmann\recipes\controller\Admin();
+                        $check = $admin->checkAdmin();
+                        if ($check === false) {
+                            header("location: index.php?action=member&page=dashboard");      
+                        } elseif(!isset($_GET['req'])) {
+                            $admin->dashboard();
+                            //validation form first
+                            
+                        }  elseif(isset($_GET['req']) && $_GET['req'] === 'suspendthisaccess') {
+                            require('view/backend/suspenduser.php');
+                        }  elseif(isset($_GET['req']) && $_GET['req'] === 'suspendaccess') {   
+                            if (isset($_GET['id']) && $_GET['id'] > 0) {
+                                if ($_POST['delete'] === 'true') {
+                                    $admin->suspendAccess($_GET['id']);
+                                } else {
+                                    echo "not suspended";
+                                }
+                            } else {
+                                $admin->dashboard();
+                            }
+                        } elseif(isset($_GET['req']) && $_GET['req'] === 'allowaccess') {   
+                            if (isset($_GET['id']) && $_GET['id'] > 0) {
+                                $admin->allowAccess($_GET['id']);
+                            } else {
+                                $admin->dashboard();
+                            }
+                        } 
+                    }
                 }
-                
                 //closing of elseif action isset
             }
             

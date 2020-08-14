@@ -41,7 +41,7 @@ class Spoonacular {
     let outerDiv = document.createElement("div");
     outerDiv.classList.add("w3-third", "w3-container");
     let innerDiv = document.createElement("div");
-    innerDiv.classList.add("w3-container", "w3-white");
+    innerDiv.classList.add("w3-container", "recipe-info");
     let list = document.createElement("li");
     let image = document.createElement("img");
     let title = document.createElement("h5");
@@ -49,6 +49,7 @@ class Spoonacular {
     //attributes
     image.setAttribute("src", imageSrc);
     image.classList.add("w3-container", "w3-white");
+    title.classList.add("title");
     title.innerText = titleText;
     recipeLink.setAttribute("href", link);
     recipeLink.innerText = "go to recipe";

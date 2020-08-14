@@ -1,28 +1,19 @@
 <?php 
-
 namespace emmaliefmann\recipes\controller;
-
 class Admin
 
 {
-    private function buildUserObject($user) 
-    {
-        $userObject = new \emmaliefmann\recipes\model\User();
-        $userObject->setId($user['id']);
-        $userObject->setUserName($user['username']);
-        $userObject->setEmail($user['email']);
-        $userObject->setCreationDate($user['creation_date']);
-        $userObject->setLevel($user['level']);
-        return $userObject;
-    }
     public function checkLogin() 
     {
-        if (!isset($_SESSION['active'])) {
-            $login = false ;
-        }
-        else {
-            $login = $_SESSION['active'];
-        }
+        if (isset($_SESSION['active'])) {
+            if ($_SESSION['active'] === "active") {
+            $login = true ;
+            } else {
+            $login = false;
+            } 
+        } else {
+                $login = false;
+            }
         return $login;
     }
 
@@ -33,19 +24,17 @@ class Admin
         $loginAttempt = $userManager->login($email);
         $dbResult = $loginAttempt->fetch();
         if ($dbResult) {
-            
             $userInput = $password;
             $dbPassword = $dbResult['password'];
             $check = password_verify($userInput, $dbPassword);
             if ($check) {
-                $user = $this->buildUserObject($dbResult);
-                $_SESSION['active'] = true;
+                $user = $userManager->buildUserObject($dbResult);
+                $_SESSION['active'] = $user->getActive();
                 $_SESSION['email'] = $user->getEmail();
                 $_SESSION['username'] = $user->getUserName();
                 $_SESSION['userId'] = $user->getId();
-                
+                $_SESSION['level'] = $user->getLevel();
                 header('location: index.php?action=member&page=dashboard');
-                
             }
             else {
                 //require('view/backend/signin.php');
@@ -85,6 +74,47 @@ class Admin
         }
         else {
             echo 'Your account has been created';
+        }
+    }
+
+    public function checkAdmin() 
+    {
+        
+        if ($_SESSION['level'] === "admin") {
+            $admin = true;
+        } else {
+            $admin = false;
+        }
+        return $admin;
+    }
+    public function dashboard()
+    {
+        $userManager = new \emmaliefmann\recipes\model\UserManager();
+        $users = $userManager->getAllUsers();
+        require('view/backend/admindashboard.php');
+    }
+
+    public function allowAccess($user)
+    {
+        $userManager = new \emmaliefmann\recipes\model\UserManager();
+       
+        $allow = $userManager->allowAccess($user);
+        if ($allow === null) {
+            echo "not working";
+        } else {
+            echo "success";
+        }
+    }
+
+    public function suspendAccess($user)
+    {
+        $userManager = new \emmaliefmann\recipes\model\UserManager();
+       
+        $suspend = $userManager->suspendAccess($user);
+        if ($suspend === null) {
+            echo "not working";
+        } else {
+            echo "success";
         }
     }
 }

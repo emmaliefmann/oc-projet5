@@ -20,7 +20,7 @@
     <nav class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-left emma-menu" id="mySidebar">
         <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button">Close Menu</a>
         <a href="index.php" class="logo w3-bar-item w3-button"><i class="fas fa-home"></i></a> 
-            <?php if(isset($_SESSION['active']) && $_SESSION['active']=== true) {
+            <?php if(isset ($_SESSION['active'])) {
         ?>
             <a href="index.php?action=member&page=newrecipe" class="w3-bar-item w3-button" onclick="w3_close()">Add Recipe</a>
             <a href="index.php?action=allrecipes" class="w3-bar-item w3-button" onclick="w3_close()">Recipe Library</a>

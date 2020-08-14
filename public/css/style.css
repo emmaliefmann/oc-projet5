@@ -12,6 +12,9 @@ footer {
 body {
   position: relative;
 }
+.recipe-info {
+  min-height: 100px;
+}
 .emma-menu {
   display: none;
   z-index: 2;

@@ -10,7 +10,7 @@ class User
     private $creationDate;
     private $password;
     private $level;
-    
+    private $active;
     
 
     public function getId()
@@ -42,6 +42,10 @@ class User
         return $this->level;
     }
 
+    public function getActive()
+    {
+        return $this->active;
+    }
     public function setId($id)
     {
         $this->id = $id;
@@ -69,5 +73,9 @@ class User
     public function setLevel($level)
     {
         $this->level = $level;
+    }
+    public function setActive($active)
+    {
+        $this->active = $active;
     }
 }
