@@ -32,6 +32,17 @@ class CommentManager extends Manager
        return $comments;
     }
 
+    public function getAllComments() 
+    {
+        $sql = 'SELECT * FROM comments ORDER BY `creation_date` DESC';
+        $result = $this->createQuery($sql);
+        $comments = [];
+        while ($comment = $result->fetch()) {
+            $commentObject = $this->buildCommentObject($comment);
+            array_push($comments, $commentObject);
+        }
+        return $comments;
+    }
     
 
 }

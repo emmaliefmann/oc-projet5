@@ -56,6 +56,9 @@ body {
   outline: 0;
 }
 
+.image-dimension {
+  max-width: 480px;
+}
 .pagination a {
   width: 100%;
 }
@@ -92,11 +95,29 @@ body {
   max-width: 170px;
   cursor: pointer;
 }
+.small-button {
+  display: inline-block;
+  padding: 0.35em 1.2em;
+  color: #120b1e;
+  font-family: roboto;
+  border: 0.14em solid #120b1e;
+  margin: 20px 10px 10px 0px;
+  border-radius: 0.12em;
+  text-decoration: none;
+  text-align: center;
+  font-weight: 300;
+  transition: all 0.3s;
+  font-size: 1em;
+  cursor: pointer;
+  width: 50px;
+}
+
 img {
   width: 100%;
 }
 
-.emma-button:hover {
+.emma-button:hover,
+.small-button:hover {
   color: #ffffff;
   background-color: #120b1e;
 }

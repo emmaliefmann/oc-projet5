@@ -79,7 +79,6 @@ class Admin
 
     public function checkAdmin() 
     {
-        
         if ($_SESSION['level'] === "admin") {
             $admin = true;
         } else {
@@ -90,14 +89,18 @@ class Admin
     public function dashboard()
     {
         $userManager = new \emmaliefmann\recipes\model\UserManager();
+        $commentManager = new \emmaliefmann\recipes\model\CommentManager();
+        $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();
         $users = $userManager->getAllUsers();
+        $comments = $commentManager->getAllComments();
+        $recipes = $recipeManager->getAllRecipes();
         require('view/backend/admindashboard.php');
     }
 
     public function allowAccess($user)
     {
         $userManager = new \emmaliefmann\recipes\model\UserManager();
-       
+        
         $allow = $userManager->allowAccess($user);
         if ($allow === null) {
             echo "not working";

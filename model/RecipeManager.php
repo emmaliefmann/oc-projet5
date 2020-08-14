@@ -89,24 +89,10 @@ class RecipeManager extends Manager
        $sql = 'SELECT * FROM recipes WHERE id = ?';
        $result = $this->createQuery($sql, [$id]);
        $recipe = $result->fetch();
-       $ingredientList = $this->getRecipeIngredients($id);
        $recipeObject = $this->buildRecipeObject($recipe);
-       
-       
        return $recipeObject;
     }
 
-    public function getAllIngredients() 
-    {
-        $sql = 'SELECT * FROM ingredients';
-        $result = $this->createQuery($sql);
-        $ingredientList = [];
-        while ($ingredient = $result->fetch()) {
-            $ingredientObject = $this->buildIngredientObject($ingredient);
-            array_push($ingredientList, $ingredientObject);
-        }
-       return $ingredientList;
-    }
     public function getAllRecipes() 
     {
         $sql = 'SELECT * FROM recipes';
@@ -120,6 +106,7 @@ class RecipeManager extends Manager
     }
 
     public function getRecipeIngredients($recipeId) 
+    //called when building recipe object
     {
        $sql = 'SELECT * FROM ingredients WHERE recipe_id = ?';
        $result = $this->createQuery($sql, [$recipeId]);

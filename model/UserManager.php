@@ -46,6 +46,7 @@ class UserManager extends Manager
         }
         return $allUsers;
     }
+    
     public function allowAccess($user)
     {
         $sql = 'UPDATE users SET `active`="active" WHERE id= ?';

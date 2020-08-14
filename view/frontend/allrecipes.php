@@ -62,6 +62,6 @@
 </div>
 <?php $content = ob_get_clean(); ?>
 <?php $pageTitle = "All recipes" ?>
-<?php $title = "RecipeApp - Space" ?>
+<?php $title = "RecipeApp - Recipe Library" ?>
 <?php require('view/template.php') ?>
     

@@ -24,7 +24,7 @@
         ?>
             <a href="index.php?action=member&page=newrecipe" class="w3-bar-item w3-button" onclick="w3_close()">Add Recipe</a>
             <a href="index.php?action=allrecipes" class="w3-bar-item w3-button" onclick="w3_close()">Recipe Library</a>
-            <a href="index.php?action=member&page=dashboard" class="w3-bar-item w3-button" onclick="w3_close()">Your profile</a>
+            <a href="index.php?action=member&page=dashboard" class="w3-bar-item w3-button" onclick="w3_close()">Dashboard</a>
             <a href="index.php?action=member&page=logout" class="w3-bar-item w3-button" onclick="w3_close()">Sign out</a>
         <?php
         }

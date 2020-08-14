@@ -28,11 +28,13 @@
         ?>
         </select>
     </div>
-    <h4>Ingredients</h4>   
+    <h4 class="w3-center">Ingredients</h4>   
     <div id="ingredient-container">
         <!--javacript generates fields-->
-        <div id="addIng" class="emma-button">+</div>
-        <div id="removeIng" class="emma-button">-</div>
+        <div class="w3-center">
+            <div id="addIng" class="small-button">+</div>
+            <div id="removeIng" class="small-button">-</div>
+        </div>
     </div>
     <div class="form-group">
         <label for="method">Method</label><br/>

@@ -88,16 +88,40 @@ class Router
                     elseif (isset($_GET['page']) && $_GET['page'] === 'changerecipe') {
                         $backend = new \emmaliefmann\recipes\controller\Backend();
                         if (isset($_GET['id']) && $_GET['id'] > 0) {
+                            if ($_SESSION['level'] === "admin" ) {
                             $recipe = $backend->changeRecipe($_GET['id']);
+                            } else {
+                                $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();
+                                $recipe = $recipeManager->getRecipe($_GET['id']);
+                                if ($recipe->getUserId() === $_SESSION['userId']) {
+                                    $recipe = $backend->changeRecipe($_GET['id']);
+                                } else {
+                                    echo "You can only modify your own recipes";
+                                }
+                            }
                         }
-                        else {
+                         else {
                             echo "recipe not found";
+                            //redirect home 
                         }
                     }
                     elseif (isset($_GET['page']) && $_GET['page'] === 'deletethis') {
                         $backend = new \emmaliefmann\recipes\controller\Backend();
                         if (isset($_GET['id']) && $_GET['id'] > 0) {
-                            $backend->deleteRecipeCheck();
+                            if ($_SESSION['level'] === "admin" ) {
+                                $backend->deleteRecipeCheck();
+                            } else {
+                                $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();
+                                $recipe = $recipeManager->getRecipe($_GET['id']);
+                                if ($recipe->getUserId() === $_SESSION['userId']) {
+                                    $backend->deleteRecipeCheck();
+                                } else {
+                                    echo "no right";
+                                }
+                                //compare with session ID 
+                                //if match show form, if not "echo you do not have the right
+                            }
+                            
                         }
                         else {
                             echo "recipe not found";

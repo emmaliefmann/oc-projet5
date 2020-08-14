@@ -1,7 +1,5 @@
 <?php 
-
 namespace emmaliefmann\recipes\controller;
-
 class Frontend 
 {
     public function getRecipe($id) 
@@ -9,13 +7,13 @@ class Frontend
         $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();
         
         $recipe = $recipeManager->getRecipe($id);
-    
-        //comments
-        $commentManager = new \emmaliefmann\recipes\model\CommentManager();
-        $comments = $commentManager->getrecipeComments($id);
-        //add clause to check recipe is in the db?
-        
-        require('view/frontend/singleview.php');
+        if ($recipe->getId()=== null) {
+            require('view/frontend/notfound.php');
+        } else {
+            $commentManager = new \emmaliefmann\recipes\model\CommentManager();
+            $comments = $commentManager->getrecipeComments($id);
+            require('view/frontend/singleview.php');
+        }
     }
 
     public function getAllRecipes()
@@ -24,7 +22,6 @@ class Frontend
         $commentManager = new \emmaliefmann\recipes\model\CommentManager();
         $recipes = $recipeManager->getAllRecipes();
         $categories = $recipeManager->getCategories();
-        $ingredientList = $recipeManager->getAllIngredients();
         require('view/frontend/allrecipes.php');
     }
 
