@@ -5,7 +5,7 @@ class Library {
     this.filters = document.getElementsByClassName("filter");
     this.recipeSearch = new List("recipeContainer", {
       valueNames: ["title", "category"],
-      page: 3,
+      page: 6,
       pagination: true,
     });
   }

@@ -52,7 +52,7 @@
   </div>
 </div>
 <h2>SEARCH THE WEB</h2>
-<input type="search" id="search"><br><button id="searchButton" class="emma-button">Search the web</button>
+<input type="search" id="search"><br><button id="searchButton" class="emma-button">Search the web</button><button id="clear"> clear </button>
 <div id="output" class="w3-row-padding">
   <!--UL for pagination -->
   <ul class="list">

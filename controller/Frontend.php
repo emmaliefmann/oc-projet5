@@ -34,7 +34,7 @@ class Frontend
             throw new \Exception('Cannot add this comment');
         }
         else {
-            echo "comment added";
+            header('location: index.php?action=recipe&id='.$recipeId.'#comments');
         }
     }
 }

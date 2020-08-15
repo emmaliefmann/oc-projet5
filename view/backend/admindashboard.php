@@ -50,6 +50,7 @@
         ?>
     </ul>
 <p>update about page text</p>
+<p>Update categories</p>
 
 <?php $content = ob_get_clean(); ?>
 <?php $pageTitle = "Members page" ?>

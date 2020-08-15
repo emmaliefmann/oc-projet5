@@ -4,11 +4,28 @@ namespace emmaliefmann\recipes\controller;
 
 class Backend 
 {
-    public function getCategories()
+    private function getCategories()
     {
         $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();
         $categories = $recipeManager->getCategories();
-        require('view/backend/addrecipe.php');
+        
+        return $categories;
+    }
+    public function newRecipe()
+    {
+        $categories=$this->getCategories();
+        require("view/backend/addrecipe.php");
+    }
+
+    public function getImageName($image) 
+    {
+        if(empty ($image)) {
+            $image = "uploads/recipes/generic.jpg";
+        } else {
+            $name = substr($image, strpos($image, "projet5/"));
+            $image = "uploads/recipes/$image";
+        }
+        return $image;
     }
 
     public function dashboard($userId) {
@@ -33,6 +50,7 @@ class Backend
     {
         $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();
         $recipe = $recipeManager->getRecipe($id);
+        $categories = $this->getCategories();
         if ($recipe->getUserId() === $_SESSION['userId']) {
             require('view/backend/changerecipe.php');
         }
@@ -41,12 +59,12 @@ class Backend
         }
     }
 
-    public function editRecipe($id, $title, $prepTime, $method) 
+    public function editRecipe($id, $title, $prepTime, $category, $method, $ingredient) 
     {
         $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();
         $recipe = $recipeManager->getRecipe($id);
         if ($recipe->getUserId() === $_SESSION['userId']) {
-            $update = $recipeManager->editRecipe($title, $prepTime, $method, $id);
+            $update = $recipeManager->editRecipe($id, $title, $prepTime, $category, $method, $ingredient);
             if($update === null) {
                 throw new \Exception('Cannot update the recipe');
             }

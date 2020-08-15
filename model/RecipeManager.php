@@ -79,9 +79,25 @@ class RecipeManager extends Manager
                 return $this->createQuery($sql);
     }
        
-    public function editRecipe($title, $prepTime, $method, $id)
+    public function editRecipe($id, $title, $prepTime, $category, $method, $ingredient)
     {
-        $sql = 'UPDATE recipes SET `title`= ?, `prep_time`= ?, `method`=? WHERE `id`= ?';
+        $ingredientSql = [];
+        for ($i=0; $i< count($ingredient); $i++) {
+            $quantity = $ingredient[$i][0];
+            $unit = $ingredient[$i][2];
+            $ingName =  $ingredient[$i][1];
+            $lines = "INSERT INTO ingredients(quantity, `ingredient_name`, unit, recipe_id) VALUES ('$quantity','$unit','$ingName',  '$id')";
+            array_push($ingredientSql, $lines);
+            }; 
+            $insertIngredients = implode(";", $ingredientSql);
+            //Delete ingredients, then replace with new ones?? 
+            //or get the ingredient id, and update? But what if additional fields added? or removed??
+        $sql = "BEGIN;
+        UPDATE recipes SET `title`= '$title', `prep_time`= '$prepTime', `category`='$category', `method`='$method' WHERE `id`= '$id';
+        DELETE FROM `ingredients` WHERE `recipe_id`='$id';
+        $insertIngredients
+        ;COMMIT;";
+        print_r($sql);
         return $this->createQuery($sql, array($title, $prepTime, $method, $id));
     }
     public function getRecipe($id) 

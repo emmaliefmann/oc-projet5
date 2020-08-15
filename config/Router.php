@@ -86,21 +86,11 @@ class Router
                     }
                     
                     elseif (isset($_GET['page']) && $_GET['page'] === 'changerecipe') {
-                        $backend = new \emmaliefmann\recipes\controller\Backend();
                         if (isset($_GET['id']) && $_GET['id'] > 0) {
-                            if ($_SESSION['level'] === "admin" ) {
+                            $backend = new \emmaliefmann\recipes\controller\Backend();
+                            //$categories = $backend->getCategories();
                             $recipe = $backend->changeRecipe($_GET['id']);
-                            } else {
-                                $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();
-                                $recipe = $recipeManager->getRecipe($_GET['id']);
-                                if ($recipe->getUserId() === $_SESSION['userId']) {
-                                    $recipe = $backend->changeRecipe($_GET['id']);
-                                } else {
-                                    echo "You can only modify your own recipes";
-                                }
-                            }
-                        }
-                         else {
+                        } else {
                             echo "recipe not found";
                             //redirect home 
                         }
@@ -155,22 +145,17 @@ class Router
 
                     
                     elseif (isset($_GET['page']) && $_GET['page'] === 'newrecipe') {
-                        //to set number of fields in javascript
-                        //if (isset($_GET['ing']) && $_GET['ing'] > 0) { 
-                            $backend = new \emmaliefmann\recipes\controller\Backend();
-                            $backend->getCategories();
-                        //}
-                        // else {
-                        //     echo "go back to prev page";
-                        // }
-                           
+                        
+                        $backend = new \emmaliefmann\recipes\controller\Backend();
+                        $backend->newRecipe();
                     }
 
                      elseif (isset($_GET['page']) && $_GET['page'] === 'editrecipe') {
                         $backend = new \emmaliefmann\recipes\controller\Backend();
+                       
                         if (isset($_GET['id']) && $_GET['id'] > 0) {
-                            if (!empty($_POST['title']) && !empty($_POST['prep-time'])&& !empty($_POST['method'])) {
-                                $backend->editRecipe($_GET['id'], $_POST['title'], $_POST['prep-time'], $_POST['method']);
+                            if (!empty($_POST['title']) && !empty($_POST['prep-time'])&& !empty($_POST['category'])&& !empty($_POST['method'])) {
+                                $backend->editRecipe($_GET['id'], $_POST['title'], $_POST['prep-time'], $_POST['category'], $_POST['method'], $_POST['ingredients']);
                             }
                             else {
                                 echo "emptyField, go back to editing page";
@@ -183,21 +168,14 @@ class Router
                     
                 
                     elseif (isset($_GET['page']) && $_GET['page'] === 'addrecipe') {
-                        
-                        print_r($_POST['image']);
-                        
                         //check there are no empty fields 
-                        //check $session is set??
                         $ingredients = $_POST['ingredient'];
-                        
+                        print_r($ingredients);
                         if (!empty($_POST['title']) && !empty($_POST['prep-time'])&& !empty($_POST['method'])&& !empty($_POST['ingredient'])) {
+                            $ingredients = $_POST['ingredient'];
                             $backend = new \emmaliefmann\recipes\controller\Backend();
-                            if(!isset ($_POST['image'])) {
-                                $image = $_POST['image'];
-                            } else {
-                                $image = "uploads/recipes/generic.jpg";
-                            }
-                            $backend->addRecipe($_SESSION['userId'], $_POST['title'], $_POST['prep-time'], $_POST['category'], $_POST['method'], $_POST['ingredient'], $image);
+                            $image = $backend->getImageName($_POST['files']);
+                            $backend->addRecipe($_SESSION['userId'], $_POST['title'], $_POST['prep-time'], $_POST['category'], $_POST['method'], $ingredients, $image);
                         }
                         else {
                             echo "empty field somewhere";

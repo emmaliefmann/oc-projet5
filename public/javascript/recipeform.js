@@ -87,17 +87,18 @@ class RecipeForm {
     if (isValid == true) {
       const fileName = "uploads/recipes/" + this.inpfile.files[0].name;
       //store path somewhere so it can be sent in $_POST
+      this.fileName.innerText = fileName;
       this.fileName.setAttribute("value", fileName);
       const endpoint = "model/UploadImage.php";
       const formData = new FormData();
       formData.append("inpfile", inpFile.files[0]);
 
-      // fetch(endpoint, {
-      //   method: "POST",
-      //   body: formData,
-      // }).then((response) => {
-      //   console.log(response);
-      // });
+      fetch(endpoint, {
+        method: "POST",
+        body: formData,
+      }).then((response) => {
+        console.log(response);
+      });
     } else {
       return;
     }
