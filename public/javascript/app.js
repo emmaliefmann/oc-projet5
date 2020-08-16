@@ -17,7 +17,9 @@ window.addEventListener("load", () => {
     registration = new Registration("#registrationForm");
   }
   if (page == "allrecipes") {
-    library = new Library();
+    //listName is id of div to paginate
+    let listName = "recipeContainer";
+    library = new Library(listName);
     spoonacular = new Spoonacular();
     library.createFilters();
   }

@@ -1,6 +1,6 @@
 <php ob_start(); ?>
-
-<h2>homepage</h2>
+<div>
+</div>
 <?php $content = ob_get_clean(); ?>
 <?php $pageTitle = "homepage" ?>
 <?php $title = "RecipeApp" ?>

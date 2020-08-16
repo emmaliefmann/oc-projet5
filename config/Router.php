@@ -10,7 +10,6 @@ class Router
             if (!isset($_GET['action'])) {
                 require('view/frontend/home.php');
             }
-
             elseif (isset($_GET['action'])) {
                 if ($_GET['action'] === 'home') {
                     //homepage with search, ordering options, select categories etc. 

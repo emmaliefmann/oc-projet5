@@ -3,14 +3,12 @@ class Spoonacular {
     this.search = document.querySelector("#search");
     this.button = document.querySelector("#searchButton");
     this.apiKey = "094914fc0c704151b19e4963ad4322ba";
-    this.clear = document.querySelector("#clear");
+    //this.clear = document.querySelector("#clear");
     this.output = document.querySelector("#output");
+    this.listId = "recipeContainer";
     this.button.addEventListener("click", () => {
       let search = this.search.value;
       this.getResults(search);
-    });
-    this.clear.addEventListener("click", () => {
-      this.removeResults();
     });
   }
 
@@ -25,12 +23,15 @@ class Spoonacular {
       .then((response) => response.json())
       .then((data) => {
         let results = data.results;
+        console.log(results);
+        let result;
         if (results.length == 0) {
           this.noResults(search);
         } else {
-          results.map((result) => {
+          for (result of results) {
             this.showResults(result);
-          });
+          }
+          let library = new Library("recipeContainer");
         }
       });
   }
@@ -42,6 +43,7 @@ class Spoonacular {
     outerDiv.append(text);
     this.output.append(outerDiv);
   }
+
   showResults(result) {
     const titleText = result.title;
     const prepTime = result.readyInMinutes;
@@ -53,26 +55,46 @@ class Spoonacular {
 
     //make HTML
     let outerDiv = document.createElement("div");
-    outerDiv.classList.add("w3-third", "w3-container", "search-result");
+    let imageDiv = document.createElement("div");
+    outerDiv.classList.add(
+      "w3-third",
+      "w3-container",
+      "w3-section",
+      "search-result"
+    );
+    imageDiv.classList.add("w3-card", "recipe-image");
     let innerDiv = document.createElement("div");
-    innerDiv.classList.add("w3-container", "recipe-info");
+    innerDiv.classList.add("w3-container", "recipe-info", "w3-card");
     let list = document.createElement("li");
     let image = document.createElement("img");
     let title = document.createElement("h5");
     let recipeLink = document.createElement("a");
+    let button = document.createElement("button");
     //attributes
+    //link.setAttribute("target", "_blank");
     image.setAttribute("src", imageSrc);
-    image.classList.add("w3-container", "w3-white");
+    image.setAttribute("alt", "food");
+    image.classList.add("w3-hover-opacity");
     title.classList.add("title");
     title.innerText = titleText;
     recipeLink.setAttribute("href", link);
-    recipeLink.innerText = "go to recipe";
-
+    recipeLink.append(title);
+    button.classList.add(
+      "w3-button",
+      "w3-round-xlarge",
+      "w3-button",
+      "w3-tiny",
+      "authorButton",
+      "w3-green"
+    );
+    button.innerText = "Spoonacular";
     //append
-    innerDiv.append(title, recipeLink);
-    list.append(image, innerDiv);
+    innerDiv.append(title, recipeLink, button);
+    imageDiv.append(image);
+    list.append(imageDiv, innerDiv);
     outerDiv.append(list);
     this.output.append(outerDiv);
+    console.log("result");
   }
 
   removeResults() {

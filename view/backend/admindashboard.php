@@ -49,6 +49,7 @@
                 </div>
                 <span class="w3-bar-item w3-right">
                     <a href="index.php?action=member&page=admin&req=deletethisrec&id=<?=$recipe->getId()?>"><i class="far fa-trash-alt"></i></a>
+                    <a href="index.php?action=recipe&id=<?=$recipe->getId()?>"><i class="fas fa-eye"></i></a>
                 </span>
             </li>
             

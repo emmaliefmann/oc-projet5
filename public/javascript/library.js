@@ -1,9 +1,10 @@
 class Library {
-  constructor() {
+  constructor(listId) {
     this.recipeContainer = document.querySelector("#recipeContainer");
     this.noFilter = document.querySelector("#filter-none");
     this.filters = document.getElementsByClassName("filter");
-    this.recipeSearch = new List("recipeContainer", {
+
+    this.recipeSearch = new List(listId, {
       valueNames: ["title", "category"],
       page: 6,
       pagination: true,
@@ -31,6 +32,4 @@ class Library {
       });
     }
   }
-
-  paginate() {}
 }

@@ -40,7 +40,7 @@
         <div class="w3-bar w3-card">
             <div class="w3-white w3-xlarge emma-header" >
                 <div class="w3-button w3-padding-16 w3-left" onclick="w3_open()">☰</div>
-                <div class="w3-center w3-padding-16"><a href="index.php?action=allrecipes"><h1>Food Friends</h1></a></div>
+                <div class="w3-center w3-padding-16"><a href="index.php?action=allrecipes"><h1>Sharing Table</h1></a></div>
             </div>
         </div>
     </header>
