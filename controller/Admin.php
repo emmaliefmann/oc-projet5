@@ -33,6 +33,7 @@ class Admin
                 $_SESSION['email'] = $user->getEmail();
                 $_SESSION['username'] = $user->getUserName();
                 $_SESSION['userId'] = $user->getId();
+                $_SESSION['level'] = $user->getLevel();
                 header('location: index.php?action=member&page=dashboard');
             }
             else {
@@ -119,7 +120,7 @@ class Admin
         
         $allow = $userManager->allowAccess($user);
         if ($allow === null) {
-            echo "not working";
+            throw new \Exception('Cannot allow access for this user');
         } else {
             echo "success";
         }
@@ -129,10 +130,11 @@ class Admin
     {
         $commentManager = new \emmaliefmann\recipes\model\CommentManager();
         $delete = $commentManager->deleteComment($id);
-        if ($delete === null) {
-            echo "not working";
+        //Check comment is in db first
+        if ($delete === null || $delete === false ) {
+            throw new \Exception('Cannot delete this comment');
         } else {
-            echo "success";
+            header('location: index.php?action=message&id=34');
         }
     }
 
@@ -142,7 +144,7 @@ class Admin
        
         $suspend = $userManager->suspendAccess($user);
         if ($suspend === null) {
-            echo "not working";
+            throw new \Exception('Cannot suspend access for this user');
         } else {
             echo "success";
         }

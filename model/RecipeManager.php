@@ -104,7 +104,6 @@ class RecipeManager extends Manager
     {
        $sql = 'SELECT * FROM recipes WHERE id = ?';
        $result = $this->createQuery($sql, [$id]);
-       var_dump($result);
        $recipe = $result->fetch();
        $recipeObject = $this->buildRecipeObject($recipe);
        return $recipeObject;

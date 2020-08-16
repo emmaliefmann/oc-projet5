@@ -18,34 +18,46 @@ class Router
                 elseif ($_GET['action'] === 'allrecipes') {
                     $frontend = new \emmaliefmann\recipes\controller\Frontend();
                     $recipes = $frontend->getAllRecipes();
+                    
                 }
                 elseif ($_GET['action'] === 'recipe') {
-                    //if id is set, show recipe, if not, show list view 
                     $frontend = new \emmaliefmann\recipes\controller\Frontend();
                     if (isset($_GET['id']) && $_GET['id'] > 0) {
                         $frontend->getRecipe($_GET['id']);
                     }
                     else {
-                        //show a list view
-                        echo "no recipe id";
+                        header("location: index.php?action=allrecipes");
                     }
                 }
-
+                elseif($_GET['action'] === 'message') {
+                    if (isset($_GET['id']) && $_GET['id'] > 0) {
+                        if ($_GET['id'] == 23) {
+                            //401 error?
+                            require('view/redirects/signin.php');
+                        } elseif ($_GET['id'] == 26) {
+                            //403 error?
+                            require('view/redirects/noright.php');
+                        } elseif ($_GET['id']== 30) {
+                            require('view/redirects/success.php');
+                        } elseif ($_GET['id'] == 34) {
+                            require('view/redirects/delete.php');
+                        } 
+                    } else {
+                        echo "get issue";
+                    }
+                }
                 elseif ($_GET['action'] === 'addcomment') {
                     if (isset($_GET['id']) && $_GET['id'] > 0) {
                         if( isset($_SESSION['username'])) {
                             $frontend = new \emmaliefmann\recipes\controller\Frontend();
                             $title = $frontend->getTitle($_GET['id']);
                             $comment = $frontend->addComment($_GET['id'], $_SESSION['username'], $_POST['comment'], $title);
-                        }
-                        else {
-                            
-                            echo "you need to sign in to leave a comment";
-                            //link to sign in or register
+                        } else {
+                            header('location: index.php?action=message&id=23');
                         }
                     }
                     else {
-                        echo "page not found";
+                        require('view/frontend/notfound.php');
                     }
                 }
 
@@ -58,7 +70,6 @@ class Router
                     $admin->registerNewUser($_POST['username'], $_POST['email'], $passwordHash);
                 }
                 elseif ($_GET['action'] === 'signin') {
-                    
                     require('view/backend/signin.php');
                 }
                 elseif ($_GET['action'] === 'login') {
@@ -70,7 +81,7 @@ class Router
                     $admin = new \emmaliefmann\recipes\controller\Admin();
                     $login = $admin->checkLogin();
                     if ($login === false) {
-                       header('location: index.php?action=signin');
+                       header('location: index.php?action=message&id=23');
                     }
                     elseif (isset($_GET['page']) && $_GET['page'] === 'dashboard') {
                         $backend = new \emmaliefmann\recipes\controller\Backend();
@@ -92,8 +103,7 @@ class Router
                             //$categories = $backend->getCategories();
                             $recipe = $backend->changeRecipe($_GET['id']);
                         } else {
-                            echo "recipe not found";
-                            //redirect home 
+                            header('location: index.php?action=member&page=dashboard');
                         }
                     }
                     elseif (isset($_GET['page']) && $_GET['page'] === 'deletethis') {
@@ -107,7 +117,7 @@ class Router
                                 if ($recipe->getUserId() === $_SESSION['userId']) {
                                     $backend->deleteRecipeCheck();
                                 } else {
-                                    echo "no right";
+                                    header('location: index.php?action=message&id=26');
                                 }
                                 //compare with session ID 
                                 //if match show form, if not "echo you do not have the right
@@ -185,54 +195,49 @@ class Router
                     elseif (isset($_GET['page']) && $_GET['page'] === 'admin') {
                         
                         $admin = new \emmaliefmann\recipes\controller\Admin();
-                    
                         $check = $admin->checkAdmin($_SESSION['userId']);
-                            if ($check === true) {
-                                echo $check;
+                            if ($check === false) {
+                                header("location: index.php?action=message&id=26");   
+                            } 
+                        
+                            elseif(!isset($_GET['req'])) {
                                 $admin->dashboard();
-                                
-                            } else {
-                                echo "you can't access this page";
-                                //header("location: index.php?action=member&page=dashboard");
-                            }
-                                  
-                        } elseif(!isset($_GET['req'])) {
-                            $admin->dashboard();
+                                }
                             
-                            }
-                          
-                        elseif(isset($_GET['req']) && $_GET['req'] === 'suspendthisaccess') {
-                            require('view/backend/suspenduser.php');
-                        }  elseif(isset($_GET['req']) && $_GET['req'] === 'suspendaccess') {   
-                            if (isset($_GET['id']) && $_GET['id'] > 0) {
+                            elseif(isset($_GET['req']) && $_GET['req'] === 'suspendthisaccess') {
+                                require('view/backend/suspenduser.php');
+                            }  elseif(isset($_GET['req']) && $_GET['req'] === 'suspendaccess') {   
+                                if (isset($_GET['id']) && $_GET['id'] > 0) {
 
-                                if ($_POST['delete'] === 'true') {
-                                    //check not admin 
+                                    if ($_POST['delete'] === 'true') {
+                                        //check not admin 
 
-                                    $admin->suspendAccess($_GET['id']);
+                                        $admin->suspendAccess($_GET['id']);
+                                    } else {
+                                        echo "not suspended";
+                                    }
                                 } else {
-                                    echo "not suspended";
+                                    $admin->dashboard();
                                 }
-                            } else {
-                                $admin->dashboard();
-                            }
-                        } elseif(isset($_GET['req']) && $_GET['req'] === 'allowaccess') {   
-                            if (isset($_GET['id']) && $_GET['id'] > 0) {
-                                $admin->allowAccess($_GET['id']);
-                            } else {
-                                $admin->dashboard();
-                            }
-                        } elseif(isset($_GET['req']) && $_GET['req'] === 'deletethiscom') { 
-                            require('view/backend/deletecomment.php');  
-                        } elseif (isset($_GET['req']) && $_GET['req'] === 'deletecomment') {
-                            if (isset($_GET['id']) && $_GET['id'] > 0) {
-                                if ($_POST['delete'] === 'true') {
-                                    $admin->deleteComment($_GET['id']);
+                            } elseif(isset($_GET['req']) && $_GET['req'] == 'allowaccess') {   
+                                if (isset($_GET['id']) && $_GET['id'] > 0) {
+                                    $admin->allowAccess($_GET['id']);
                                 } else {
-                                    echo "not deleted";
+                                    $admin->dashboard();
                                 }
-                            } else {
-                                $admin->dashboard();
+                            } elseif(isset($_GET['req']) && $_GET['req'] === 'deletethiscom') { 
+                                echo "router";
+                                require('view/backend/deletecomment.php');  
+                            } elseif (isset($_GET['req']) && $_GET['req'] === 'deletecomment') {
+                                if (isset($_GET['id']) && $_GET['id'] > 0) {
+                                    if ($_POST['delete'] === 'true') {
+                                        $admin->deleteComment($_GET['id']);
+                                    } else {
+                                        echo "not deleted";
+                                    }
+                                } else {
+                                    $admin->dashboard();
+                                }
                             }
                         }
                     }

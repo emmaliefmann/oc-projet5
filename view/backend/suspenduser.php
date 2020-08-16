@@ -4,7 +4,4 @@
     $id = $_GET['id'];
     $buttonValue = "Suspend";
     $formAction = 'index.php?action=member&page=admin&req=suspendaccess&id=';
-?>
-
-
-<?php require('view/backend/verificationtemplate.php'); ?>
+require('view/backend/verificationtemplate.php'); ?>

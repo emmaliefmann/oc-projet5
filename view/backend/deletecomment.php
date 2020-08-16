@@ -5,7 +5,4 @@
     $buttonValue = "Delete";
     $formAction = 'index.php?action=member&page=admin&req=deletecomment&id=';
 
-?>
-
-
-<?php require('view/backend/verificationtemplate.php'); ?>
+ require('view/backend/verificationtemplate.php'); ?>

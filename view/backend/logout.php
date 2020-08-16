@@ -4,8 +4,4 @@
     $buttonValue = "log out";
     $id = null;
     $formAction = 'index.php?action=member&page=signout';
-
-?>
-
-
-<?php require('view/backend/verificationtemplate.php'); ?>
+ require('view/backend/verificationtemplate.php'); ?>

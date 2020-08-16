@@ -27,7 +27,7 @@
                 <span><?=$user->getCreationDate()?></span>
 
             </div>
-        <span class="w3-bar-item w3-button w3-xlarge w3-right button-container">
+        <span class="w3-bar-item w3-large w3-right">
             <a href="index.php?action=member&page=admin&req=suspendthisaccess&id=<?=$user->getId()?>"><i class="far fa-thumbs-down"></i></a>
             <a href="index.php?action=member&page=admin&req=allowaccess&id=<?=$user->getId()?>"><i class="far fa-thumbs-up"></i></a>
         </span>
@@ -35,46 +35,41 @@
         <?php 
         }?>
     </ul>
-    <h3>Moderate comments</h3>
+    <h3>Moderate Comments and recipes</h3>
     <?php 
     for ($i = 0; $i < count($groupComments); $i++) {
         $group = $groupComments[$i];
         //title
         if (array_key_exists(0, $group)) {
             ?>
-            <h5><?=$groupComments[$i][0]->getRecipeTitle()?></h5>
-            <ul>
+            <ul class="w3-ul w3-border">
+            <li class="w3-bar">
+                <div class="w3-bar-item">
+                    <h4><?=$groupComments[$i][0]->getRecipeTitle()?></h4> 
+                </div>
+                <span class="w3-bar-item w3-right">
+                    <a href="index.php?action=member&page=admin&req=deletethisrec&id=<?=$recipe->getId()?>"><i class="far fa-trash-alt"></i></a>
+                </span>
+            </li>
+            
             <?php
             foreach($group as $comment) {
             ?>
             <li><?=$comment->getComment()?>
                 <span>
-                    <a href="index.php?action=member&action=admin&req=deletethiscom&id=<?=$comment->getId()?>"><i class="far fa-trash-alt"></i></a>
+                    <a href="index.php?action=member&page=admin&req=deletethiscom&id=<?=$comment->getId()?>"><i class="far fa-trash-alt"></i></a>
                 </span>
             </li>
             <?php
             }
             ?>
-            </ul>
+            </ul><br><br>
             <?php
         } else {
             echo false;
         }
     }
     ?>
-    <h3>Delete recipes</h3>
-    <ul>
-        <?php 
-
-        foreach ($recipes as $recipe) {
-            ?>
-            <li>
-                <?=$recipe->getTitle()?> by <?=$recipe->getUserId()?>
-                <a href="index.php?action=member&page=admin&req=deletethisrec&id=<?=$recipe->getId()?>"><i class="far fa-trash-alt"></i></a>
-            <?php
-        }
-        ?>
-    </ul>
 <p>update about page text</p>
 <p>Update categories</p>
 

@@ -38,17 +38,10 @@ class CommentManager extends Manager
         $sql = 'SELECT * FROM comments ORDER BY `recipe_id` DESC';
         $result = $this->createQuery($sql);
         $comments = [];
-        $recipeIds = [];
         while ($comment = $result->fetch()) {
-            //create an array per recipe id? 
-            //for loop over array of recipe ids
-            //comment_array[i]
-            $recipeId = $comment['recipe_id'];
-            array_push($recipeIds, $recipeId);
             $commentObject = $this->buildCommentObject($comment);
             array_push($comments, $commentObject);
         }
-        //return ($recipeIds);
         return $comments;
     }
     

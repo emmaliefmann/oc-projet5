@@ -31,7 +31,6 @@ class Backend
     public function dashboard($userId) {
         $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();
         $recipeList = $recipeManager->getMemberRecipes($userId);
-        var_dump($_SESSION);
         require('view/backend/dashboard.php');
     }
     public function addRecipe($userId, $title, $prepTime, $category, $method, $ingredient, $image)
@@ -42,11 +41,10 @@ class Backend
         if ($recipe === false || $recipe === null ) {
             throw new \Exception('Cannot add the recipe');
         } else {
-            $message = "recipe added successfully";
-            header('location: index.php?action=member&page=dashboard');
+            header('location: index.php?action=message&id=30');
         }
     }
-    
+
     public function changeRecipe($id)
     {
         $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();
@@ -56,7 +54,7 @@ class Backend
             require('view/backend/changerecipe.php');
         }
         else {
-            echo "you do not have the right to edit this recipe";
+            header('location: index.php?action=message&id=26');
         }
     }
 
@@ -70,13 +68,12 @@ class Backend
                 throw new \Exception('Cannot update the recipe');
             }
             else {
-                $message = "recipe added successfully";
-                header('location: index.php?action=member&page=dashboard');
+                header('location: index.php?action=message&id=30');
             }
 
         }
         else {
-            echo "you do not have the right to edit this recipe";
+            header('location: index.php?action=message&id=26');
         }
     }
 
@@ -91,11 +88,11 @@ class Backend
         if ($recipe->getUserId() === $_SESSION['userId']) {
             //delete recipe
             $recipeManager->deleteRecipe($id);
-            $message = 'recipe deleted';
-            header('location: index.php?action=member&page=dashboard');
+            
+            header('location: index.php?action=message&id=34');
         }
         else {
-            echo "You do not have the right to delete this recipe";
+            header('location:index.php?action=message&id=26');
         }
     }
 }

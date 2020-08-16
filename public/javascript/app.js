@@ -21,6 +21,11 @@ window.addEventListener("load", () => {
     spoonacular = new Spoonacular();
     library.createFilters();
   }
+  if (page == "message") {
+    console.log("page");
+    popup = new Popup();
+    popup.start();
+  }
   if (page == "member") {
     page = url.searchParams.get("page");
     if (page == "newrecipe") {
