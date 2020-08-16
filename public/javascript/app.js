@@ -24,8 +24,8 @@ window.addEventListener("load", () => {
   if (page == "member") {
     page = url.searchParams.get("page");
     if (page == "newrecipe") {
-      ingredientNumber = url.searchParams.get("ing");
-      recipeForm = new RecipeForm(ingredientNumber);
+      let nbIngredients = 5;
+      recipeForm = new RecipeForm(nbIngredients);
     }
   }
 });

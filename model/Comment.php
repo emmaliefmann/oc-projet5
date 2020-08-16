@@ -9,6 +9,7 @@ class Comment
     private $comment;
     private $creationDate;
     private $recipeId;
+    private $recipeTitle;
 
     public function getId()
     {
@@ -30,6 +31,10 @@ class Comment
     {
         return $this->recipeId;
     }
+    public function getRecipeTitle()
+    {
+        return $this->recipeTitle;
+    }
 
     public function setId($id) 
     {
@@ -50,6 +55,10 @@ class Comment
     public function setRecipeId($recipeId) 
     {
         $this->recipeId = $recipeId;
+    }
+    public function setRecipeTitle($recipeTitle)
+    {
+        $this->recipeTitle = $recipeTitle;
     }
 
 } 

@@ -35,7 +35,8 @@ class Router
                     if (isset($_GET['id']) && $_GET['id'] > 0) {
                         if( isset($_SESSION['username'])) {
                             $frontend = new \emmaliefmann\recipes\controller\Frontend();
-                            $comment = $frontend->addComment($_GET['id'], $_SESSION['username'], $_POST['comment']);
+                            $title = $frontend->getTitle($_GET['id']);
+                            $comment = $frontend->addComment($_GET['id'], $_SESSION['username'], $_POST['comment'], $title);
                         }
                         else {
                             
@@ -182,20 +183,32 @@ class Router
                         }
                     }
                     elseif (isset($_GET['page']) && $_GET['page'] === 'admin') {
-                        //create checkAdmin() boolean 
+                        
                         $admin = new \emmaliefmann\recipes\controller\Admin();
-                        $check = $admin->checkAdmin();
-                        if ($check === false) {
-                            header("location: index.php?action=member&page=dashboard");      
+                    
+                        $check = $admin->checkAdmin($_SESSION['userId']);
+                            if ($check === true) {
+                                echo $check;
+                                $admin->dashboard();
+                                
+                            } else {
+                                echo "you can't access this page";
+                                //header("location: index.php?action=member&page=dashboard");
+                            }
+                                  
                         } elseif(!isset($_GET['req'])) {
                             $admin->dashboard();
-                            //validation form first
                             
-                        }  elseif(isset($_GET['req']) && $_GET['req'] === 'suspendthisaccess') {
+                            }
+                          
+                        elseif(isset($_GET['req']) && $_GET['req'] === 'suspendthisaccess') {
                             require('view/backend/suspenduser.php');
                         }  elseif(isset($_GET['req']) && $_GET['req'] === 'suspendaccess') {   
                             if (isset($_GET['id']) && $_GET['id'] > 0) {
+
                                 if ($_POST['delete'] === 'true') {
+                                    //check not admin 
+
                                     $admin->suspendAccess($_GET['id']);
                                 } else {
                                     echo "not suspended";
@@ -209,9 +222,21 @@ class Router
                             } else {
                                 $admin->dashboard();
                             }
-                        } 
+                        } elseif(isset($_GET['req']) && $_GET['req'] === 'deletethiscom') { 
+                            require('view/backend/deletecomment.php');  
+                        } elseif (isset($_GET['req']) && $_GET['req'] === 'deletecomment') {
+                            if (isset($_GET['id']) && $_GET['id'] > 0) {
+                                if ($_POST['delete'] === 'true') {
+                                    $admin->deleteComment($_GET['id']);
+                                } else {
+                                    echo "not deleted";
+                                }
+                            } else {
+                                $admin->dashboard();
+                            }
+                        }
                     }
-                }
+                
                 //closing of elseif action isset
             }
             

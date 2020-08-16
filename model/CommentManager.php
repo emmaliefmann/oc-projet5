@@ -12,12 +12,13 @@ class CommentManager extends Manager
         $commentObject->setComment($comment['comment']);
         $commentObject->setCreationDate($comment['creation_date']);
         $commentObject->setRecipeId($comment['recipe_id']);
+        $commentObject->setRecipeTitle($comment['recipe_title']);
         return $commentObject;
     }
-    public function addComment($recipeId, $author, $comment)
+    public function addComment($recipeId, $author, $comment, $title)
     {
-        $sql = 'INSERT INTO comments(author, recipe_id, comment, creation_date) VALUES (?, ?, ?, NOW())';
-        return $this->createQuery($sql, array($author, $recipeId, $comment));
+        $sql = 'INSERT INTO comments(author, recipe_id, comment, recipe_title, creation_date) VALUES (?, ?, ?, ?, NOW())';
+        return $this->createQuery($sql, array($author, $recipeId, $comment, $title));
     }
 
     public function getRecipeComments($id)
@@ -34,15 +35,26 @@ class CommentManager extends Manager
 
     public function getAllComments() 
     {
-        $sql = 'SELECT * FROM comments ORDER BY `creation_date` DESC';
+        $sql = 'SELECT * FROM comments ORDER BY `recipe_id` DESC';
         $result = $this->createQuery($sql);
         $comments = [];
+        $recipeIds = [];
         while ($comment = $result->fetch()) {
+            //create an array per recipe id? 
+            //for loop over array of recipe ids
+            //comment_array[i]
+            $recipeId = $comment['recipe_id'];
+            array_push($recipeIds, $recipeId);
             $commentObject = $this->buildCommentObject($comment);
             array_push($comments, $commentObject);
         }
+        //return ($recipeIds);
         return $comments;
     }
     
-
+    public function deleteComment($id)
+    {
+        $sql = 'DELETE FROM comments WHERE `id`= ?';
+        return $this->createQuery($sql, array($id));
+    }
 }

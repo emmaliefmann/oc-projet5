@@ -33,7 +33,6 @@ class Admin
                 $_SESSION['email'] = $user->getEmail();
                 $_SESSION['username'] = $user->getUserName();
                 $_SESSION['userId'] = $user->getId();
-                $_SESSION['level'] = $user->getLevel();
                 header('location: index.php?action=member&page=dashboard');
             }
             else {
@@ -77,9 +76,13 @@ class Admin
         }
     }
 
-    public function checkAdmin() 
+    public function checkAdmin($userId) 
     {
-        if ($_SESSION['level'] === "admin") {
+        $userManager = new \emmaliefmann\recipes\model\UserManager();
+        $result = $userManager->getLevel($userId);
+        $test = $result->fetch();
+        
+        if ($test['level'] === "admin") {
             $admin = true;
         } else {
             $admin = false;
@@ -91,9 +94,22 @@ class Admin
         $userManager = new \emmaliefmann\recipes\model\UserManager();
         $commentManager = new \emmaliefmann\recipes\model\CommentManager();
         $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();
-        $users = $userManager->getAllUsers();
-        $comments = $commentManager->getAllComments();
         $recipes = $recipeManager->getAllRecipes();
+        $recipeIds = [];
+        foreach ($recipes as $recipe) {
+            $id = $recipe->getId();
+            array_push($recipeIds, $id);
+        }
+        $groupComments = [];
+        foreach ($recipeIds as $id) {
+            $comments = $commentManager->getRecipeComments($id);
+            array_push($groupComments, $comments);
+        }
+        $users = $userManager->getAllUsers();
+        //create an array of unique recipe ids from recipes 
+        //loop over array to execute getRecipeComments
+        $comments = $commentManager->getAllComments();
+        
         require('view/backend/admindashboard.php');
     }
 
@@ -103,6 +119,17 @@ class Admin
         
         $allow = $userManager->allowAccess($user);
         if ($allow === null) {
+            echo "not working";
+        } else {
+            echo "success";
+        }
+    }
+
+    public function deleteComment($id)
+    {
+        $commentManager = new \emmaliefmann\recipes\model\CommentManager();
+        $delete = $commentManager->deleteComment($id);
+        if ($delete === null) {
             echo "not working";
         } else {
             echo "success";

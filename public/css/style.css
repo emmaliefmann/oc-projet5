@@ -76,6 +76,9 @@ body {
 .emma-textbox {
   resize: none;
 }
+.button-container {
+  pointer-events: none;
+}
 
 .emma-button {
   display: inline-block;

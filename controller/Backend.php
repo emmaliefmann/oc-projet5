@@ -31,6 +31,7 @@ class Backend
     public function dashboard($userId) {
         $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();
         $recipeList = $recipeManager->getMemberRecipes($userId);
+        var_dump($_SESSION);
         require('view/backend/dashboard.php');
     }
     public function addRecipe($userId, $title, $prepTime, $category, $method, $ingredient, $image)

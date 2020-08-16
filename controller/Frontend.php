@@ -25,10 +25,10 @@ class Frontend
         require('view/frontend/allrecipes.php');
     }
 
-    public function addComment($recipeId, $author, $comment)
+    public function addComment($recipeId, $author, $comment, $title)
     {
         $commentManager = new \emmaliefmann\recipes\model\CommentManager();
-        $comment = $commentManager->addComment($recipeId, $author, $comment);
+        $comment = $commentManager->addComment($recipeId, $author, $comment, $title);
 
         if($comment === false) {
             throw new \Exception('Cannot add this comment');
@@ -36,5 +36,11 @@ class Frontend
         else {
             header('location: index.php?action=recipe&id='.$recipeId.'#comments');
         }
+    }
+    public function getTitle($id)
+    {
+        $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();
+        $recipe = $recipeManager->getRecipe($id);
+        return $recipe->getTitle();
     }
 }

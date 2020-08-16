@@ -34,10 +34,16 @@ class UserManager extends Manager
         return $this->createQuery($sql, array($password, $userId));
 
     }
+    public function getLevel($userId)
+    { 
+        $sql = 'SELECT `level` FROM `users` WHERE `id`=?';
+        return $this->createQuery($sql, [$userId]);
+        
+    }
 
     public function getAllUsers()
     {
-        $sql = 'SELECT * FROM users';
+        $sql = 'SELECT * FROM users ORDER BY `creation_date` DESC';
         $result = $this->createQuery($sql);
         $allUsers = [];
         while ($user = $result->fetch()) {
