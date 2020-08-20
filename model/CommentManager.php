@@ -50,4 +50,10 @@ class CommentManager extends Manager
         $sql = 'DELETE FROM comments WHERE `id`= ?';
         return $this->createQuery($sql, array($id));
     }
+
+    public function getComment($id)
+    {
+        $sql = 'SELECT * FROM comments WHERE `id`= ?';
+        return $this->createQuery($sql, [$id]);
+    }
 }

@@ -146,16 +146,17 @@ class Router
                             if ($_POST['delete'] === 'true') {
                                 $backend = new \emmaliefmann\recipes\controller\Backend();
                                 $backend->deleteRecipe($_GET['id']); 
-                            }
-                            else {
-                                echo "post not deleted";
+                            } elseif ($_POST['delete'] === 'false') {
+                                header("location: index.php?action=member&page=dashboard");
+                            } else {
+                                $id = $_GET['id'];
+                                header("location: index.php?action=member&page=deletethis&id=$id");
                             }
                         }
                     }
 
                     
                     elseif (isset($_GET['page']) && $_GET['page'] === 'newrecipe') {
-                        
                         $backend = new \emmaliefmann\recipes\controller\Backend();
                         $backend->newRecipe();
                     }

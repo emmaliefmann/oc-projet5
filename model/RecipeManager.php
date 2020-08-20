@@ -50,15 +50,19 @@ class RecipeManager extends Manager
        return $recipeList;
     }
 
+    public function getLastRecipe()
+    {
+        $sql = 'SELECT * FROM `recipes` ORDER BY `id` DESC LIMIT 1';
+        return $this->createQuery($sql);
+    }
+
     public function addRecipe($userId, $title, $prepTime, $category, $method, $ingredient, $image) 
     {
         // get the previous insert id, and increment
-       $sql = 'SELECT `id` FROM `recipes` ORDER BY `id` DESC LIMIT 1';
-       $result = $this->createQuery($sql);
+       $result = $this->getLastRecipe();
         while ($prev = $result->fetch()) {
            $id = $prev['id']+1;
         };
-
         //get statements for ingredient insert
         $ingredientSql = [];
         for ($i=0; $i< count($ingredient); $i++) {

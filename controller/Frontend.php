@@ -29,14 +29,9 @@ class Frontend
     {
         $commentManager = new \emmaliefmann\recipes\model\CommentManager();
         $comment = $commentManager->addComment($recipeId, $author, $comment, $title);
-
-        if($comment === false) {
-            throw new \Exception('Cannot add this comment');
-        }
-        else {
-            header('location: index.php?action=recipe&id='.$recipeId.'#comments');
-        }
+        header('location: index.php?action=recipe&id='.$recipeId.'#comments');
     }
+    
     public function getTitle($id)
     {
         $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();

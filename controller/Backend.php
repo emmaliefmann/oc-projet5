@@ -8,7 +8,6 @@ class Backend
     {
         $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();
         $categories = $recipeManager->getCategories();
-        
         return $categories;
     }
     public function newRecipe()
@@ -28,7 +27,8 @@ class Backend
         return $image;
     }
 
-    public function dashboard($userId) {
+    public function dashboard($userId) 
+    {
         $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();
         $recipeList = $recipeManager->getMemberRecipes($userId);
         require('view/backend/dashboard.php');
@@ -37,11 +37,15 @@ class Backend
     {
         $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();
         $recipe = $recipeManager->addRecipe($userId, $title, $prepTime, $category, $method, $ingredient, $image);
-        
-        if ($recipe === false || $recipe === null ) {
-            throw new \Exception('Cannot add the recipe');
-        } else {
+        //check recipe has actually been added
+        $check = $recipeManager->getLastRecipe();
+        $result = $check->fetch();
+    
+        if ($result['title'] === $title) {
+            
             header('location: index.php?action=message&id=30');
+        } else {
+            throw new \Exception('Cannot add the recipe');
         }
     }
 
@@ -70,7 +74,6 @@ class Backend
             else {
                 header('location: index.php?action=message&id=30');
             }
-
         }
         else {
             header('location: index.php?action=message&id=26');
@@ -82,17 +85,25 @@ class Backend
         require('view/backend/deleterecipe.php');
     }
 
-    public function deleteRecipe($id) {
+    public function deleteRecipe($id) 
+    {
         $recipeManager = new \emmaliefmann\recipes\model\RecipeManager();
+        $admin = new \emmaliefmann\recipes\controller\Admin();
+        
         $recipe = $recipeManager->getRecipe($id);
-        if ($recipe->getUserId() === $_SESSION['userId']) {
-            //delete recipe
+        if ($recipe->getId() === null) {
+            throw new \Exception('Recipe not found');
+        } else {
+            if ($recipe->getUserId() === $_SESSION['userId']) {
             $recipeManager->deleteRecipe($id);
-            
             header('location: index.php?action=message&id=34');
-        }
-        else {
+            } elseif ($admin->checkAdmin($_SESSION['userId'])) {
+                $recipeManager->deleteRecipe($id);
+                header('location: index.php?action=message&id=34');  
+            }
+            else {
             header('location:index.php?action=message&id=26');
-        }
+            }
+        } 
     }
 }

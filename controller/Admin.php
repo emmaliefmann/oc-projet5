@@ -52,7 +52,7 @@ class Admin
         $changePassword = $userManager->changePassword($password, $userId);
         //some sort of verification
         $this->signOut();
-    }
+    } 
     public function checkLogOut() 
     {
         require('view/backend/logout.php');
@@ -68,12 +68,14 @@ class Admin
     {
         $userManager = new \emmaliefmann\recipes\model\UserManager();
         $registration = $userManager->register($username, $email, $password);
-
-        if ($registration === false) {
-            throw new \Exception('Cannot register new user');
+        $check = $userManager->getLastUser();
+        $result = $check->fetch();
+        if ($result['username'] === $username) {
+            echo 'Your account has been created';
+            //redirect page
         }
         else {
-            echo 'Your account has been created';
+            throw new \Exception('Cannot register new user');
         }
     }
 
@@ -107,8 +109,6 @@ class Admin
             array_push($groupComments, $comments);
         }
         $users = $userManager->getAllUsers();
-        //create an array of unique recipe ids from recipes 
-        //loop over array to execute getRecipeComments
         $comments = $commentManager->getAllComments();
         
         require('view/backend/admindashboard.php');
@@ -117,7 +117,6 @@ class Admin
     public function allowAccess($user)
     {
         $userManager = new \emmaliefmann\recipes\model\UserManager();
-        
         $allow = $userManager->allowAccess($user);
         if ($allow === null) {
             throw new \Exception('Cannot allow access for this user');
@@ -129,11 +128,12 @@ class Admin
     public function deleteComment($id)
     {
         $commentManager = new \emmaliefmann\recipes\model\CommentManager();
-        $delete = $commentManager->deleteComment($id);
-        //Check comment is in db first
-        if ($delete === null || $delete === false ) {
-            throw new \Exception('Cannot delete this comment');
+        $result = $commentManager->getComment($id);
+        $comment = $result->fetch();
+        if ($comment === false) {
+            throw new \Exception('Cannot find this comment');
         } else {
+            $commentManager->deleteComment($id);
             header('location: index.php?action=message&id=34');
         }
     }

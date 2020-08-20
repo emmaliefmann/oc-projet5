@@ -71,13 +71,14 @@ class Spoonacular {
     let recipeLink = document.createElement("a");
     let button = document.createElement("button");
     //attributes
-    //link.setAttribute("target", "_blank");
+
     image.setAttribute("src", imageSrc);
     image.setAttribute("alt", "food");
     image.classList.add("w3-hover-opacity");
     title.classList.add("title");
     title.innerText = titleText;
     recipeLink.setAttribute("href", link);
+    recipeLink.setAttribute("target", "_blank");
     recipeLink.append(title);
     button.classList.add(
       "w3-button",
@@ -89,12 +90,11 @@ class Spoonacular {
     );
     button.innerText = "Spoonacular";
     //append
-    innerDiv.append(title, recipeLink, button);
+    innerDiv.append(recipeLink, button);
     imageDiv.append(image);
     list.append(imageDiv, innerDiv);
     outerDiv.append(list);
     this.output.append(outerDiv);
-    console.log("result");
   }
 
   removeResults() {

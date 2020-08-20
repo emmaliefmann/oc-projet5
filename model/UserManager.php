@@ -52,6 +52,11 @@ class UserManager extends Manager
         }
         return $allUsers;
     }
+    public function getLastUser()
+    {
+        $sql = 'SELECT * FROM `users` ORDER BY `id` DESC LIMIT 1';
+        return $this->createQuery($sql);
+    }
     
     public function allowAccess($user)
     {
