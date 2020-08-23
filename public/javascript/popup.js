@@ -3,9 +3,11 @@ class Popup {
     this.redirect = document.querySelector("#redirectAddress");
     this.redirectAddress = this.redirect.innerText;
   }
+
   start() {
+    console.log("start");
     setTimeout(() => {
       window.location.href = this.redirectAddress;
-    }, 3000);
+    }, 4000);
   }
 }

@@ -31,8 +31,10 @@ window.addEventListener("load", () => {
   if (page == "member") {
     page = url.searchParams.get("page");
     if (page == "newrecipe") {
-      let nbIngredients = 5;
-      recipeForm = new RecipeForm(nbIngredients);
+      recipeForm = new RecipeForm("addRecipeForm");
+      recipeForm.startAddRecipe();
+    } else if (page == "changerecipe") {
+      let validate = new RecipeForm("edit-recipe");
     }
   }
 });

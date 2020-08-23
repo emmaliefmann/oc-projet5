@@ -1,17 +1,15 @@
 <?php ob_start(); ?>
 
 <h2>Add recipe</h2>
-<button id="testpristine">TEST</button>
 <form action="index.php?action=member&page=addrecipe" method="post" id="addRecipeForm">
-    <div id="test-div"> 
-    </div>
+    
     <div class="form-group">    
         <label for="title">Title</label>
         <input type="text" class="w3-input w3-border form-control" name="title" maxlength="200" required />
     </div>    
     <div class="form-group">
         <label for="prep-time">Preparation time</label>
-        <input type="number" class="w3-input w3-border form control" min="0" name="prep-time" required />
+        <input type="number" class="w3-input w3-border form-control" min="0" name="prep-time" required />
     </div>
     <div class="form-group">
         <label for="image">Image</label><br/>
@@ -20,7 +18,7 @@
     <input name="image" id="filename" type="text" class="invisible"></input><br>
     <div class="form-group">
         <label for="category">Category</label>
-        <select class="w3-select w3-border" name="category">
+        <select class="w3-select w3-border" name="category" required>
         <option value=""></option>
         <?php while ($group = $categories->fetch()) {
         $category = $group['category']; ?>

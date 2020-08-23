@@ -1,37 +1,51 @@
 class RecipeForm {
-  constructor(number) {
-    this.recipeForm = document.querySelector("#addRecipeForm");
+  constructor(id) {
+    this.recipeForm = document.getElementById(id);
     this.ingredientContainer = document.querySelector("#ingredient-container");
-    this.inpfile = document.querySelector("#inpFile");
     this.ingredientNumber = 4;
+    this.ingredientLimit = 20;
     this.addButton = document.querySelector("#addIng");
     this.removeButton = document.querySelector("#removeIng");
     this.ingredientCount = 0;
-    this.fileName = document.querySelector("#filename");
     this.ingredientRows = document.getElementsByClassName("ingredientsrow");
     this.pristine = new Pristine(this.recipeForm);
-
-    //starting
-    for (let i = 0; i < this.ingredientNumber; i++) {
-      this.addIngredientFields(i);
-    }
-
     //event listeners
     this.addButton.addEventListener("click", () => {
-      let i = this.ingredientCount + 1;
-      if (i < 20) {
+      if (this.ingredientRows.length < this.ingredientLimit) {
         let index = this.ingredientRows.length;
         this.addIngredientFields(index);
-        console.log(index);
+
+        this.pristine = new Pristine(this.recipeForm);
+        console.log(this.pristine);
       } else {
-        return;
+        alert("You cannot add more than 20 ingredients to a recipe");
       }
     });
 
     this.removeButton.addEventListener("click", () => {
       this.removeIngredientField();
+      this.pristine = new Pristine(this.recipeForm);
+      console.log(this.pristine);
     });
 
+    this.recipeForm.addEventListener("submit", (e) => {
+      let valid = this.pristine.validate();
+      if (valid == true) {
+        return;
+      } else {
+        e.preventDefault();
+        //if ingredient field empty show message suggesting deleting boxes
+      }
+    });
+  }
+
+  startAddRecipe() {
+    this.inpfile = document.querySelector("#inpFile");
+    this.fileName = document.querySelector("#filename");
+    for (let i = 0; i < this.ingredientNumber; i++) {
+      this.addIngredientFields(i);
+    }
+    this.pristine = new Pristine(this.recipeForm);
     this.inpfile.addEventListener("input", (e) => {
       //using input event means potentially several images uploaded
       if (this.inpfile.files.length == 0) {
@@ -41,17 +55,7 @@ class RecipeForm {
         this.uploadImage();
       }
     });
-
-    this.recipeForm.addEventListener("submit", (e) => {
-      let valid = this.pristine.validate();
-      if (valid == true) {
-        return;
-      } else {
-        e.preventDefault();
-      }
-    });
   }
-
   checkImage() {
     let isValid = true;
     const file = this.inpfile.files[0];
@@ -107,12 +111,12 @@ class RecipeForm {
 
   addIngredientFields(i) {
     let outerDiv = document.createElement("div");
-    outerDiv.classList.add("w3-row-padding", "ingredientsrow", "form-group");
+    outerDiv.classList.add("w3-row-padding", "ingredientsrow");
     let numberDiv = document.createElement("div");
     let unitDiv = document.createElement("div");
     let nameDiv = document.createElement("div");
-    numberDiv.classList.add("w3-third");
-    nameDiv.classList.add("w3-third");
+    numberDiv.classList.add("w3-third", "form-group");
+    nameDiv.classList.add("w3-third", "form-group");
     unitDiv.classList.add("w3-third");
 
     outerDiv.append(numberDiv, unitDiv, nameDiv);
@@ -147,6 +151,7 @@ class RecipeForm {
 
     let nameInput = document.createElement("INPUT");
     nameInput.setAttribute("type", "text");
+    nameInput.required = true;
     nameInput.setAttribute("name", "ingredient[" + i + "][2]");
     nameInput.classList.add("w3-input");
     nameInput.classList.add("w3-border");

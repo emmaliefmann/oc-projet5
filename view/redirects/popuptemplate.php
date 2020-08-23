@@ -26,14 +26,17 @@
     <main>
         <div class="error-box">
             <h1><?=$errorMessage?></h1>
-            <div class="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+            <div>
+                <?=$animation ?>
+            </div>
+            
             <h3>You will be redirected</h3>
-            <img src="public/images/noentry.jpg" alt="No entry sign" class="redirect-img">
+            <!-- <img src="public/images/noentry.jpg" alt="No entry sign" class="redirect-img"> -->
             <span class="invisible" id="redirectAddress"><?=$redirection?></span>
         </div>
     </main>
     
     <script src="public/javascript/app.js"></script>
-    <script src="public/javascript/popup.js"></script>
+    <script src="public/javascript/popup.js"></script> 
 </body>
 </html>

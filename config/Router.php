@@ -164,8 +164,7 @@ class Router
                         if (isset($_GET['id']) && $_GET['id'] > 0) {
                             if (!empty($_POST['title']) && !empty($_POST['prep-time'])&& !empty($_POST['category'])&& !empty($_POST['method'])) {
                                 $backend->editRecipe($_GET['id'], $_POST['title'], $_POST['prep-time'], $_POST['category'], $_POST['method'], $_POST['ingredients']);
-                            }
-                            else {
+                            } else {
                                 $id = $_GET['id'];
                                 header("location: index.php?action=member&page=changerecipe&id=$id");
                             }
@@ -197,6 +196,7 @@ class Router
                             elseif(!isset($_GET['req'])) {
                                 $admin->dashboard();
                                 }
+
                             elseif(isset($_GET['req']) && $_GET['req'] === 'suspendthisaccess') {
                                 require('view/backend/suspenduser.php');
                             }  elseif(isset($_GET['req']) && $_GET['req'] === 'suspendaccess') {   

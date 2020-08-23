@@ -62,7 +62,7 @@
     <script src="public/javascript/library.js"></script>
     <script src="public/javascript/recipeform.js"></script>
     <script src="public/javascript/spoonacular.js"></script>
-    <script src="public/javascript/pristine.min.js"></script>
+    <script src="public/javascript/pristine.js"></script>
     <script>
     // Script to open and close sidebar
     function w3_open() {

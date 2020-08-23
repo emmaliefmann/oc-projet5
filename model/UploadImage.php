@@ -1,6 +1,5 @@
 <?php 
 //posibility to upload profile picture
-//not a class. If it were a class where would it be initialised, doesn't pass by the router? 
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -33,11 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
     if ($errors) {
-
-        echo $file ;  
-        //print_r($errors);
+        print_r($errors);
     }
 
-    //get reference in folder, e.g. uploads/image.jpg as a reference
+
     //how to notify user when errors? 
 }
