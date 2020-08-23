@@ -28,8 +28,8 @@ body {
 }
 .authorButton {
   margin: auto;
-  width: 50%;
-  max-width: 105px;
+
+  width: 105px;
 }
 .invisible {
   display: none;
@@ -47,6 +47,12 @@ body {
 
 .short-link {
   width: 100%;
+}
+.pristine-error {
+  color: red;
+}
+.has-danger > input {
+  border: solid red 2px;
 }
 /*pagination*/
 .pagination li {

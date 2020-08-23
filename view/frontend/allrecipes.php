@@ -26,9 +26,9 @@
       <div class="w3-third w3-section w3-container" >
         <li>
           <div class="w3-card recipe-image">
-            <!--recipe-image class removed from div-->
-            <!-- <a href="index.php?action=recipe&id=<?=$recipe->getId()?>"> -->
-            <img alt="food" class="w3-hover-opacity" 
+            
+            <a href="index.php?action=recipe&id=<?=$recipe->getId()?>">
+              <img alt="food" class="w3-hover-opacity" 
         <?php if ($recipe->getImage() === NULL) {
           ?>
           src="uploads/recipes/generic.jpg" />
@@ -40,10 +40,14 @@
           <?php 
         }
         ?>
-            <!-- </a> -->
+            </a>
         </div>
         <div class="w3-container recipe-info w3-card">
-          <a class="w3-center" href="index.php?action=recipe&id=<?=$recipe->getId()?>"><h5 class="title"><?=$recipe->getTitle()?></h5></a>
+        <?php 
+        $frontend = new \emmaliefmann\recipes\controller\Frontend();
+        ?>
+          <a class="w3-center" href="index.php?action=recipe&id=<?=$recipe->getId()?>"><h5 class="title"><?=$frontend->titleLimit($recipe->getTitle())?></h5></a>
+          
           <p class="category invisible"><?=$recipe->getCategory()?></p>
           <button class="w3-button w3-round-xlarge w3-black w3-button w3-tiny authorButton">SharingTable</button>
         </div>

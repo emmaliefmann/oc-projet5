@@ -1,15 +1,17 @@
 <?php ob_start(); ?>
 
 <h2>Add recipe</h2>
-
+<button id="testpristine">TEST</button>
 <form action="index.php?action=member&page=addrecipe" method="post" id="addRecipeForm">
+    <div id="test-div"> 
+    </div>
     <div class="form-group">    
         <label for="title">Title</label>
         <input type="text" class="w3-input w3-border form-control" name="title" maxlength="200" required />
     </div>    
     <div class="form-group">
         <label for="prep-time">Preparation time</label>
-        <input type="number" class="w3-input w3-border form control" min="0" name="prep-time" />
+        <input type="number" class="w3-input w3-border form control" min="0" name="prep-time" required />
     </div>
     <div class="form-group">
         <label for="image">Image</label><br/>
@@ -38,7 +40,7 @@
     </div>
     <div class="form-group">
         <label for="method">Method</label><br/>
-        <textarea name="method" class="w3-input w3-border emma-textbox form control" required></textarea><br/>
+        <textarea name="method" class="w3-input w3-border emma-textbox form control" required=""></textarea><br/>
     </div>
 
     <input type="submit" value="Add Recipe" class="emma-button" />

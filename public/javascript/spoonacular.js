@@ -44,14 +44,42 @@ class Spoonacular {
     this.output.append(outerDiv);
   }
 
+  shortenTitle(title) {
+    let newTitle;
+    if (title.length > 40) {
+      newTitle = title.slice(0, 37) + "...";
+    } else {
+      newTitle = title;
+    }
+    return newTitle;
+  }
+
+  getType(image) {
+    console.log(image);
+    let type;
+    let test = image.includes("jpg");
+
+    if (image.includes("jpg") == true) {
+      type = "jpg";
+    } else if (image.includes("png") == true) {
+      type = "png";
+    } else if (image.includes("jpeg") == true) {
+      type = "jpeg";
+    } else {
+      type = "other";
+    }
+
+    return type;
+  }
   showResults(result) {
-    const titleText = result.title;
+    const titleText = this.shortenTitle(result.title);
     const prepTime = result.readyInMinutes;
     const link = result.sourceUrl;
     const id = result.id;
+    let imageType = this.getType(result.image);
     //get image type, most are jpg anyway
     const imageSrc =
-      "https://spoonacular.com/recipeImages/" + id + "-636x393.jpg";
+      "https://spoonacular.com/recipeImages/" + id + "-636x393." + imageType;
 
     //make HTML
     let outerDiv = document.createElement("div");

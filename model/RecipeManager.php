@@ -58,6 +58,10 @@ class RecipeManager extends Manager
 
     public function addRecipe($userId, $title, $prepTime, $category, $method, $ingredient, $image) 
     {
+        //security 
+        $title = strip_tags($title);
+        $method = strip_tags($method);
+
         // get the previous insert id, and increment
        $result = $this->getLastRecipe();
         while ($prev = $result->fetch()) {
@@ -68,7 +72,7 @@ class RecipeManager extends Manager
         for ($i=0; $i< count($ingredient); $i++) {
             $quantity = $ingredient[$i][0];
             $unit = $ingredient[$i][2];
-            $ingName =  $ingredient[$i][1];
+            $ingName =  strip_tags($ingredient[$i][1]);
             $lines = "INSERT INTO ingredients(quantity, `ingredient_name`, unit, recipe_id) VALUES ('$quantity','$unit','$ingName',  '$id')"; 
             //ignore empty lines?
             array_push($ingredientSql, $lines);
@@ -76,33 +80,35 @@ class RecipeManager extends Manager
             $insertIngredients = implode(";", $ingredientSql);
             //insert everything into two tables
             $sql = "BEGIN;
-                INSERT INTO recipes(`id`, `user_id`, title, prep_time, category, method, creation_date, image) VALUES('$id', '$userId', '$title', '$prepTime','$category','$method', NOW(), '$image');"
+                INSERT INTO recipes(`id`, `user_id`, title, prep_time, category, method, creation_date, image) VALUES(?, ?, ?, ?, ?, ?, NOW(), ?);"
                 . $insertIngredients."
                 ;COMMIT;";
 
-                return $this->createQuery($sql);
+                return $this->createQuery($sql, array($id, $userId, $title, $prepTime, $category, $method, $image));
     }
        
     public function editRecipe($id, $title, $prepTime, $category, $method, $ingredient)
     {
+        $title = strip_tags($title);
+        $method = strip_tags($method);
         $ingredientSql = [];
         for ($i=0; $i< count($ingredient); $i++) {
             $quantity = $ingredient[$i][0];
             $unit = $ingredient[$i][2];
-            $ingName =  $ingredient[$i][1];
+            $ingName =  strip_tags($ingredient[$i][1]);
             $lines = "INSERT INTO ingredients(quantity, `ingredient_name`, unit, recipe_id) VALUES ('$quantity','$unit','$ingName',  '$id')";
             array_push($ingredientSql, $lines);
             }; 
             $insertIngredients = implode(";", $ingredientSql);
-            //Delete ingredients, then replace with new ones?? 
-            //or get the ingredient id, and update? But what if additional fields added? or removed??
+            //Delete ingredients, then replace with new ones
+            
         $sql = "BEGIN;
-        UPDATE recipes SET `title`= '$title', `prep_time`= '$prepTime', `category`='$category', `method`='$method' WHERE `id`= '$id';
-        DELETE FROM `ingredients` WHERE `recipe_id`='$id';
+        UPDATE recipes SET `title`= ?, `prep_time`= ?, `category`=?, `method`=? WHERE `id`= ?;
+        DELETE FROM `ingredients` WHERE `recipe_id`=?;
         $insertIngredients
         ;COMMIT;";
-        print_r($sql);
-        return $this->createQuery($sql, array($title, $prepTime, $method, $id));
+        
+        return $this->createQuery($sql, array($title, $prepTime, $category, $method, $id, $id));
     }
     public function getRecipe($id) 
     {
@@ -140,6 +146,7 @@ class RecipeManager extends Manager
 
     public function deleteRecipe($id) 
     {
+        
         $sql = 'DELETE FROM recipes WHERE id = ?';
         return $this->createQuery($sql, array($id));
     }

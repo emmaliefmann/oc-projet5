@@ -24,6 +24,7 @@ class UserManager extends Manager
 
     public function register($username, $email, $password)
     {
+        $username = strip_tags($userName);
         $sql ='INSERT INTO  users(username, email, creation_date, `password`) VALUES(?, ?, NOW(), ? )';
         return $this->createQuery($sql, array($username, $email, $password));
     }

@@ -17,6 +17,8 @@ class CommentManager extends Manager
     }
     public function addComment($recipeId, $author, $comment, $title)
     {
+        $comment = strip_tags($comment);
+        
         $sql = 'INSERT INTO comments(author, recipe_id, comment, recipe_title, creation_date) VALUES (?, ?, ?, ?, NOW())';
         return $this->createQuery($sql, array($author, $recipeId, $comment, $title));
     }

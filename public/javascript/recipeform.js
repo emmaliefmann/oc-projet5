@@ -3,18 +3,26 @@ class RecipeForm {
     this.recipeForm = document.querySelector("#addRecipeForm");
     this.ingredientContainer = document.querySelector("#ingredient-container");
     this.inpfile = document.querySelector("#inpFile");
-    this.ingredientNumber = this.numberCheck(number);
+    this.ingredientNumber = 4;
     this.addButton = document.querySelector("#addIng");
     this.removeButton = document.querySelector("#removeIng");
     this.ingredientCount = 0;
     this.fileName = document.querySelector("#filename");
     this.ingredientRows = document.getElementsByClassName("ingredientsrow");
     this.pristine = new Pristine(this.recipeForm);
+
+    //starting
+    for (let i = 0; i < this.ingredientNumber; i++) {
+      this.addIngredientFields(i);
+    }
+
     //event listeners
     this.addButton.addEventListener("click", () => {
       let i = this.ingredientCount + 1;
       if (i < 20) {
-        this.addIngredientFields(i);
+        let index = this.ingredientRows.length;
+        this.addIngredientFields(index);
+        console.log(index);
       } else {
         return;
       }
@@ -23,10 +31,6 @@ class RecipeForm {
     this.removeButton.addEventListener("click", () => {
       this.removeIngredientField();
     });
-
-    for (let i = 0; i < this.ingredientNumber; i++) {
-      this.addIngredientFields(i);
-    }
 
     this.inpfile.addEventListener("input", (e) => {
       //using input event means potentially several images uploaded
@@ -46,18 +50,6 @@ class RecipeForm {
         e.preventDefault();
       }
     });
-  }
-
-  numberCheck(number) {
-    if (number == null || number == 0) {
-      number = 5;
-    }
-    if (number > 20) {
-      number = 20;
-    } else {
-      number = number;
-    }
-    return number;
   }
 
   checkImage() {
@@ -83,7 +75,6 @@ class RecipeForm {
   }
   uploadImage() {
     const isValid = this.checkImage();
-
     if (isValid == true) {
       const fileName = "uploads/recipes/" + this.inpfile.files[0].name;
       //store path somewhere so it can be sent in $_POST
@@ -116,8 +107,7 @@ class RecipeForm {
 
   addIngredientFields(i) {
     let outerDiv = document.createElement("div");
-    outerDiv.classList.add("w3-row-padding");
-    outerDiv.classList.add("ingredientsrow");
+    outerDiv.classList.add("w3-row-padding", "ingredientsrow", "form-group");
     let numberDiv = document.createElement("div");
     let unitDiv = document.createElement("div");
     let nameDiv = document.createElement("div");
@@ -131,8 +121,9 @@ class RecipeForm {
     //number fields
     let numberInput = document.createElement("INPUT");
     numberInput.setAttribute("type", "number");
+    numberInput.required = true;
     numberInput.setAttribute("name", "ingredient[" + i + "][0]");
-    numberInput.classList.add("w3-input", "w3-border");
+    numberInput.classList.add("w3-input", "w3-border", "form-control");
     numberDiv.appendChild(numberInput);
 
     let unitInput = document.createElement("select");

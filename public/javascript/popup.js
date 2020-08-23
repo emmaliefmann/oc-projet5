@@ -6,6 +6,6 @@ class Popup {
   start() {
     setTimeout(() => {
       window.location.href = this.redirectAddress;
-    }, 4000);
+    }, 3000);
   }
 }
