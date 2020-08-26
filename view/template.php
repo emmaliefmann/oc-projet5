@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Emma Liefmann" >
-
+    <link rel="icon" href="public/images/flavicon1.png" >
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet" >
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap" rel="stylesheet">
@@ -31,7 +31,7 @@
         else {?>
                 <a href="index.php?action=register" class="w3-bar-item w3-button" onclick="w3_close()">Create an account</a>
                 <a href="index.php?action=allrecipes" class="w3-bar-item w3-button" onclick="w3_close()">Recipe Library</a>
-                <a href="index.php?action=allrecipes" class="w3-bar-item w3-button" onclick="w3_close()">About us</a>
+                <a href="index.php?action=aboutus" class="w3-bar-item w3-button" onclick="w3_close()">About us</a>
                 <a href="index.php?action=signin" class="w3-bar-item w3-button" onclick="w3_close()">Sign In</a>
         <?php    
         }?>  
@@ -40,12 +40,15 @@
         <div class="w3-bar w3-card">
             <div class="w3-white w3-xlarge emma-header" >
                 <div class="w3-button w3-padding-16 w3-left" onclick="w3_open()">☰</div>
-                <div class="w3-center w3-padding-16"><a href="index.php?action=allrecipes"><h1>Sharing Table</h1></a></div>
+                <div class="w3-center w3-padding-16 display">
+                    <img src="public/images/logo.png" class="logo w3-center" alt="logo">
+                    <a class="w3-center" href="index.php?action=allrecipes"><h1>Sharing Table</h1></a>
+                </div>
             </div>
         </div>
     </header>
     <!-- !PAGE CONTENT! -->
-    <main class="w3-main w3-content w3-padding" >
+    <main class="w3-main w3-padding" >
         <?= $content ?>
     </main>
     <footer class="w3-container w3-grey w3-center w3-margin-top">

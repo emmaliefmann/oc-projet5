@@ -1,7 +1,7 @@
 <?php ob_start();
 ?>
 <div class="w3-row">
-    <div class="w3-col m6 w3-padding-large w3-hide-small">
+    <div class="w3-col m6 w3-padding-large">
      <img src=<?=$recipe->getImage()?> class="w3-round w3-image w3-opacity-min" alt="Table Setting">
     </div>
 

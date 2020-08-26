@@ -71,10 +71,8 @@
         }
     }
     ?>
-<p>update about page text</p>
-<p>Update categories</p>
 
 <?php $content = ob_get_clean(); ?>
-<?php $pageTitle = "Members page" ?>
-<?php $title = "RecipeApp - Administration" ?>
+<?php $pageTitle = "Admin page" ?>
+<?php $title = "Sharing Table - Administration" ?>
 <?php require('view/template.php') ?>

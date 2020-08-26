@@ -29,7 +29,7 @@ class Frontend
     {
         $commentManager = new \emmaliefmann\recipes\model\CommentManager();
         $comment = $commentManager->addComment($recipeId, $author, $comment, $title);
-    //header('location: index.php?action=recipe&id='.$recipeId.'#comments');
+        header('location: index.php?action=recipe&id='.$recipeId.'#comments');
     }
     
     public function getTitle($id)

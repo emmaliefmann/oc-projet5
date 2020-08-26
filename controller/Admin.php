@@ -11,12 +11,11 @@ class Admin
             } else {
             $login = false;
             } 
-        } else {
+            } else {
                 $login = false;
             }
         return $login;
     }
-
     
     public function logIn($email, $password)
     {
@@ -37,12 +36,13 @@ class Admin
                 header('location: index.php?action=member&page=dashboard');
             }
             else {
-                //require('view/backend/signin.php');
-                echo "wrong password";
+                //wrong password
+                header("location: index.php?action=message&id=36");
             }
         }
         else {
-            echo "wrong username";
+            //wrong username
+            header("location: index.php?action=message&id=36");
         }
     }
 
@@ -50,7 +50,6 @@ class Admin
     {
         $userManager = new \emmaliefmann\recipes\model\UserManager();
         $changePassword = $userManager->changePassword($password, $userId);
-        //some sort of verification
         $this->signOut();
     } 
     public function checkLogOut() 
@@ -61,7 +60,7 @@ class Admin
     public function signOut()
     {
         session_destroy();
-        header('location: index.php?action=allrecipes');
+        header('location: index.php?action=home');
     }
 
     public function registerNewUser( $username, $email, $password)
@@ -71,8 +70,7 @@ class Admin
         $check = $userManager->getLastUser();
         $result = $check->fetch();
         if ($result['username'] === $username) {
-            echo 'Your account has been created';
-            //redirect page
+            header("location: index.php?action=message&id=29");
         }
         else {
             throw new \Exception('Cannot register new user');
@@ -84,7 +82,6 @@ class Admin
         $userManager = new \emmaliefmann\recipes\model\UserManager();
         $result = $userManager->getLevel($userId);
         $test = $result->fetch();
-        
         if ($test['level'] === "admin") {
             $admin = true;
         } else {
@@ -121,7 +118,7 @@ class Admin
         if ($allow === null) {
             throw new \Exception('Cannot allow access for this user');
         } else {
-            echo "success";
+            header('location: index.php?action=member&page=dashboard');
         }
     }
 
@@ -146,7 +143,7 @@ class Admin
         if ($suspend === null) {
             throw new \Exception('Cannot suspend access for this user');
         } else {
-            echo "success";
+            header('location: index.php?action=member&page=dashboard');
         }
     }
 }

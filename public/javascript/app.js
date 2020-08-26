@@ -1,13 +1,9 @@
 class App {
-  constructor() {
-    this.menuBar = document.getElementById("mySidebar");
-  }
-  //put menu stuff here
+  constructor() {}
 }
 let myApp;
 
 window.addEventListener("load", () => {
-  //new class with basic javascript, menu etc.,
   myApp = new App();
   let site = window.location.href;
   let url = new URL(site);

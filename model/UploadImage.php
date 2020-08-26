@@ -35,6 +35,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         print_r($errors);
     }
 
-
-    //how to notify user when errors? 
 }

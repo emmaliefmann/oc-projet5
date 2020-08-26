@@ -121,7 +121,7 @@ class RecipeManager extends Manager
 
     public function getAllRecipes() 
     {
-        $sql = 'SELECT * FROM recipes';
+        $sql = 'SELECT * FROM recipes ORDER BY creation_date DESC';
         $result = $this->createQuery($sql);
         $recipeList = [];
         while ($recipe = $result->fetch()) {

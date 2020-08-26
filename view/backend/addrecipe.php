@@ -45,5 +45,5 @@
     
 <?php $content = ob_get_clean(); ?>
 <?php $pageTitle = "Add recipe" ?>
-<?php $title = "RecipeApp - Add recipe" ?>
+<?php $title = "Sharing Table - Add recipe" ?>
 <?php require('view/template.php') ?>

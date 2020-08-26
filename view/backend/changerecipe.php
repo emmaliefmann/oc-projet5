@@ -1,7 +1,7 @@
 <?php ob_start(); ?>
 
 
-<h2>Edit <?=$recipe->getTitle()?> </h2>
+<h2>Edit Recipe: <?=$recipe->getTitle()?> </h2>
 <form action="index.php?action=member&page=editrecipe&id=<?=$recipe->getId()?>" method="post" id="edit-recipe">
     <div class="form-group">
         <label for="title">Title</label>

@@ -3,11 +3,13 @@ class Spoonacular {
     this.search = document.querySelector("#search");
     this.button = document.querySelector("#searchButton");
     this.apiKey = "094914fc0c704151b19e4963ad4322ba";
-    //this.clear = document.querySelector("#clear");
     this.output = document.querySelector("#output");
+    this.noResultDiv = document.querySelector("#no-com-results");
     this.listId = "recipeContainer";
     this.button.addEventListener("click", () => {
+      this.noResultDiv = document.querySelector("#no-com-results");
       let search = this.search.value;
+      this.noResultDiv.remove();
       this.getResults(search);
     });
   }
@@ -23,7 +25,6 @@ class Spoonacular {
       .then((response) => response.json())
       .then((data) => {
         let results = data.results;
-        console.log(results);
         let result;
         if (results.length == 0) {
           this.noResults(search);
@@ -55,7 +56,6 @@ class Spoonacular {
   }
 
   getType(image) {
-    console.log(image);
     let type;
     let test = image.includes("jpg");
 
@@ -63,12 +63,12 @@ class Spoonacular {
       type = "jpg";
     } else if (image.includes("png") == true) {
       type = "png";
+      console.log("png");
     } else if (image.includes("jpeg") == true) {
       type = "jpeg";
     } else {
       type = "other";
     }
-
     return type;
   }
   showResults(result) {
@@ -77,7 +77,6 @@ class Spoonacular {
     const link = result.sourceUrl;
     const id = result.id;
     let imageType = this.getType(result.image);
-    //get image type, most are jpg anyway
     const imageSrc =
       "https://spoonacular.com/recipeImages/" + id + "-636x393." + imageType;
 
@@ -99,7 +98,6 @@ class Spoonacular {
     let recipeLink = document.createElement("a");
     let button = document.createElement("button");
     //attributes
-
     image.setAttribute("src", imageSrc);
     image.setAttribute("alt", "food");
     image.classList.add("w3-hover-opacity");
@@ -114,6 +112,7 @@ class Spoonacular {
       "w3-button",
       "w3-tiny",
       "authorButton",
+      "pointer",
       "w3-green"
     );
     button.innerText = "Spoonacular";

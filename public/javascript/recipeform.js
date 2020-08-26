@@ -9,6 +9,7 @@ class RecipeForm {
     this.ingredientCount = 0;
     this.ingredientRows = document.getElementsByClassName("ingredientsrow");
     this.pristine = new Pristine(this.recipeForm);
+
     //event listeners
     this.addButton.addEventListener("click", () => {
       if (this.ingredientRows.length < this.ingredientLimit) {
@@ -47,9 +48,7 @@ class RecipeForm {
     }
     this.pristine = new Pristine(this.recipeForm);
     this.inpfile.addEventListener("input", (e) => {
-      //using input event means potentially several images uploaded
       if (this.inpfile.files.length == 0) {
-        console.log("empty");
         return;
       } else {
         this.uploadImage();
@@ -61,13 +60,7 @@ class RecipeForm {
     const file = this.inpfile.files[0];
     let type = file.type.split("/").pop().toLowerCase();
     console.log(type);
-    if (
-      type != "jpeg" &&
-      type != "png" &&
-      type != "jpg" &&
-      type != "gif" &&
-      type != "bmp"
-    ) {
+    if (type != "jpeg" && type != "png" && type != "jpg" && type != "jpeg") {
       alert("Invalid file type");
       isValid = false;
     }
@@ -81,7 +74,6 @@ class RecipeForm {
     const isValid = this.checkImage();
     if (isValid == true) {
       const fileName = "uploads/recipes/" + this.inpfile.files[0].name;
-      //store path somewhere so it can be sent in $_POST
       this.fileName.innerText = fileName;
       this.fileName.setAttribute("value", fileName);
       const endpoint = "model/UploadImage.php";
@@ -97,7 +89,6 @@ class RecipeForm {
     } else {
       return;
     }
-    console.log(inpFile.files[0]);
   }
 
   removeIngredientField() {

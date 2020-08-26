@@ -44,6 +44,6 @@
 
 <?php $content = ob_get_clean(); ?>
 <?php $pageTitle = "Members page" ?>
-<?php $title = "RecipeApp - Your account" ?>
+<?php $title = "Sharing Table - Your account" ?>
 <?php require('view/template.php'); ?>
     

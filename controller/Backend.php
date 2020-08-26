@@ -42,7 +42,6 @@ class Backend
         $result = $check->fetch();
     
         if ($result['title'] === $title) {
-            
             header('location: index.php?action=message&id=30');
         } else {
             throw new \Exception('Cannot add the recipe');
@@ -72,10 +71,12 @@ class Backend
                 throw new \Exception('Cannot update the recipe');
             }
             else {
+                //recipe updated
                 header('location: index.php?action=message&id=30');
             }
         }
         else {
+            //not author, so cannot edit recipe
             header('location: index.php?action=message&id=26');
         }
     }
@@ -102,6 +103,7 @@ class Backend
                 header('location: index.php?action=message&id=34');  
             }
             else {
+                //no right to delete the recipe as not admin or author
             header('location:index.php?action=message&id=26');
             }
         } 

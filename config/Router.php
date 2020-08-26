@@ -8,12 +8,14 @@ class Router
 
         try {
             if (!isset($_GET['action'])) {
-                require('view/frontend/home.php');
+                require("view/frontend/home.php");
             }
             elseif (isset($_GET['action'])) {
                 if ($_GET['action'] === 'home') {
-                    $frontend = new \emmaliefmann\recipes\controller\Frontend();
-                    $recipes = $frontend->getAllRecipes(); 
+                    require("view/frontend/home.php");
+                } 
+                elseif ($_GET['action'] === 'aboutus') {
+                    require("view/frontend/aboutus.php");
                 }
                 elseif ($_GET['action'] === 'allrecipes') {
                     $frontend = new \emmaliefmann\recipes\controller\Frontend();
@@ -32,18 +34,21 @@ class Router
                 elseif($_GET['action'] === 'message') {
                     if (isset($_GET['id']) && $_GET['id'] > 0) {
                         if ($_GET['id'] == 23) {
-                            //401 error?
                             require('view/redirects/signin.php');
                         } elseif ($_GET['id'] == 26) {
-                            //403 error?
                             require('view/redirects/noright.php');
+                        } elseif ($_GET['id'] == 29) {
+                            require('view/redirects/newaccount.php');
                         } elseif ($_GET['id']== 30) {
                             require('view/redirects/success.php');
                         } elseif ($_GET['id'] == 34) {
                             require('view/redirects/delete.php');
-                        } 
+                        } elseif ($_GET['id'] == 36) {
+                            require('view/redirects/wronglogin.php');
+                        }
                     } else {
-                        echo "get issue";
+                        $frontend = new \emmaliefmann\recipes\controller\Frontend();
+                        $recipes = $frontend->getAllRecipes(); 
                     }
                 }
                 elseif ($_GET['action'] === 'addcomment') {
@@ -100,8 +105,7 @@ class Router
                     elseif (isset($_GET['page']) && $_GET['page'] === 'changerecipe') {
                         if (isset($_GET['id']) && $_GET['id'] > 0) {
                             $backend = new \emmaliefmann\recipes\controller\Backend();
-                            //$categories = $backend->getCategories();
-                            $recipe = $backend->changeRecipe($_GET['id']);
+                            $backend->changeRecipe($_GET['id']);
                         } else {
                             header('location: index.php?action=member&page=dashboard');
                         }
@@ -119,7 +123,6 @@ class Router
                                 } else {
                                     header('location: index.php?action=message&id=26');
                                 }
-                                
                             }
                         } else {
                             throw new \Exception('Recipe not found');
@@ -175,7 +178,6 @@ class Router
                     }
                 
                     elseif (isset($_GET['page']) && $_GET['page'] === 'addrecipe') {
-                        //check there are no empty fields 
                         $ingredients = $_POST['ingredient'];
                         if (!empty($_POST['title']) && !empty($_POST['prep-time'])&& !empty($_POST['method'])&& !empty($_POST['ingredient'])) {
                             $ingredients = $_POST['ingredient'];
@@ -201,8 +203,8 @@ class Router
                                 require('view/backend/suspenduser.php');
                             }  elseif(isset($_GET['req']) && $_GET['req'] === 'suspendaccess') {   
                                 if (isset($_GET['id']) && $_GET['id'] > 0) {
+                                    //check form 
                                     if ($_POST['delete'] === 'true') {
-                                        //check form 
                                         $admin->suspendAccess($_GET['id']);
                                     } else {
                                         $admin->dashboard();
