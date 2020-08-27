@@ -20,21 +20,20 @@
     <nav class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-left emma-menu" id="mySidebar">
         <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button">Close Menu</a>
         <a href="index.php" class="logo w3-bar-item w3-button"><i class="fas fa-home"></i></a> 
-            <?php if(isset ($_SESSION['active'])) {
-        ?>
+            <?php if(isset ($_SESSION['active'])): ?>
             <a href="index.php?action=member&page=newrecipe" class="w3-bar-item w3-button" onclick="w3_close()">Add Recipe</a>
             <a href="index.php?action=allrecipes" class="w3-bar-item w3-button" onclick="w3_close()">Recipe Library</a>
             <a href="index.php?action=member&page=dashboard" class="w3-bar-item w3-button" onclick="w3_close()">Dashboard</a>
             <a href="index.php?action=member&page=logout" class="w3-bar-item w3-button" onclick="w3_close()">Sign out</a>
         <?php
-        }
-        else {?>
+        
+        else :?>
                 <a href="index.php?action=register" class="w3-bar-item w3-button" onclick="w3_close()">Create an account</a>
                 <a href="index.php?action=allrecipes" class="w3-bar-item w3-button" onclick="w3_close()">Recipe Library</a>
                 <a href="index.php?action=aboutus" class="w3-bar-item w3-button" onclick="w3_close()">About us</a>
                 <a href="index.php?action=signin" class="w3-bar-item w3-button" onclick="w3_close()">Sign In</a>
         <?php    
-        }?>  
+        endif;?>  
 		</nav>
         <!-- filtering menu -->
         <div class="w3-bar w3-card">
@@ -71,13 +70,9 @@
     function w3_open() {
     document.getElementById("mySidebar").style.display = "block";
     }
-    
     function w3_close() {
     document.getElementById("mySidebar").style.display = "none";
     }
-
-    
-
     </script>
     </body>
 </html>

@@ -3,21 +3,21 @@
 <h2>Admin</h2>
 <h3>Members</h3>
     <ul class="w3-ul w3-card-4">
-    <?php foreach($users as $user) {?>
+    <?php foreach($users as $user) :?>
         <li class="w3-bar">
         <span class="w3-bar-item w3-circle">
         <?php 
-        if ($user->getActive() === "active") {
+        if ($user->getActive() === "active") :
             ?>
             <i class="far fa-check-circle fa-2x w3-text-green"></i>
             <?php
-        } elseif ($user->getActive() === "suspended") {
+         elseif ($user->getActive() === "suspended") :
             ?>
             <i class="far fa-times-circle fa-2x w3-text-red"></i>
-            <?php } else {
+            <?php  else :
                 ?> 
                 <i class="far fa-question-circle fa-2x w3-text-orange"></i>
-            <?php }
+            <?php endif;
             ?>
             </span> 
             <div class="w3-bar-item">
@@ -33,14 +33,14 @@
         </span>
         </li>
         <?php 
-        }?>
+        endforeach;?>
     </ul>
     <h3>Moderate Comments and recipes</h3>
     <?php 
-    for ($i = 0; $i < count($groupComments); $i++) {
+    for ($i = 0; $i < count($groupComments); $i++) :
         $group = $groupComments[$i];
         //title
-        if (array_key_exists(0, $group)) {
+        if (array_key_exists(0, $group)) :
             ?>
             <ul class="w3-ul w3-border">
             <li class="w3-bar">
@@ -54,7 +54,7 @@
             </li>
             
             <?php
-            foreach($group as $comment) {
+            foreach($group as $comment) :
             ?>
             <li><?=$comment->getComment()?>
                 <span>
@@ -62,15 +62,16 @@
                 </span>
             </li>
             <?php
-            }
+            endforeach;
             ?>
             </ul><br><br>
             <?php
-        } else {
-            echo false;
-        }
-    }
-    ?>
+         else: ?>
+            
+        <?php
+    endif;
+endfor;
+        ?>
 
 <?php $content = ob_get_clean(); ?>
 <?php $pageTitle = "Admin page" ?>

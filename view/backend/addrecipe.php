@@ -20,11 +20,11 @@
         <label for="category">Category</label>
         <select class="w3-select w3-border" name="category" required>
         <option value=""></option>
-        <?php while ($group = $categories->fetch()) {
+        <?php while ($group = $categories->fetch()) :
         $category = $group['category']; ?>
         <option value="<?=$category?>"><?=$category?></option>
         <?php 
-        }
+        endwhile;
         ?>
         </select>
     </div>

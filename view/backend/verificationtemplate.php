@@ -14,31 +14,33 @@
     <title><?=$title?></title>
 </head>
 <body>
-    <header>     
+<header>     
     <nav class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-left emma-menu" id="mySidebar">
         <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button">Close Menu</a>
-        <a href="index.php" class="logo"><i class="fas fa-home"></i></a> 
-            <?php if(isset($_SESSION['active']) && $_SESSION['active']=== true) {
-        ?>
+        <a href="index.php" class="logo w3-bar-item w3-button"><i class="fas fa-home"></i></a> 
+            <?php if(isset ($_SESSION['active'])): ?>
             <a href="index.php?action=member&page=newrecipe" class="w3-bar-item w3-button" onclick="w3_close()">Add Recipe</a>
             <a href="index.php?action=allrecipes" class="w3-bar-item w3-button" onclick="w3_close()">Recipe Library</a>
-            <a href="index.php?action=allrecipes" class="w3-bar-item w3-button" onclick="w3_close()">Your profile</a>
+            <a href="index.php?action=member&page=dashboard" class="w3-bar-item w3-button" onclick="w3_close()">Dashboard</a>
             <a href="index.php?action=member&page=logout" class="w3-bar-item w3-button" onclick="w3_close()">Sign out</a>
         <?php
-        }
-        else {?>
+        
+        else :?>
                 <a href="index.php?action=register" class="w3-bar-item w3-button" onclick="w3_close()">Create an account</a>
                 <a href="index.php?action=allrecipes" class="w3-bar-item w3-button" onclick="w3_close()">Recipe Library</a>
-                <a href="index.php?action=allrecipes" class="w3-bar-item w3-button" onclick="w3_close()">About us</a>
+                <a href="index.php?action=aboutus" class="w3-bar-item w3-button" onclick="w3_close()">About us</a>
                 <a href="index.php?action=signin" class="w3-bar-item w3-button" onclick="w3_close()">Sign In</a>
         <?php    
-        }?>  
+        endif;?>  
 		</nav>
-        <!-- Top menu -->
+        <!-- filtering menu -->
         <div class="w3-bar w3-card">
             <div class="w3-white w3-xlarge emma-header" >
                 <div class="w3-button w3-padding-16 w3-left" onclick="w3_open()">☰</div>
-                <div class="w3-center w3-padding-16"><h1>Food Friends</h1></div>
+                <div class="w3-center w3-padding-16 display">
+                    <img src="public/images/logo.png" class="logo w3-center" alt="logo">
+                    <a class="w3-center" href="index.php?action=allrecipes"><h1>Sharing Table</h1></a>
+                </div>
             </div>
         </div>
     </header>

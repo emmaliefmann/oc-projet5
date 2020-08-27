@@ -45,6 +45,8 @@ class Router
                             require('view/redirects/delete.php');
                         } elseif ($_GET['id'] == 36) {
                             require('view/redirects/wronglogin.php');
+                        } elseif ($_GET['id'] == 37) {
+                            require('view/redirects/inactiveaccount.php');
                         }
                     } else {
                         $frontend = new \emmaliefmann\recipes\controller\Frontend();

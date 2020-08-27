@@ -10,19 +10,18 @@
       <span class="w3-margin-right"><i class="fas fa-utensils w3-margin-right"></i> Filter:</span>
       <button class="w3-button w3-black" id="filter-none">ALL</button>
       <?php
-      while ($group = $categories->fetch()) {
+      while ($group = $categories->fetch()) :
         $category = $group['category']?>
       
          <button class="w3-button w3-white filter" id="<?=$category?>">
          <?=$category?>
          <?php 
-      }
+      endwhile;
       ?>
       </div>
       <ul class="list" id="output">
-      
     <?php 
-    foreach($recipes as $recipe) {
+    foreach($recipes as $recipe) :
         ?> 
       <div class="w3-third w3-section w3-container" >
         <li>
@@ -30,16 +29,16 @@
             
             <a href="index.php?action=recipe&id=<?=$recipe->getId()?>">
               <img alt="food" class="w3-hover-opacity" 
-        <?php if ($recipe->getImage() === NULL) {
+        <?php if ($recipe->getImage() === NULL) :
           ?>
           src="uploads/recipes/generic.jpg" />
           <?php
-        } 
-        else {
+        
+        else :
           ?>
           src="<?=$recipe->getImage()?>" />
           <?php 
-        }
+        endif;
         ?>
             </a>
         </div>
@@ -56,7 +55,7 @@
       </div>
       
     <?php
-    }
+    endforeach;
     ?>
     
  </ul> 

@@ -9,31 +9,31 @@
       <h2 class="w3-center"><?=$recipe->getTitle()?></h2><br>
       <h5 class="w3-center">Ingredients</h5>
       <ul class="w3-ul">
-        <?php foreach($recipe->getIngredientList() as $ingredient) {
+        <?php foreach($recipe->getIngredientList() as $ingredient) :
             ?>
             <li><?=$ingredient->getQuantity()?> <?=$ingredient->getUnit()?> <?=$ingredient->getIngredientName()?></li>
             <?php
-        }?>
+        endforeach;?>
         </ul>
       <p><?=$recipe->getMethod()?></p>
     </div>
   </div>
 <h4 id="comments">Comments</h4>
 <?php
-if (empty($comments)) { ?>
+if (empty($comments)) : ?>
     <p>there are no comments yet</p>
     <?php
-} 
-else {
-    foreach($comments as $comment) {
+ 
+else :
+    foreach($comments as $comment) :
         ?>  
         <div>
         <p><strong><?=$comment->getAuthor()?></strong></p>
         <p><?=$comment->getComment()?></p>
         </div>
     <?php
-    }
-    }
+    endforeach;
+endif;
     ?>
 <form action="index.php?action=addcomment&id=<?= $recipe->getId() ?>" method="post">
     <div>

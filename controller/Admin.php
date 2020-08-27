@@ -28,12 +28,17 @@ class Admin
             $check = password_verify($userInput, $dbPassword);
             if ($check) {
                 $user = $userManager->buildUserObject($dbResult);
-                $_SESSION['active'] = $user->getActive();
-                $_SESSION['email'] = $user->getEmail();
-                $_SESSION['username'] = $user->getUserName();
-                $_SESSION['userId'] = $user->getId();
-                $_SESSION['level'] = $user->getLevel();
-                header('location: index.php?action=member&page=dashboard');
+                $active = $user->getActive();
+                if ($active = "active") {
+                    $_SESSION['active'] = $user->getActive();
+                    $_SESSION['email'] = $user->getEmail();
+                    $_SESSION['username'] = $user->getUserName();
+                    $_SESSION['userId'] = $user->getId();
+                    $_SESSION['level'] = $user->getLevel();
+                    header('location: index.php?action=member&page=dashboard');
+                } else {
+                    header('location: index.php?action=message&id=37');
+                }
             }
             else {
                 //wrong password

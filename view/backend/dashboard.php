@@ -8,14 +8,14 @@
         <a class="emma-button" href="index.php?action=member&page=changepassword">Change password</a><br>
     </div>
 </div>
-<?php if($_SESSION['level'] ==="admin") {
+<?php if($_SESSION['level'] ==="admin") :
     ?>
     <a class="emma-button" href="index.php?action=member&page=admin">ADMIN <i class="fas fa-lock"></i></a>
     <?php
-} ?>
+endif; ?>
 <div class="w3-container w3-section">
     <h2>Edit your recipes</h2>
-    <?php if(count($recipeList)===0) {
+    <?php if(count($recipeList)===0) :
         ?>
     <p>You don't have any recipes yet! Why not add one to our library?</p>
     <a href="index.php?action=member&page=newrecipe" class="emma-button">Add recipe</a><br>
@@ -23,24 +23,22 @@
 </div>
         
         <?php
-    } else { ?>
+    else : ?>
 
     <ul class="w3-ul w3-border dashboard-list">
     <?php
-    foreach($recipeList as $recipe) { ?>
+    foreach($recipeList as $recipe) : ?>
         <li class="w3-bar">
             <h5 class="w3-bar-item"><?=$recipe->getTitle()?></h5>
             <span class="w3-bar-item w3-large w3-right">
                 <a href="index.php?action=member&page=changerecipe&id=<?=$recipe->getId()?>"><i class="far fa-edit fa-2x"></i></a>
             </span>
         </li>
-    
         <?php
-        }
-        }?>
+        endforeach;
+    endif;?>
     </ul>
 </div>
-
 
 <?php $content = ob_get_clean(); ?>
 <?php $pageTitle = "Members page" ?>
