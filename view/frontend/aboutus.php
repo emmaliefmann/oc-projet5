@@ -19,13 +19,13 @@
                 <div class="w3-container w3-padding-16 w3-half">
                     <div class="recipe-info w3-card w3-container">
                         <h5 class="w3-center">Become a member today</h5>
-                        <button class="w3-button w3-center w3-round-xlarge w3-black w3-button w3-tiny authorButton">Sign up</button>
+                        <a class="w3-button w3-center w3-round-xlarge w3-black w3-button w3-tiny authorButton" href="index.php?action=action=signin" >Sign up</a>
                     </div> 
                 </div>
                 <div class="w3-container w3-padding-16 w3-half">
                     <div class="recipe-info w3-card w3-container">
                         <h5 class="w3-center">View the recipe library</h5>
-                        <button class="w3-button w3-center w3-round-xlarge w3-black w3-button w3-tiny authorButton"><a href="index.php?action=allrecipes">Library</a></button>
+                        <a class="w3-button w3-center w3-round-xlarge w3-black w3-button w3-tiny authorButton" href="index.php?action=allrecipes">Library</a>
                     </div> 
                 </div>
             </div>

@@ -47,7 +47,7 @@
         </div>
     </header>
     <!-- !PAGE CONTENT! -->
-    <main class="w3-main w3-padding" >
+    <main class="w3-main w3-padding w3-content" >
         <?= $content ?>
     </main>
     <footer class="w3-container w3-grey w3-center w3-margin-top">

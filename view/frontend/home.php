@@ -17,12 +17,12 @@
         <div class="w3-card home-card display">
             <h5 class="w3-center">About us</h5>
             <i class="fas fa-question fa-3x"></i>
-            <button class="w3-button w3-center w3-round-xlarge w3-black w3-button w3-tiny authorButton"><a href="index.php?action=aboutus">About</a></button>
+            <a class="w3-button w3-center w3-round-xlarge w3-black w3-button w3-tiny authorButton" href="index.php?action=aboutus">About</a>
         </div>
         <div class="w3-card home-card display">
             <h5 class="w3-center">Library</h5>
             <i class="fas fa-book-open fa-3x"></i>
-            <button class="w3-button w3-center w3-round-xlarge w3-black w3-button w3-tiny authorButton"><a href="index.php?action=allrecipes">Library</a></button>
+            <a href="index.php?action=allrecipes" class="w3-button w3-center w3-round-xlarge w3-black w3-button w3-tiny authorButton">Library</a>
         </div>
     </div>
     <div class="w3-container w3-third emma-col">
@@ -34,12 +34,12 @@
     <div class="w3-card home-card display">
             <h5 class="w3-center">Join us</h5>
             <i class="fas fa-users fa-3x"></i>
-            <button class="w3-button w3-center w3-round-xlarge w3-black w3-button w3-tiny authorButton"><a href="index.php?action=register">Sign up</a></button>
+            <a class="w3-button w3-center w3-round-xlarge w3-black w3-button w3-tiny authorButton" href="index.php?action=register">Sign up</a>
         </div>
         <div class="w3-card home-card display">
             <h5 class="w3-center">Global recipe database</h5>
             <i class="far fa-bookmark fa-3x"></i>
-            <button class="w3-button w3-center w3-round-xlarge w3-black w3-button w3-tiny authorButton"><a href="index.php?action=allrecipes">Spoonacular</a></button>
+            <a class="w3-button w3-center w3-round-xlarge w3-black w3-button w3-tiny authorButton" href="index.php?action=allrecipes">Spoonacular</a>
         </div>
     </div>
 </div>

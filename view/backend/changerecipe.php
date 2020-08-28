@@ -36,7 +36,7 @@
         ?>
             <div class="w3-row-padding ingredientsrow">
                 <div class="w3-third form-group">
-                    <input class="w3-input w3-border form-control" type="number" required name="ingredients[<?=$i?>][0]" value=<?=$ingredient[$i]->getQuantity()?>>
+                    <input class="w3-input w3-border form-control" type="number" required name="ingredients[<?=$i?>][0]" value="<?=$ingredient[$i]->getQuantity()?>">
                 </div>
                 <div class="w3-third">
                     <select class="w3-select w3-border" name="ingredients[<?=$i?>][1]">
@@ -48,7 +48,7 @@
                 </select>
                 </div>
                 <div class="w3-third form-group">
-                <input class="w3-input w3-border form-control" required type="text" name="ingredients[<?=$i?>][2]"value=<?=$ingredient[$i]->getIngredientName()?>>
+                <input class="w3-input w3-border form-control" required type="text" name="ingredients[<?=$i?>][2]" value="<?=$ingredient[$i]->getIngredientName()?>">
             </div>
             </div>
         <?php
@@ -60,7 +60,7 @@
      </div>
     <input type="submit" value="Update recipe" class="emma-button">
     
-    <a class="emma-button" href="index.php?action=member&page=deletethis&id=<?=$recipe->getId()?>">DELETE</a></button>
+    <a class="emma-button" href="index.php?action=member&page=deletethis&id=<?=$recipe->getId()?>">DELETE</a>
     <button class="emma-button">cancel</button>
 </form>
 

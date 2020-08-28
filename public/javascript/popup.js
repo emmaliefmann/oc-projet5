@@ -5,7 +5,6 @@ class Popup {
   }
 
   start() {
-    console.log("start");
     setTimeout(() => {
       window.location.href = this.redirectAddress;
     }, 4000);

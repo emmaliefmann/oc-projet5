@@ -20,7 +20,6 @@ window.addEventListener("load", () => {
     library.createFilters();
   }
   if (page == "message") {
-    console.log("page");
     popup = new Popup();
     popup.start();
   }

@@ -15,7 +15,7 @@
       
          <button class="w3-button w3-white filter" id="<?=$category?>">
          <?=$category?>
-         <?php 
+         </button><?php 
       endwhile;
       ?>
       </div>
@@ -23,10 +23,10 @@
     <?php 
     foreach($recipes as $recipe) :
         ?> 
-      <div class="w3-third w3-section w3-container" >
         <li>
+        <div class="w3-third w3-section w3-container" >
+        
           <div class="w3-card recipe-image">
-            
             <a href="index.php?action=recipe&id=<?=$recipe->getId()?>">
               <img alt="food" class="w3-hover-opacity" 
         <?php if ($recipe->getImage() === NULL) :
@@ -51,9 +51,9 @@
           <p class="category invisible"><?=$recipe->getCategory()?></p>
           <button class="w3-button w3-round-xlarge w3-black w3-button w3-tiny authorButton pointer">SharingTable</button>
         </div>
-        </li>
+        
       </div>
-      
+      </li>
     <?php
     endforeach;
     ?>

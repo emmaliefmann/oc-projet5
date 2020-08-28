@@ -119,8 +119,8 @@ class Spoonacular {
     //append
     innerDiv.append(recipeLink, button);
     imageDiv.append(image);
-    list.append(imageDiv, innerDiv);
-    outerDiv.append(list);
+    outerDiv.append(imageDiv, innerDiv);
+    list.append(outerDiv);
     this.output.append(outerDiv);
   }
 

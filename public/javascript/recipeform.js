@@ -59,7 +59,6 @@ class RecipeForm {
     let isValid = true;
     const file = this.inpfile.files[0];
     let type = file.type.split("/").pop().toLowerCase();
-    console.log(type);
     if (type != "jpeg" && type != "png" && type != "jpg" && type != "jpeg") {
       alert("Invalid file type");
       isValid = false;
@@ -79,7 +78,6 @@ class RecipeForm {
       const endpoint = "model/UploadImage.php";
       const formData = new FormData();
       formData.append("inpfile", inpFile.files[0]);
-
       fetch(endpoint, {
         method: "POST",
         body: formData,
